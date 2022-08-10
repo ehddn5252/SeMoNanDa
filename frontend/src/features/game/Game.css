@@ -1,0 +1,179 @@
+.gamediv {
+  width: 1920px;
+  height: 1080px;
+  background-image: url('../../assets/images/gamebg.png');
+  background-size: cover;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.camdiv {
+  width:25%;
+  /* border: 1px solid; */
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.box {
+  background-color: antiquewhite;
+  background-image: url('../../assets/images/human.png');
+  background-size: cover;
+  margin: auto;
+  /* border: 1px solid; */
+  width: 400px;
+  height: 300px;
+}
+
+.kingdiv .box {
+  width: 500px;
+  height: 400px;
+}
+
+.kingdiv {
+  margin-top: 10px;
+  width: 30%;
+  /* border: 1px solid */
+}
+
+.titlediv {
+  margin-top: 10px;
+  height: 660px;
+}
+
+.title {
+  margin: auto;
+  width:360px;
+  height: 650px;
+  background-image: url('../../assets/images/title.png');
+  background-size: cover;
+}
+
+.titlecontent {
+  width: 310px;
+  height: 550px;
+  padding-top: 130px;
+  padding-left: 50px;
+  font-family: JsaHON;
+  text-align: center;
+  font-size: 20px;
+}
+
+.subject {
+  font-size: 70px;
+  margin: 0;
+}
+
+.subjectcontent {
+  font-size: 30px;
+}
+.buttondiv {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  width:100px;
+  margin-left:5px;
+  margin-right: 5px;
+}
+
+.servantdiv {
+  padding-right:55px;
+  padding-left: 70px;
+  display:flex;
+  flex-direction: row;
+  font-family: JsaHON;
+  justify-content: space-between;
+}
+
+.servantdiv > p{
+  font-size:50px;
+}
+
+.servantinfo > p{
+  font-size:20px;
+  display:flex;
+  flex-direction: column;
+  margin-top:5px;
+  margin-bottom:0px
+}
+
+.king {
+  background-color: white;
+  margin: auto;
+  /* border: 1px solid; */
+  width: 25rem;
+  height: 25rem;
+}
+
+.chatdiv {
+  width: 20%;
+
+  /* border: 1px solid */
+}
+
+.chatbg {
+  margin-top: 60px;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  width: 365px;
+  height: 814px;
+  background-image: url('../../assets/images/chatroom2.png');
+  background-size: cover;
+}
+
+.chatbox {
+  padding-top: 60px;
+  padding-right: 19px;
+  padding-left: 16px;
+  padding-bottom: 20px;
+  height: 814px;
+}
+
+.chatbox__messages {
+  height: 630px;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  flex-direction: column;
+}
+
+.chatbox__footer {
+  
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px;
+  background-color:beige;
+  margin-top: 20px;
+}
+
+.icons {
+  width: 384px;
+  height: 206px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.ready-icon {
+  margin: auto;
+  width: 100px;
+  height: 100px;
+}
+.icon {
+  margin: auto;
+  width: 100px;
+  height: 100px;
+}
+
+.stream-container {
+  display: flex;
+  justify-content: center;
+}

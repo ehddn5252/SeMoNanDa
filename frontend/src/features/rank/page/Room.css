@@ -1,0 +1,18 @@
+.room_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: wheat;
+    padding: 1rem;
+    margin: 1rem;
+    /* border-radius: 10% / 50%; */
+}
+
+.room_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: wheat;
+    flex-flow: wrap;
+    padding: 1rem;
+}
