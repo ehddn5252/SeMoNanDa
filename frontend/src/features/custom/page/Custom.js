@@ -6,7 +6,7 @@ import '../custom_modal.css'
 import Pagination from "./cusPagination";
 import { useDispatch } from 'react-redux';
 import { useNavigate}from 'react-router-dom'
-import { roomcreate } from '../customSlice';
+import { cus_roomcreate } from '../customSlice';
 import RoomList from "./cusRoomList";
 import './Custom.css';
 
@@ -123,7 +123,7 @@ function Custom() {
 	}
 	else{
         // userInfo(UserSlice에 있음) => room
-        dispatch(roomcreate(room))
+        dispatch(cus_roomcreate(room))
         .then((response) => {
             console.log("create_response",response)
             if(response.payload.status === 200){

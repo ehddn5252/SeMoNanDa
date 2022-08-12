@@ -3,7 +3,7 @@ import { saveToken } from '../../common/api/JWT-common';
 import axios from '../../common/api/http-common';
 
 
-export const roomcreate = createAsyncThunk(
+export const cus_roomcreate = createAsyncThunk(
     'CREATE',
     async (roomInfo) => {
       try {
