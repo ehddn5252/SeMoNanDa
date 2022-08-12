@@ -22,8 +22,8 @@ import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux'
 import { toHaveStyle } from '@testing-library/jest-dom/dist/matchers';
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
-const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
+const OPENVIDU_SERVER_URL = 'https://i7e103.p.ssafy.io:8082';
+const OPENVIDU_SERVER_SECRET = 'SMND';
 
 // url parameter 사용을 위한 HOC
 function withRouter(Component) {
@@ -78,9 +78,9 @@ class Game extends Component {
     window.addEventListener('beforeunload', this.onbeforeunload);
     setTimeout(()=> {
       // storage에서 login한 user 정보 가져오기
-      let loginInfoString = window.sessionStorage.getItem("login_user");
+      let loginInfoString = window.localStorage.getItem("login_user");
       let loginInfo = JSON.parse(loginInfoString)
-      let token = window.sessionStorage.getItem('token')
+      let token = window.localStorage.getItem('token')
       this.setState({
         token,
         myUserName : loginInfo.name,
@@ -101,7 +101,7 @@ class Game extends Component {
   // 방을 떠날 때 실행
   componentWillUnmount() {
     setTimeout(() => {
-      let loginInfoString = window.sessionStorage.getItem("login_user");
+      let loginInfoString = window.localStorage.getItem("login_user");
       let loginInfo = JSON.parse(loginInfoString)
       axios1.post(`/game/common/quit?gameConferenceRoomUid=${this.state.mySessionId}&userId=${loginInfo.id}`).then((response) => {
         console.log(response)
@@ -263,7 +263,7 @@ class Game extends Component {
               // 플레이어 정보 갱신
               mySession.on('signal:check-yourposition', (event) => {
                 // http://localhost:8081/api/game/common/player-info?userID=rkdqudtn1
-                let loginInfoString = window.sessionStorage.getItem("login_user");
+                let loginInfoString = window.localStorage.getItem("login_user");
                 let loginInfo = JSON.parse(loginInfoString)
                 axios1.get(`/game/common/player-info?userID=${loginInfo.id}`).then((response) => {
                   console.log(response.data)
@@ -504,7 +504,7 @@ class Game extends Component {
   readyClick() {
     const mySession = this.state.session;
     setTimeout(()=> {
-      let loginInfoString = window.sessionStorage.getItem("login_user");
+      let loginInfoString = window.localStorage.getItem("login_user");
       let loginInfo = JSON.parse(loginInfoString)
       // http://localhost:8081/api/game/common/ready?userID=rkdqudtn3 
       axios1.post(`/game/common/ready?userID=${loginInfo.id}`).then((response) => {
