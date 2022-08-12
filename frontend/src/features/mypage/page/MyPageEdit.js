@@ -162,7 +162,7 @@ function MyPage() {
             <TitleLabel> 전화번호</TitleLabel>
             <Form.Control id="input_phonenumber" style={{width: "100%", height:"fit-content", textalign:"center"}} defaultValue={loginInfo.phonenumber}></Form.Control>
         </FormGroup>
-        <FormGroup>
+        <FormGroup className='mb-0'>
             <TitleLabel> 한줄 소개 </TitleLabel>
             <Form.Control id="input_description" style={{width: "100%", height:"fit-content", textalign:"center"}} defaultValue={loginInfo.description}></Form.Control>
         </FormGroup>

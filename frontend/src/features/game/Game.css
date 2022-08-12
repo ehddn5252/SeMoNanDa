@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  overflow-y: hidden;
+  overflow-y: scroll;
 }
 
 .camdiv {
@@ -42,7 +42,7 @@
 }
 
 .titlediv {
-  margin-top: 10px;
+  margin-top: 7%;
   height: 660px;
 }
 
@@ -56,9 +56,6 @@
   background-color: rgb(255, 255, 255, 0.7);
 }
 
-.temp {
-  background-color: blueviolet;
-}
 .titleImg{
   width: 10%;
   background-size: 10%;
@@ -130,7 +127,8 @@ margin-bottom: 0;
 }
 
 .button {
-  width:100px;
+  width:50%;
+  height: 100%;
   margin-left:5px;
   margin-right: 5px;
 }
@@ -149,11 +147,15 @@ margin-bottom: 0;
 }
 
 .timerDiv {
-  height: 42%;
+  height: 30%;
   font-size:50px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.servantinfo {
+  margin-left: 5em;
 }
 
 .servantinfo > p{
@@ -187,15 +189,16 @@ margin-bottom: 0;
   margin-top: 1em;
   height: 30%;
   width: 100%;
-  background-color: blueviolet;
+  background-image: url(../../assets/images/info_form.png);
   background-size: cover;
   z-index: 2;
 }
 
 .infobox{
-  background-color: violet;
-  height: 38%;
-  text-align: center;
+  height: 50%;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .infoHeadDiv{
@@ -204,7 +207,7 @@ margin-bottom: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: magenta;
+  border: 3px dashed;
 }
 
 .infoHeadDiv p{

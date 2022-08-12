@@ -784,7 +784,7 @@ class Game extends Component {
 
               <div className="titlecontent">
                 <p className="subject">안건</p>
-                <p className="subjecttopic subjectcontent">남녀사이엔 친구가 존재하는가.</p>
+                <p className="subjecttopic">남녀사이엔 친구가 존재하는가.</p>
               </div>
               <div className='subjectcontent'>
                 <div className="subjectdetaila">
@@ -820,8 +820,8 @@ class Game extends Component {
                 {this.state.readyState === 'start' ? (
                 this.state.isKing === true? (
                   <div className='buttondiv'>
-                    <Button className="button" variant="danger" onClick={() => this.choiceA()}>가. </Button>{' '}
-                    <Button className="button" variant="warning" onClick={() => this.choiceB()}>나. </Button>
+                    <Button className="button" style={{fontSize:"50px"}} variant="danger" onClick={() => this.choiceA()}>가. </Button>{' '}
+                    <Button className="button" style={{fontSize:"50px"}} variant="primary" onClick={() => this.choiceB()}>나. </Button>
                   </div>
                 ) : (this.state.servant === '가' ? 
                   <div className="servantdiv"> 

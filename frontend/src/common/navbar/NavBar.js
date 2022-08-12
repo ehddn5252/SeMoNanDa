@@ -65,7 +65,7 @@ const UnselectedFormulaButton = styled.button`
 `
 
 const SelectedCustomButton = styled.button`
- font-family: JSArirangHON;
+    font-family: JsaHON;
     position: relative;
     border: none;
     min-width: 200px;
@@ -84,7 +84,7 @@ const SelectedCustomButton = styled.button`
       font-size: 40px;
 `
 const UnselectedCustomButton = styled.button`
- font-family: JSArirangHON;
+    font-family: JsaHON;
     position: relative;
     border: none;
     min-width: 200px;

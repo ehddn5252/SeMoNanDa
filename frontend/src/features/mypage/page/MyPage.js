@@ -290,15 +290,15 @@ function MyPage() {
             <TitleLabel> 전화번호</TitleLabel>
             <FormLabel style={{width: "100%", height:"fit-content", textalign:"center"}}>{parsedPhonenumber}</FormLabel>
         </FormGroup>
-        <FormGroup>
+        <FormGroup className='mb-0'>
             <TitleLabel> 한줄 소개 </TitleLabel>
             <FormLabel style={{width: "100%", height:"fit-content", textalign:"center"}}>{loginInfo.description}</FormLabel>
         </FormGroup>
         </ProfileInfoArea>
         </IdBox>
         <FormGroup style={{marginTop: "3em", marginBottom: "3em"}}>
-            <Button style={{marginBottom: "3em", width: "100%", backgroundColor:"#8C4D25", border:"0"}} onClick={onEditPage}>회원정보 수정</Button>
-            <Button style={{marginBottom: "1em", width: "100%", backgroundColor:"#CC8960",border:"0"}} onClick={onClickToggleModal}>비밀번호 변경</Button>
+            <Button style={{fontSize: "25px", marginBottom: "1em", width: "100%", backgroundColor:"#8C4D25", border:"0"}} onClick={onEditPage}>회원정보 수정</Button>
+            <Button style={{fontSize: "25px", marginBottom: "1em", width: "100%", backgroundColor:"#CC8960",border:"0"}} onClick={onClickToggleModal}>비밀번호 변경</Button>
         </FormGroup>
         
       {isOpenModal&& (
