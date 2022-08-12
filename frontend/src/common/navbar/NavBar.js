@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './NavBar.css';
 //import { CgProfile } from "react-icons/cg";
-import homelogo2 from '../../assets/images/homelogo2.png';
+import homelogo2 from '../../assets/images/logo.png';
 import styled from "styled-components";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';

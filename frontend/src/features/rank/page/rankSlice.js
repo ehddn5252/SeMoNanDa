@@ -9,7 +9,6 @@ export const roomcreate = createAsyncThunk(
         const response = await axios.post('/room/create', roomInfo);
         return response;
       } catch (err) {
-        console.log(err.response);
         return err.response.status;
       }
     }

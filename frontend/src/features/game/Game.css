@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .camdiv {
@@ -48,30 +48,35 @@
 
 .title {
   margin: auto;
-  width:360px;
-  height: 650px;
-  background-size: cover;
-  background-image: url(../../assets/images/title.png);
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+  background-color: rgb(255, 255, 255, 0.7);
 }
 
 .temp {
-  width: 100%;
-  height: 100%;
   background-color: blueviolet;
-  background-image: url(../../assets/images/red_room.png);
 }
 .titleImg{
   width: 10%;
   background-size: 10%;
 }
 .titlecontent {
-  width: 310px;
-  height: 550px;
-  padding-top: 130px;
-  padding-left: 50px;
+  background-image: url(../../assets/images/subject_form.png);
+  background-size: cover;
+  display: flex;
+  flex-flow: column;
+  width: 100%;
+  padding-bottom: 1em;
+  height: fit-content;
   font-family: JsaHON;
   text-align: center;
   font-size: 20px;
+  margin: 0 auto;
+  margin-bottom: 1em;
+  border: 1em groove rgba(136, 73, 28, 0.864);
 }
 
 .subject {
@@ -79,9 +84,46 @@
   margin: 0;
 }
 
-.subjectcontent {
-  font-size: 30px;
+.subjecttopic{
+font-size: 30px;
+margin-bottom: 0;
 }
+
+.subjectcontent {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: fit-content;
+  font-size: 30px;
+  margin-bottom: 0;
+  padding: 1em;
+  
+}
+
+.subjectdetaila {
+  background-color: rgb(214, 40, 40);
+  border-radius: 10%;
+  color: ghostwhite;
+  width: 45%;
+  padding: 1em;
+  word-break: keep-all;
+  display: flex;
+  justify-content: center;
+  font-family: JsaHON;
+}
+
+.subjectdetailb {
+  background-color: rgb(40, 40, 195);
+  font-family: JsaHON;
+  border-radius: 10%;
+  color: ghostwhite;
+  width: 45%;
+  padding: 1em;
+  word-break: keep-all;
+  display: flex;
+  justify-content: center;
+}
+
 .buttondiv {
   display: flex;
   justify-content: center;
@@ -104,6 +146,14 @@
 
 .servantdiv > p{
   font-size:50px;
+}
+
+.timerDiv {
+  height: 42%;
+  font-size:50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .servantinfo > p{
@@ -129,6 +179,7 @@
   flex-flow: column;
   z-index: 0;
   margin-right: 1em;
+  font-family: JsaHON;
   /* border: 1px solid */
 }
 
@@ -143,6 +194,21 @@
 
 .infobox{
   background-color: violet;
+  height: 38%;
+  text-align: center;
+}
+
+.infoHeadDiv{
+  height: 20%;
+  font-size:50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: magenta;
+}
+
+.infoHeadDiv p{
+  display:inline-block;
 }
 
 .chatbg {

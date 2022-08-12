@@ -9,6 +9,7 @@ import { useNavigate}from 'react-router-dom'
 import { roomcreate } from './rankSlice';
 import RoomList from "./RoomList";
 import './Rank.css';
+import axios from "axios";
 
 
 function Rank() {
@@ -29,12 +30,13 @@ function Rank() {
 		return currentRooms;
 	};
 
+	const OPENVIDU_SERVER_URL = 'https://i7e103.p.ssafy.io:8082/';
+	const OPENVIDU_SERVER_SECRET = 'SMND';
 
 	// api 주소
 	// axios1.get('/room/normal/list')
 	// fetch('http://localhost:8080/api/room/normal/list')
-
-
+	
 	// api(검색창)
 	const [rooms, setRooms] = useState([]);
 	const [userInput, setUserInput] = useState("");
@@ -125,8 +127,13 @@ function Rank() {
         // userInfo(UserSlice에 있음) => room
         dispatch(roomcreate(room))
         .then((response) => {
+			console.log('response', response)
+			const conferenceRoomUrl = response.payload.data.conferenceRoomUrl
+			console.log('conferenceRoomUrl', conferenceRoomUrl)
             if(response.payload.status === 200){
                 history("/rank", {replace: true})
+				var data = JSON.stringify({ customSessionId: conferenceRoomUrl});
+				axios.post(OPENVIDU_SERVER_URL + 'openvidu/api/sessions', data, {headers: {Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET), 'Content-Type': 'application/json'}})
             }else{
                 history("/rank", {replace:true})
             }

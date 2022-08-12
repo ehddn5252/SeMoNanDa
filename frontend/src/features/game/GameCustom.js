@@ -85,9 +85,9 @@ class Game extends Component {
     window.addEventListener('beforeunload', this.onbeforeunload);
     setTimeout(()=> {
       // storage에서 login한 user 정보 가져오기
-      let loginInfoString = window.sessionStorage.getItem("login_user");
+      let loginInfoString = window.localStorage.getItem("login_user");
       let loginInfo = JSON.parse(loginInfoString)
-      let token = window.sessionStorage.getItem('token')
+      let token = window.localStorage.getItem('token')
       this.setState({
         token,
         myUserName : loginInfo.name,
