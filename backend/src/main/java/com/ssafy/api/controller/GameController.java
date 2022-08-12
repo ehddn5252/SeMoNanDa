@@ -168,6 +168,21 @@ public class GameController {
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
 	
+	@PostMapping("/normal/time-out")
+	@ApiOperation(value = "타임 아웃으로 라운드 종료", notes = "왕을 제외한 전원에게 금화를 1개 지급한다. 다음 턴의 왕을 선정한다. 왕으로 세번 째 선정된 플레이어가 있다면 리턴한다.") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "인증 실패"),
+        @ApiResponse(code = 404, message = "사용자 없음"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<? extends BaseResponseBody> timeOutEnd(
+			@RequestParam("gameConferenceRoomUid") @ApiParam(value="게임 컨퍼런스룸 Uid 정보", required = true) int gameConferenceRoomUid) {
+
+		gameService.timeOutEnd(gameConferenceRoomUid);
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
+	
 	@PostMapping("/normal/game-end")
 	@ApiOperation(value = "normal 게임 종료", notes = "normal 게임을 종료한다. 1. 게임 방의 game-start 상태를 false로 바꾼다. 2. total_gold_finch 대로 점수를 배분한다.3. game_records에 게임 기록을 추가한다.4. 모든 플레이어의 게임 정보를 초기화한다.") 
     @ApiResponses({

@@ -74,6 +74,11 @@ public class GameServiceImpl implements GameService {
 		playerRepositorySupport.normalGameEnd(gameConferenceRoomUid, userId);
 		return;
 	}
+	
+	@Override
+	public void timeOutEnd(int gameConferenceRoomUid) {
+		playerRepositorySupport.timeOutEnd(gameConferenceRoomUid);
+	}
 
 	@Override
 	public void customGameEnd(int gameConferenceRoomUid) {
@@ -98,6 +103,8 @@ public class GameServiceImpl implements GameService {
 		playerRepositorySupport.quit(userId, gameConferenceRoomUid);
 		return;
 	}
+
+	
 
 	
 

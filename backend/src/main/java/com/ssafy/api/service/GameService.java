@@ -20,4 +20,5 @@ public interface GameService {
 	void accusation(int gameConferenceRoomUid, int attackerUid, int reporterUid, int accusationUid);
 	void join(String userId, int gameConferenceRoomUid);
 	void quit(String userId, int gameConferenceRoomUid);
+	void timeOutEnd(int gameConferenceRoomUid);
 }

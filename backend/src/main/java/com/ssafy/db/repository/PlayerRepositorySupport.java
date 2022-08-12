@@ -92,8 +92,8 @@ public class PlayerRepositorySupport {
 		GameConferenceRoom g = jpaQueryFactory.selectFrom(qGameConferenceRoom)
 				.where(qGameConferenceRoom.uid.eq(gameConferenceRoomUid)).fetchFirst();
 		int categoryUid = g.getGameCategoriesUid();
-		long sel = jpaQueryFactory.select(qGameCategory.count()).from(qGameCategory).where(qGameCategory.uid.eq(categoryUid)).fetchOne();
-		jpaQueryFactory.update(qGameCategory).set(qGameCategory.subjectCount,(int) sel+1).execute();
+		long sel = jpaQueryFactory.select(qGameCategory.subjectCount).from(qGameCategory).where(qGameCategory.uid.eq(categoryUid)).fetchOne();
+		jpaQueryFactory.update(qGameCategory).set(qGameCategory.subjectCount,(int) sel+1).where(qGameCategory.uid.eq(categoryUid)).execute();
 		System.out.println("UID " + g.getUid() + "번방 게임 시작");
 		System.out.println("방제목: " + g.getTitle());
 	}
@@ -528,7 +528,7 @@ public class PlayerRepositorySupport {
 //			.set(qPlayer.totalGoldfinch, 0)
 //			.execute();
 //		}
-		jpaQueryFactory.delete(qPlayer).where(qPlayer.gameConferenceRoomUid.eq(gameConferenceRoomUid));
+		jpaQueryFactory.delete(qPlayer).where(qPlayer.gameConferenceRoomUid.eq(gameConferenceRoomUid)).execute();
 		// 5. 해당 방의 conference uid를 가지고 있는 selected topic을 삭제한다.
 		jpaQueryFactory.delete(qSelectedTopic).where(qSelectedTopic.gameConferenceRoomUid
 				.eq(gameConferenceRoomUid)).execute();
@@ -567,6 +567,25 @@ public class PlayerRepositorySupport {
 	public void quit(String userId, int gameConferenceRoomUid) {
 		int userUid = jpaQueryFactory.select(qUser.uid).from(qUser).where(qUser.id.eq(userId)).fetchFirst();
 		jpaQueryFactory.delete(qPlayer).where(qPlayer.usersUid.eq(userUid)).execute();
+	}
+	
+	@Transactional
+	public void timeOutEnd(int gameConferenceRoomUid) {
+		Random random = new Random();
+		ArrayList<Player> playerList = new ArrayList();
+		// 왕을 제외한 모든 플레이어 리스트
+		playerList = (ArrayList<Player>) jpaQueryFactory.select(qPlayer).from(qPlayer)
+				.where(qPlayer.roleUid.eq(2))
+				.where(qPlayer.gameConferenceRoomUid.eq(gameConferenceRoomUid)).fetchResults().getResults();
+		// 왕을 제외한 모두에게 goldfinch 지급, totalgoldfinch도 수정
+		
+		for (int i = 0; i < playerList.size(); i++) {
+			jpaQueryFactory.update(qPlayer).set(qPlayer.goldfinch, jpaQueryFactory.select(qPlayer.goldfinch)
+					.from(qPlayer).where(qPlayer.uid.eq(playerList.get(i).getUid())).fetchOne() + 1).
+			set(qPlayer.totalGoldfinch, jpaQueryFactory.select(qPlayer.totalGoldfinch)
+							.from(qPlayer).where(qPlayer.uid.eq(playerList.get(i).getUid())).fetchOne() + 1)
+			.where(qPlayer.uid.eq(playerList.get(i).getUid())).execute();
+		}
 	}
 
 
