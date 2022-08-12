@@ -6,7 +6,7 @@ import '../rank_modal.css'
 import Pagination from "./Pagination";
 import { useDispatch } from 'react-redux';
 import { useNavigate}from 'react-router-dom'
-import { roomcreate } from '../rankSlice';
+import { roomcreate } from './rankSlice';
 import RoomList from "./RoomList";
 import './Rank.css';
 
@@ -125,13 +125,10 @@ function Rank() {
         // userInfo(UserSlice에 있음) => room
         dispatch(roomcreate(room))
         .then((response) => {
-            console.log("create_response",response)
             if(response.payload.status === 200){
                 history("/rank", {replace: true})
-				console.log('된다', room);
             }else{
                 history("/rank", {replace:true})
-				console.log('안된다', room);
             }
 		})
     }
@@ -188,7 +185,7 @@ function Rank() {
 									<Form.Label style={{marginLeft: "10%"}}>카테고리</Form.Label>
 	
 									{/* 드롭박스 */}
-									<Form.Select style={{width: "80%", marginLeft: "10%", backgroundColor: "dcdcdc", fontSize: "1.2rem", color: "gray"}} aria-label="Default select example" onClick={onSelectGameCategoriesUid}>
+									<Form.Select style={{width: "80%", marginLeft: "10%", backgroundColor: "dcdcdc", fontSize: "1.2rem"}} aria-label="Default select example" onClick={onSelectGameCategoriesUid}>
 										<option value="11">카테고리를 선택해주세요.</option>
 										<option value="2">일상생활</option>
 										<option value="3">음식</option>
