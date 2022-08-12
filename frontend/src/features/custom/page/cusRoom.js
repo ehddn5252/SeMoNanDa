@@ -1,6 +1,6 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
-import './Room.css';
+import './cusRoom.css';
 import daily_life from '../../../assets/images/food.png'
 import food from '../../../assets/images/food.png'
 import developer from '../../../assets/images/developer.png'
@@ -8,6 +8,7 @@ import mbti from '../../../assets/images/mbti.png'
 import love from '../../../assets/images/love.png'
 import opposite from '../../../assets/images/opposite.png'
 import education from '../../../assets/images/education.png'
+
 
 const Logo = [
     "더미",
@@ -22,7 +23,7 @@ const Logo = [
 ];
 
 
-function Room(props) {
+function cusRoom(props) {
     const { title, gameCategoriesUid, adminNickname} = props;
 
     return (
@@ -45,4 +46,4 @@ function Room(props) {
     );
 }
 
-export default Room;
+export default cusRoom;

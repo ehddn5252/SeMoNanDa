@@ -18,6 +18,8 @@ import React, { Component, createRef } from 'react';
 import { useParams } from 'react-router-dom';
 import $ from 'jquery'; 
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
 
 const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
@@ -51,9 +53,11 @@ class Game extends Component {
         readyPlayer: 1,
         readyState : 'ready',
         token: undefined,
-        topic: undefined,
-        teamA: false,
-        teamB: false,
+        topic: '',
+        teamA: '',
+        teamB: '',
+        topicModalState:false,
+        teamModalState:false,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -68,7 +72,12 @@ class Game extends Component {
     this.sendmessageByEnter = this.sendmessageByEnter.bind(this);
     this.handleChatMessageChange = this.handleChatMessageChange.bind(this);
     this.readyClick = this.readyClick.bind(this);
-
+    this.onSubAHandler = this.onSubAHandler.bind(this);
+    this.onSubBHandler = this.onSubBHandler.bind(this);
+    this.onTopicHandler = this.onTopicHandler.bind(this);
+    this.topicSet = this.topicSet.bind(this);
+    this.choiceA = this.choiceA.bind(this);
+    this.choiceB = this.choiceB.bind(this);
   }
 
   // 처음 방을 들어갔을 때 실행
@@ -228,18 +237,29 @@ class Game extends Component {
                 })
               })
 
+              mySession.on('signal:game-start', ()=>{
+                if (this.state.isHost) {
+                  this.setState({
+                    readyState : 'start',
+                    topicModalState : true,
+                  })
+                } else {
+                  alert("게임이 시작되었습니다. 왕이 주제를 정할때 까지 기다려주세요.")
+                  this.setState({readyState: 'start',});
+                }
+              })
+
               mySession.on('signal:topic-choice', (event) =>{
                 const topics = event.data.split('***')
-                const title = document.querySelector('.subjectcontent')
-                const suba = document.querySelector('.subjecta')
-                const subb = document.querySelector('.subjectb')
-                title.innerText = topics[0]
-                suba.innerText = '가. ' + topics[1]
-                subb.innerText = '나. ' + topics[2]
                 alert(`주제가 공개되었습니다.`)
-                this.setState({
-                  readyState: 'start',
-                })
+                if (this.state.isHost === false) {
+                  this.setState({
+                    topic: topics[0],
+                    teamA: topics[1],
+                    teamB: topics[2],
+                    teamModalState:true,
+                  })
+                }
               })
 
               mySession.on('signal:choice-a', ()=> {
@@ -492,6 +512,8 @@ class Game extends Component {
         },
         success: (response) => {
           let content = response.content;
+          console.log(content)
+          console.log(this.state.subscribers)
           resolve(content);
         },
         error: (error) => reject(error),
@@ -501,6 +523,7 @@ class Game extends Component {
 
   start() {
     let players = this.state.subscribers.length +1
+    const mySession = this.state.session
 
     if (players < 3 ) {
       alert('게임에 필요한 인원이 부족합니다.')
@@ -511,28 +534,25 @@ class Game extends Component {
         alert('모든 플레이어가 준비되지 않았습니다.')
       } else {
         alert('게임 시작!!')
-        this.setState ({
-          readyState : 'start'
+        mySession.signal({
+          to: [],
+          type: 'game-start'
         })
       }
     }
   };
 
   choiceA() {
-    const mySession = this.state.session
-
-    mySession.signal({
-      to:[],
-      type:'choice-a'
+    this.setState({
+      servant: '가',
+      teamModalState: false,
     })
   }
 
   choiceB() {
-    const mySession = this.state.session
-
-    mySession.signal({
-      to:[],
-      type:'choice-b'
+    this.setState({
+      servant: '나',
+      teamModalState: false,
     })
   }
 
@@ -545,22 +565,112 @@ class Game extends Component {
     })
   }
 
+  timeSet() {
+    this.setState({
+      mm:3,
+      ss:0,
+    })
+  }
+
+  onTopicHandler(event) {
+    this.setState({
+      topic:event.currentTarget.value
+    })
+  }
+
+  onSubAHandler(event) { 
+    this.setState({
+      teamA: event.currentTarget.value
+    })
+  }
+
+  onSubBHandler(event) { 
+    this.setState({
+      teamB: event.currentTarget.value
+    })
+  }
+
+  topicSet() {
+    const topic = document.querySelector('#topicInput').value
+    const subA123 = document.querySelector('#subAInput').value
+    const subB123 = document.querySelector('#subBInput').value
+    const mySession = this.state.session
+    const topicData = topic+ '***' + subA123 + '***' + subB123
+    mySession.signal({
+      data:topicData,
+      to: [],
+      type: 'topic-choice'
+    }).then(() => this.setState({topicModalState:false, isKing:true}))
+  }
+
   render(){
     const messages = this.state.messages;
     const sub1 = this.state.subscribers.slice(0,3)
     const sub2 = this.state.subscribers.slice(3,6)
-    // let loginInfoString = window.sessionStorage.getItem("login_user");
-    // let loginInfo = JSON.parse(loginInfoString)
 
-    console.log(this.state.subscribers)
     return (
       <div className="gamediv">
+        {/* 주제 정하는 모달 */}
+        <Modal show={this.state.topicModalState} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>주제를 정해주세요</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3" controlId="topicInput">
+                <Form.Label>주제</Form.Label>
+                <Form.Control
+                  as = "textarea"
+                  autoFocus
+                  value={this.state.topic}
+                  onChange={this.onTopicHandler}
+                ></Form.Control>
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="subAInput"
+              >
+                <Form.Label>가.</Form.Label>
+                <Form.Control as = "textarea" rows={1} value={this.state.teamA} onChange={this.onSubAHandler}/>
+              </Form.Group>
+              <Form.Group
+                className="mb-3"
+                controlId="subBInput"
+              >
+                <Form.Label>나.</Form.Label>
+                <Form.Control as="textarea" rows={1} value={this.state.teamB} onChange={this.onSubBHandler}/>
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="primary" onClick={this.topicSet}>
+              게임 시작
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
+        {/* 왕을 제외한 나머지 인원이 팀을 고르는 모달 */}
+        <Modal show={this.state.teamModalState} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>팀을 선택해주세요.</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>{this.state.topic}</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={this.choiceA}>
+              {this.state.teamA}
+            </Button>
+            <Button variant="primary" onClick={this.choiceB}>
+              {this.state.teamB}
+            </Button>
+          </Modal.Footer>
+        </Modal>
+
         <div className="camdiv">
           {sub1.map((sub,i) => (
             <div
               key={i}
               className="stream-container"
-              onClick={() => this.handleMainVideoStream(sub)}
+              onClick={() => console.log(sub)}
               >
               <UserVideoComponent streamManager={ undefined } />
             </div>
@@ -574,9 +684,9 @@ class Game extends Component {
             <div className="title">
               <div className="titlecontent">
                 <p className="subject">안건</p>
-                <p className="subjectcontent">남녀사이엔 친구가 존재하는가.</p>
-                <p className="subjecta">가. 남녀사이엔 친구가 존재 한다.</p>
-                <p className="subjectb">나. 아니다. 남녀사이에 친구가 왠 말이냐</p>
+                <p className="subjectcontent">{this.state.topic}</p>
+                <p className="subjecta">가. {this.state.teamA}</p>
+                <p className="subjectb">나. {this.state.teamB}</p>
               </div>
               {this.state.readyState === 'start' ? (
                 this.state.isKing === true? (
@@ -587,18 +697,10 @@ class Game extends Component {
                 ) : (this.state.servant === '가' ? 
                   <div className="servantdiv">
                     <p>가. 진영</p>
-                    <div className="servantinfo">
-                      <p>코인 : {this.state.coin}개</p>
-                      <p>왕 : {this.state.kingCount}회</p>
-                    </div>
                   </div>
                  : (this.state.servant ==='나' ?
                  <div className="servantdiv">
                   <p>나. 진영</p>
-                  <div className="servantinfo">
-                   <p>코인 : {this.state.coin}개</p>
-                   <p>왕 : {this.state.kingCount}회</p>
-                  </div>
                  </div>
                  : null))
               ): null}
@@ -610,7 +712,7 @@ class Game extends Component {
             <div
               key={i}
               className="stream-container"
-              onClick={() => this.handleMainVideoStream(sub)}
+              onClick={() => console.log(sub)}
               >
               <UserVideoComponent streamManager={ undefined } />
             </div>
@@ -647,7 +749,7 @@ class Game extends Component {
             ):(this.state.isReady === false ?
               <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
               :<img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)}
-            <img className="icon" alt="invite" src={invite} onClick= {() => this.gameset()}/>
+            <img className="icon" alt="invite" src={invite} onClick= {() => this.getPlayer()}/>
             <img className="icon" alt="exit" src={exit} onClick={() => this.updateHost()}/>
           </div>
         </div>

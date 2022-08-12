@@ -1,42 +1,32 @@
 import React, { useState, useEffect, useCallback } from "react";
-import NavBar from "../../../common/navbar/NavBar";
-import './Rank.css';
-import Pagination from "./Pagination";
 import {Button, Form, FormGroup} from 'react-bootstrap';
-import Modal from "../../../common/modal/Modal";
-import '../../../common/modal/Modal.css'
+import NavBar from "../../../common/navbar/NavBar";
+import RankModal from "../rank_modal";
+import '../rank_modal.css'
+import Pagination from "./Pagination";
 import { useDispatch } from 'react-redux';
 import { useNavigate}from 'react-router-dom'
-import { roomcreate } from '../RankSlice';
-
+import { roomcreate } from '../rankSlice';
 import RoomList from "./RoomList";
-
+import './Rank.css';
 
 
 function Rank() {
-
+	const isRank = true;
 	const dispatch = useDispatch();
     const history = useNavigate();
-
-	//오류메시지 상태저장
-	// const [roomMessage, setRoomMessage] = useState('')
-
-
-	// 유효성 검사 상태 저장
-	// const [isRoom, setIsRoom] = useState(false)
-
 
 
 	// 페이지네이션
 	const [currentPage, setCurrentPage] = useState(1);
-	const [postsPerPage, setPostsPerPage] = useState(2);
+	const [roomsPerPage, setRoomsPerPage] = useState(4);
 
-	const indexOfLast = currentPage * postsPerPage;
-	const indexOfFirst = indexOfLast - postsPerPage;
-	const currentPosts = (rooms) => {
-		let currentPosts = 0;
-		currentPosts = rooms.slice(indexOfFirst, indexOfLast);
-		return currentPosts;
+	const indexOfLast = currentPage * roomsPerPage;
+	const indexOfFirst = indexOfLast - roomsPerPage;
+	const currentRooms = (rooms) => {
+		let currentRooms = 0;
+		currentRooms = rooms.slice(indexOfFirst, indexOfLast);
+		return currentRooms;
 	};
 
 
@@ -50,7 +40,7 @@ function Rank() {
 	const [userInput, setUserInput] = useState("");
 
 	useEffect(() => {
-	fetch('http://localhost:8080/api/room/normal/list', {
+	fetch('https://i7e103.p.ssafy.io/api/room/normal/list', {
 		method: "GET",
 	})
 	.then((res) => res.json())
@@ -105,8 +95,6 @@ function Rank() {
 	//방 제목
     const onChangeTitle = (e) => {
         const { name, value } = e.target;
-		console.log('전체 값', e.target)
-		console.log('타이틀 값', e.target.value)
         setRoom({
             ...room,
             [name]: value
@@ -116,7 +104,6 @@ function Rank() {
     //방 카테고리
     const onSelectGameCategoriesUid = (e) => {
 		const value = e.target.value
-		console.log('카테고리', value)
         setRoom({
             ...room,
             gameCategoriesUid: value
@@ -143,7 +130,7 @@ function Rank() {
                 history("/rank", {replace: true})
 				console.log('된다', room);
             }else{
-                history("/custom", {replace:true})
+                history("/rank", {replace:true})
 				console.log('안된다', room);
             }
 		})
@@ -171,25 +158,55 @@ function Rank() {
 
 
 	return (
-		<div className="rank-base">
-		<NavBar />
-			<div className="layout container">
-			{/* 방 생성 화면(메인) */}
-			<main>
-				<RoomList key={rooms.uid} data={currentPosts(filterRoom)} />
+		<div className="rank_base">
+		<NavBar className="navbar" isRank={isRank}/>
+			<div className="layout_container">
+			{/* 게임방 목록 */}
+			<main className="main">
+				<RoomList key={rooms.uid} data={currentRooms(filterRoom)} />
 			</main>
 			{/* 하단 */}
 			<footer>
 				{/* 페이지네이션 */}
-				<Pagination
-					postsPerPage={postsPerPage}
-					totalPosts={rooms.length}
+				<Pagination 
+					roomsPerPage={roomsPerPage}
+					totalRooms={rooms.length}
 					paginate={setCurrentPage}
 				/>
 				{/* 검색 및 방생성 */}
 				<div className="bottom">
+					{/* 방생성 */}
+					<button className="create_room" onClick={onClickToggleModal}>방 생성</button>
+						{isOpenModal&& (
+							<RankModal style={{marginLeft: "20%"}} onClickToggleModal={onClickToggleModal}>
+								<FormGroup className='room_title mb-4' controlId='formBasicTitle'>
+									<Form.Label style={{marginLeft: "10%"}}>방 제목</Form.Label>
+									<Form.Control style={{width: "80%", textalign:"left", marginLeft:"10%", backgroundColor: "dcdcdc", fontSize: "1.2rem"}} name='title' type='text' placeholder='방 제목을 입력해주세요.' value={title} onInput={onChangeTitle}/>
+								</FormGroup>
+	
+								<FormGroup className='room_category mb-5' controlId='formBasicCategory'>
+									<Form.Label style={{marginLeft: "10%"}}>카테고리</Form.Label>
+	
+									{/* 드롭박스 */}
+									<Form.Select style={{width: "80%", marginLeft: "10%", backgroundColor: "dcdcdc", fontSize: "1.2rem", color: "gray"}} aria-label="Default select example" onClick={onSelectGameCategoriesUid}>
+										<option value="11">카테고리를 선택해주세요.</option>
+										<option value="2">일상생활</option>
+										<option value="3">음식</option>
+										<option value="4">개발자</option>
+										<option value="5">MBTI</option>
+										<option value="6">연애</option>
+										<option value="7">극과극</option>
+										<option value="8">교육</option>
+									</Form.Select>
+								</FormGroup>
+								<FormGroup style={{width:"80%", display:"flex", margin:"0 auto"}} >
+									<Button style={{marginBottom: "1em", width: "50%", backgroundColor:"#8C4D25", border:"0", fontSize: "1.3rem"}} type="submit" onClick={onSubmit} variant="primary">방 생성</Button>
+									<Button style={{marginBottom: "1em", width: "50%", backgroundColor:"grey", marginLeft:"1em", fontSize: "1.3rem"}} variant="secondary" onClick={onCloseModal}>취소</Button>
+								</FormGroup>
+							</RankModal>
+						)}
 					{/* 검색 */}
-					<div className="search">
+					<div className="search_base">
 						<input
 							type="search"
 							className="search"
@@ -201,36 +218,6 @@ function Rank() {
 						/>
 						<button onClick={handleClick}>검색</button>
 					</div>
-					{/* 방생성 */}
-					<Button className="create_room" onClick={onClickToggleModal}>방 생성</Button>
-					{isOpenModal&& (
-						<Modal onClickToggleModal={onClickToggleModal}>
-							<FormGroup className='mb-3' controlId='formBasicTitle'>
-								<Form.Label style={{marginLeft: "10%"}}>방 제목</Form.Label>
-								<Form.Control style={{width: "60%", textalign:"left", marginLeft:"10%"}} name='title' type='text' placeholder='방 제목' value={title} onInput={onChangeTitle}/>
-							</FormGroup>
-
-							<FormGroup className='mb-3' controlId='formBasicCategory'>
-								<Form.Label style={{marginLeft: "10%"}}>카테고리</Form.Label>
-
-								{/* 드롭박스 */}
-								<Form.Select aria-label="Default select example" onClick={onSelectGameCategoriesUid}>
-									<option value="11">카테고리를 선택해주세요.</option>
-									<option value="2">일상생활</option>
-									<option value="3">음식</option>
-									<option value="4">개발자</option>
-									<option value="5">MBTI</option>
-									<option value="6">연애</option>
-									<option value="7">극과극</option>
-									<option value="8">교육</option>
-								</Form.Select>
-							</FormGroup>
-							<FormGroup style={{width:"80%", display:"flex", margin:"0 auto"}} >
-								<Button style={{marginBottom: "1em", width: "50%", backgroundColor:"#8C4D25", border:"0"}} type="submit" onClick={onSubmit} variant="primary">방 만들기</Button>
-								<Button style={{marginBottom: "1em", width: "50%", backgroundColor:"grey", marginLeft:"1em"}} variant="secondary" onClick={onCloseModal}>취소</Button>
-							</FormGroup>
-						</Modal>
-					)}
 				</div>
 			</footer>
 			</div>

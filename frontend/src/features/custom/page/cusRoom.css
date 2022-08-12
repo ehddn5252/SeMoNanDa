@@ -1,6 +1,6 @@
 /* 랭크게임방 파란색 배경 */
-.rankroom_base {
-    background-image: url("../../../assets/images/rank_base.png");
+.customroom_base {
+    background-image: url("../../../assets/images/custom_base.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -15,7 +15,7 @@
 }
 
 
-/* 랭크 방 누런색 배경 */
+/* 커스텀 방 누런색 배경 */
 .col {
     display: flex;
     background-image: url("../../../assets/images/room_background2.png");

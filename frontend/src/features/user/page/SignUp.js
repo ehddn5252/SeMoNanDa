@@ -226,10 +226,10 @@ function Signin() {
         })
     }
 
-    //메인으로 가는 함수
-    const onGoMain = (event) => {
+    //로그인으로 돌아가는 함수
+    const onGoLogin = (event) => {
         event.preventDefault();
-        history("/");
+        history("/login");
 
     }
     //가입버튼 눌렀을 때 호출되는 함수
@@ -337,7 +337,7 @@ function Signin() {
 
         <FormGroup style={{width:"80%", display:"flex", margin:"0 auto"}} >
           <Button style={{marginBottom: "1em", width: "50%", backgroundColor:"#8C4D25", border:"0"}} type="submit" onClick={onSubmit} variant="primary">계정 생성하기</Button>
-          <Button style={{marginBottom: "1em", width: "50%", backgroundColor:"grey", marginLeft:"1em"}} variant="secondary" onClick={onGoMain}>메인으로</Button>
+          <Button style={{marginBottom: "1em", width: "50%", backgroundColor:"grey", marginLeft:"1em"}} variant="secondary" onClick={onGoLogin}>취 소</Button>
         </FormGroup>
 
       </Form>

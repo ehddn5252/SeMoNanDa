@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import './Rank.css';
+import './Custom.css';
 
 const PageUl = styled.ul`
   display: flex;
@@ -36,7 +36,7 @@ const PageSpan = styled.span`
   }
 `;
 
-const Pagination = ({ roomsPerPage, totalRooms, paginate }) => {
+const C_Pagination = ({ roomsPerPage, totalRooms, paginate }) => {
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalRooms / roomsPerPage); i++) {
     pageNumbers.push(i);
@@ -58,4 +58,4 @@ const Pagination = ({ roomsPerPage, totalRooms, paginate }) => {
   );
 };
 
-export default Pagination;
+export default C_Pagination;

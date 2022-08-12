@@ -49,6 +49,7 @@ class Game extends Component {
         kingCount : 0,
         kingList: [],
         token: undefined,
+        ReadyImg : "ready-icon",
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -495,6 +496,12 @@ class Game extends Component {
     });
   }
 
+  onCursor() {
+    this.setState({
+      ReadyImg: ''
+    })
+  }
+
   updateHost() {
     return new Promise((resolve, reject) => {
       $.ajax({
@@ -685,6 +692,7 @@ class Game extends Component {
 
     console.log(this.state.subscribers)
     return (
+      
       <div className="gamediv">
         <div className="camdiv">
           {sub1.map((sub,i) => (
@@ -777,11 +785,35 @@ class Game extends Component {
               </div>
             </div>
           </div>
+          <div className="chatbg"> 
+            <div className="chatbox">
+              <div className="chatbox__messages" ref="chatoutput">
+                {/* {this.displayElements} */}
+                <Messages messages={messages} />
+              </div>
+              <div className="chat chatbox__footer">
+                <input
+                  id="chat_message"
+                  type="text"
+                  placeholder="Write a message..."
+                  onChange={this.handleChatMessageChange}
+                  onKeyPress={this.sendmessageByEnter}
+                  value={this.state.message}
+                />
+                <p
+                  className="chat chatbox__send--footer"
+                  onClick={this.sendmessageByClick}
+                >
+                  보내기
+                </p>
+              </div>
+            </div>
+          </div>
           <div className="icons">
             {this.state.isHost === true ? (
               <img className="ready-icon" alt="start" src={start} onClick={() => this.start()}/>
             ):(this.state.isReady === false ?
-              <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
+              <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()} onMouseEnter/>
               :<img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)}
             <img className="icon" alt="invite" src={invite} onClick= {() => console.log(this.props)}/>
             <img className="icon" alt="exit" src={exit} onClick={() => this.updateHost()}/>

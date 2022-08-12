@@ -12,7 +12,7 @@ import start from '../../assets/images/start.png'
 import axios1 from '../../common/api/http-common';
 import UserVideoComponent from './UserVideoComponent'
 import Messages from './Messages'
-
+import Timer from './Timer'
 import axios from 'axios';
 import { OpenVidu } from 'openvidu-browser';
 import React, { Component, createRef } from 'react';
@@ -20,6 +20,7 @@ import { useParams } from 'react-router-dom';
 import $ from 'jquery'; 
 import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux'
+import { toHaveStyle } from '@testing-library/jest-dom/dist/matchers';
 
 const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
 const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
@@ -37,7 +38,7 @@ class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        mySessionId: 'normal'+this.props.params.id,
+        mySessionId: this.props.params.id,
         myUserName: undefined,
         session: undefined,
         mainStreamManager: undefined,
@@ -54,6 +55,7 @@ class Game extends Component {
         kingCount : 0,
         coin: 0,
         token: undefined,
+        timeOut: false,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -68,7 +70,7 @@ class Game extends Component {
     this.sendmessageByEnter = this.sendmessageByEnter.bind(this);
     this.handleChatMessageChange = this.handleChatMessageChange.bind(this);
     this.readyClick = this.readyClick.bind(this);
-
+    this.myref = React.createRef();
   }
 
   // 처음 방을 들어갔을 때 실행
@@ -245,6 +247,9 @@ class Game extends Component {
               })
 
               mySession.on('signal:topic-choice', (event) =>{
+                this.setState({
+                  readyState: 'start',
+                })
                 const topics = event.data.split('***')
                 const title = document.querySelector('.subjectcontent')
                 const suba = document.querySelector('.subjecta')
@@ -252,10 +257,7 @@ class Game extends Component {
                 title.innerText = topics[0]
                 suba.innerText = '가. ' + topics[1]
                 subb.innerText = '나. ' + topics[2]
-                alert(`주제가 공개되었습니다.`)
-                this.setState({
-                  readyState: 'start',
-                })
+                this.timeSet().then(() => alert('주제가 공개되었습니다.'))
               })
 
               // 플레이어 정보 갱신
@@ -274,6 +276,7 @@ class Game extends Component {
                     this.setState({
                       isKing: true,
                       servant: undefined,
+                      timeOut:true,
                     })
                   } else {
                     if (response.data.team === "A") {
@@ -281,12 +284,14 @@ class Game extends Component {
                       this.setState({
                         isKing: false,
                         servant: '가',
+                        timeOut:true,
                       })
                     } else{
                       alert('당신은 나. 입니다.')
                       this.setState({
                         isKing: false,
                         servant: '나',
+                        timeOut:true,
                       })
                     }
                   }
@@ -300,13 +305,23 @@ class Game extends Component {
                 this.setState({
                   isKing: false,
                   servant: undefined,
-                })
+                  timeOut: false,
+                }).then(() => this.timeEnd())
               })
 
               mySession.on('signal:choice-b', ()=> {
                 alert('왕이 나. 를 선택하였습니다.')
                 this.setState({
                   isKing:false,
+                  servant: undefined,
+                  timeOut: false,
+                }).then(() =>this.timeEnd())
+              })
+
+              mySession.on('signal:time-out', (event) =>{
+                alert('왕이 시간 내 선택을 하지 못하였습니다. 왕을제외한 모든 플레이어가 코인을 하나씩 받습니다.')
+                this.setState({
+                  isKing: false,
                   servant: undefined,
                 })
               })
@@ -694,6 +709,52 @@ class Game extends Component {
     })
   }
 
+  timeSet() {
+    this.myref.current.resetTimer();
+  }
+
+  timeEnd() {
+    this.myref.current.endTimer();
+  }
+  
+  timeOver() {
+    if (this.state.isKing) {
+      axios1.post(`/game/normal/time-out?gameConferenceRoomUid=${this.state.mySessionId}`)
+      const mySession = this.state.session
+
+      mySession.signal({
+        to: [],
+        type: 'time-out'
+      }).then(() => {
+        axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.mySessionId}`).then((response) =>{
+        console.log(response.data)
+        const mySession = this.state.session
+        if ( response.data.userId === null) {
+          const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
+          mySession.signal({
+            data: topicData,
+            to: [],
+            type: 'topic-choice',
+          }).then(() =>  {
+            const mySession = this.state.session
+            mySession.signal({
+              to: [],
+              type: 'check-yourposition'
+            })
+          })
+        } else {
+          axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.mySessionId}&userId=${response.data.userId}`).then(() => {
+            mySession.signal({
+              data: response.data.userNickname,
+              to: [],
+              type: 'winner'
+            })
+          })
+        }
+      })
+    })}
+  }
+
   render(){
     const messages = this.state.messages;
     const sub1 = this.state.subscribers.slice(0,3)
@@ -722,6 +783,7 @@ class Game extends Component {
           <div className="titlediv">
             <div className="title">
               <div className="titlecontent">
+                <Timer ref={this.myref} timeOver={this.timeOver.bind(this)} state={this.state}></Timer>  
                 <p className="subject">안건</p>
                 <p className="subjectcontent">남녀사이엔 친구가 존재하는가.</p>
                 <p className="subjecta">가. 남녀사이엔 친구가 존재 한다.</p>
@@ -796,7 +858,7 @@ class Game extends Component {
             ):(this.state.isReady === false ?
               <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
               :<img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)}
-            <img className="icon" alt="invite" src={invite} onClick= {() => this.gameset()}/>
+            <img className="icon" alt="invite" src={invite} onClick= {() => this.timeOver()}/>
             <img className="icon" alt="exit" src={exit} onClick={() => this.updateHost()}/>
           </div>
         </div>

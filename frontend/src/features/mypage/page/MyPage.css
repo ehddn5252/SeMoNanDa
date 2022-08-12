@@ -5,3 +5,7 @@
 .messageerror{
     color: red;
 }
+
+#closeButton{
+    cursor: pointer;
+}

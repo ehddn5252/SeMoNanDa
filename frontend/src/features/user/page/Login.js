@@ -7,6 +7,7 @@ import {login, loadUser} from '../UserSlice';
 import styled from "styled-components";
 import NavBar from '../../../common/navbar/NavBar';
 
+import * as GoIcons from 'react-icons/go';
 //이미지 파일
 import darkbase from "../../../assets/images/dark_base.PNG"
 import userform_img from "../../../assets/images/userform_img.png"
@@ -18,7 +19,7 @@ const Container = styled.div`
     display: block;
     position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     max-width: 100%;
     max-height: 100%;
     background: center;
@@ -122,10 +123,16 @@ function Login() {
       })
   }
 
+  //뒤로가기(X모양) 버튼 클릭 시, 동작 함수
+  function onCloseButton() {
+    history("/");
+  }
+
   return (
     <Container id='Container'>
       <NavBar/>
       <Form style={{width: "50%", textalign:"center",padding:"0.5em", backgroundImage:`url(${userform_img})`, backgroundSize:"cover", margin: "0 auto", position:"relative"}}>
+      <GoIcons.GoX id="closeButton" size="30px" style={{float:"right", marginTop:"1em", marginRight:"1em"}} onClick={onCloseButton}></GoIcons.GoX>
         <LogoWrapper>
           <LoginLogo src={login_img}></LoginLogo>
         </LogoWrapper>

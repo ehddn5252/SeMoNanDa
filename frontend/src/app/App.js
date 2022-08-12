@@ -16,26 +16,28 @@ import UserRank from '../features/userrank/page/UserRank';
 import NotFound from '../features/notfound/NotFound';
 import News from '../features/news/page/News';
 import Gossip from '../features/gossip/page/Gossip';
+import PrivateRoute from '../common/api/PrivateRoute';
 // import NavBar from "../common/navbar/NavBar";
 
 function App() {
+
   return (
     <Router>
         <Routes>
           <Route exact path="/" element={<Main/>}/>
           <Route exact path="/login" element={<Login/>}/>
           <Route exact path="/signin" element={<SignUp/>}/>
-          <Route exact path="/rank" element={<Rank/>}/>
-          <Route exact path="/custom" element={<Custom/>}/>
-          <Route exact path="/profile" element={<MyPage/>}/>
-          <Route exact path="/editprofile" element={<EditMyPage/>}/>
-      	  <Route exact path="/game/normal/:id" element={<GameNormal />} />
-          <Route exact path="/game/custom/:id" element={<GameCustom />} />
+          <Route exact path="/rank" element={<PrivateRoute path="/rank" component={Rank}/>}/>
+          <Route exact path="/custom" element={<PrivateRoute path="/custom" component={Custom}/>}/>
+          <Route exact path="/profile" element={<PrivateRoute path="/profile" component={MyPage}/>}/>
+          <Route exact path="/editprofile" element={<PrivateRoute path="/editprofile" component={EditMyPage}/>}/>
+      	  <Route exact path="/game/normal/:id" element={<PrivateRoute path="/game/normal/:id" component={GameNormal}/>}/>
+          <Route exact path="/game/custom/:id" element={<PrivateRoute path="/game/custom/:id" component={GameCustom} />} />
       	  <Route exact path="/help" element={<Help />} />
       	  <Route exact path="/statistics" element={<Statistics />} />
       	  <Route exact path="/userrank" element={<UserRank />} />
-          <Route exact path="/news" element={<News />} />
-          <Route exact path="/gossip" element={<Gossip />} />
+          <Route exact path="/news" element={<PrivateRoute path="/news" component={News} />} />
+          <Route exact path="/gossip" element={<PrivateRoute path="/gossip" component={Gossip} />} />
       	  <Route exact path="/*" element={<NotFound />} />
         </Routes>
     </Router>

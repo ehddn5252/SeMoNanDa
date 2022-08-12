@@ -10,7 +10,6 @@ import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./assets/fonts/JSArirangHON.css";
 
-import "./assets/fonts/JSArirangHON.css";
 const {store, persistor} = configStore();
 const container = document.getElementById('root');
 const root = createRoot(container);

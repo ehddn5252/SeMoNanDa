@@ -8,6 +8,7 @@ import '../../../common/modal/Modal.css';
 import './MyPage.css';
 import { modifyPassword } from '../../user/UserSlice';
 import NavBar from '../../../common/navbar/NavBar';
+import * as GoIcons from 'react-icons/go';
 
 //이미지 파일
 import infobase from "../../../assets/images/dark_base.PNG";
@@ -101,6 +102,9 @@ const Message = styled.div`
 
 function MyPage() {
 
+  useEffect(() => {
+    console.log("hhh");
+  },[])
   const dispatch = useDispatch();
   const history = useNavigate();
 
@@ -119,7 +123,6 @@ function MyPage() {
   const [isCheckPassword, setIsCheckpassword] = useState(false);
   const [isNewPassword, setIsNewPassword] = useState(false);
 
-  
   useEffect(() => {
     if(password!=="" ){
 
@@ -223,13 +226,15 @@ function MyPage() {
   function parsePhonenumber(phonenumber){
     let resultNumber = [];
     let first = "";
-    let second = "";
+    let second = ""
     let third = "";
-    if(phonenumber.length === 11){
+    if(phonenumber !== null){
+     if( phonenumber.length === 11){
         first = phonenumber.substring(0,3);
         second = phonenumber.substring(3,7);
         third = phonenumber.substring(7,11);      
     }
+  }
     resultNumber.push(first);
     resultNumber.push(second);
     resultNumber.push(third);
@@ -246,11 +251,17 @@ function MyPage() {
     history("/editprofile");
   }
 
+  //뒤로가기(X모양) 버튼 클릭 시, 동작 함수
+  function onCloseButton() {
+    window.history.back();
+  }
+
   return (
     <Container id='Container'>
       <NavBar/>
       <Form style={{width: "50%", heigth:"fit-content", textalign:"center",padding:"1em", backgroundImage:`url(${userform_img})`, backgroundSize:"cover", margin: "0 auto", position:"relative", top:"4%"}}>
-        <LogoWrapper>
+      <GoIcons.GoX id="closeButton" size="30px" style={{float:"right",marginTop:"1em", marginRight:"1em"}} onClick={onCloseButton}></GoIcons.GoX>  
+      <LogoWrapper>
           <LoginLogo src={mypage_img}></LoginLogo>
         </LogoWrapper>
         <IdBox>
