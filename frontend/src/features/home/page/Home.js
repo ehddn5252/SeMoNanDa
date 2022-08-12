@@ -8,6 +8,7 @@ import NavBar from "../../../common/navbar/NavBar";
 import'../../../common/navbar/NavBar.css'
 //메인페이지 배경화면 Container
 const Container = styled.div`
+    font-family: JsaHON;
     display: block;
     position: relative;
     width: 100%;
@@ -55,18 +56,18 @@ const Logo = styled.img`
 
 //논쟁 시작 버튼 영역
 const ArguementGroup = styled.div`
-  display: flex;
-  margin: 0 auto;
-  width: 40%;
-  justify-content: space-between;
-  position: absolute;
-  bottom: 3em;
-  left: 30%;
+    display: flex;
+    margin: 0 auto;
+    width: 40%;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 3em;
+    left: 30%;
 `
 
 //공식 경연 버튼
 const OfficialButton = styled.button`
-font-family: JSArirangHON;
+    font-family: JsaHON;
     position: relative;
     border: none;
     min-width: 200px;
@@ -86,7 +87,7 @@ font-family: JSArirangHON;
 `
 //자유 경연 버튼
 const FreeButton = styled.button`
-font-family: JSArirangHON;
+    font-family: JsaHON;
     position: relative;
     border: none;
     min-width: 200px;

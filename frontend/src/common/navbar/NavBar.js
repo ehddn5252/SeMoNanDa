@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './NavBar.css';
 //import { CgProfile } from "react-icons/cg";
-import logo from '../../assets/images/logo.png';
+import homelogo2 from '../../assets/images/homelogo2.png';
 import styled from "styled-components";
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -25,7 +25,7 @@ const LogoAndButtonArea = styled.div`
 `
 
 const SelectedFormulaButton = styled.button`
-font-family: JSArirangHON;
+    font-family: JsaHON;
     position: relative;
     border: none;
     min-width: 200px;
@@ -45,7 +45,7 @@ font-family: JSArirangHON;
 `
 
 const UnselectedFormulaButton = styled.button`
-font-family: JSArirangHON;
+    font-family: JsaHON;
     position: relative;
     border: none;
     min-width: 200px;
@@ -160,21 +160,21 @@ function NavBar(props) {
               <GiIcons.GiHamburgerMenu id="HamburgerMenu" color="ghostwhite" size="30px" />
           </Navbar.Toggle>
           {props.isHome ?
-              (<Link to="/"><Logo className="logo" src={logo} /></Link>)
+              (<Link to="/"><Logo className="logo" src={homelogo2} /></Link>)
               :
             (
             <LogoAndButtonArea>
               {props.isRank ? 
               (<div style={{display: "contents", alignItems: "center",  width: "60%", justifyContent: "space-between"}}>
               <Link to="/rank"><SelectedFormulaButton className="formula">공식경연</SelectedFormulaButton></Link>  
-              <Link to="/"><Logo className="logo" src={logo} /></Link>
+              <Link to="/"><Logo className="logo" src={homelogo2} /></Link>
               <Link to="/custom"><UnselectedCustomButton className="custom">자유경연</UnselectedCustomButton></Link>
               </div>)
               :( props.isCustom ?
                 (
                 <div style={{display: "contents", alignItems: "center",  width: "60%", justifyContent: "space-between"}}>
                 <Link to="/rank"><UnselectedFormulaButton className="formula">공식경연</UnselectedFormulaButton></Link>  
-                <Link to="/"><Logo className="logo" src={logo} /></Link>
+                <Link to="/"><Logo className="logo" src={homelogo2} /></Link>
                 <Link to="/custom"><SelectedCustomButton className="custom">자유경연</SelectedCustomButton></Link>
                 </div>
                 )
@@ -182,7 +182,7 @@ function NavBar(props) {
                 (
                   <div style={{display: "contents", alignItems: "center",  width: "60%", justifyContent: "space-between"}}>
                 <Link to="/rank"><SelectedFormulaButton className="formula">공식경연</SelectedFormulaButton></Link>  
-                <Link to="/"><Logo className="logo" src={logo} /></Link>
+                <Link to="/"><Logo className="logo" src={homelogo2} /></Link>
                 <Link to="/custom"><SelectedCustomButton className="custom">자유경연</SelectedCustomButton></Link>
               </div>
                 )
@@ -217,7 +217,7 @@ function NavBar(props) {
               
               <Offcanvas.Header closeButton>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                <Link to="/"><Logo className="logoImg logo justify-content-center" src={logo} /></Link>
+                <Link to="/"><Logo className="logoImg logo justify-content-center" src={homelogo2} /></Link>
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <ProgressBar variant="secondary" now={100} className="m-3"/>

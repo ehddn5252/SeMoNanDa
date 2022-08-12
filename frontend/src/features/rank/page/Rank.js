@@ -6,7 +6,7 @@ import '../rank_modal.css'
 import Pagination from "./Pagination";
 import { useDispatch } from 'react-redux';
 import { useNavigate}from 'react-router-dom'
-// import { roomcreate } from '../rankSlice';
+import { roomcreate } from '../rankSlice';
 import RoomList from "./RoomList";
 import './Rank.css';
 
@@ -110,32 +110,32 @@ function Rank() {
         });
     }
 
-//     //방 생성 눌렀을 때 호출되는 함수
-//     const onSubmit = (event) => {
+    //방 생성 눌렀을 때 호출되는 함수
+    const onSubmit = (event) => {
 
-//     //입력값 남겨두는 함수
-//     event.preventDefault()
+    //입력값 남겨두는 함수
+    event.preventDefault()
 
-//     if(room.title === ''){
-//         alert('제목을 입력해주세요');
-//     } else if(room.gameCategoriesUid === 11) {
-// 		alert('카테고리를 다시 선택해주세요.')
-// 	}
-// 	else{
-//         // userInfo(UserSlice에 있음) => room
-//         dispatch(roomcreate(room))
-//         .then((response) => {
-//             console.log("create_response",response)
-//             if(response.payload.status === 200){
-//                 history("/rank", {replace: true})
-// 				console.log('된다', room);
-//             }else{
-//                 history("/rank", {replace:true})
-// 				console.log('안된다', room);
-//             }
-// 		})
-//     }
-//   }
+    if(room.title === ''){
+        alert('제목을 입력해주세요');
+    } else if(room.gameCategoriesUid === 11) {
+		alert('카테고리를 다시 선택해주세요.')
+	}
+	else{
+        // userInfo(UserSlice에 있음) => room
+        dispatch(roomcreate(room))
+        .then((response) => {
+            console.log("create_response",response)
+            if(response.payload.status === 200){
+                history("/rank", {replace: true})
+				console.log('된다', room);
+            }else{
+                history("/rank", {replace:true})
+				console.log('안된다', room);
+            }
+		})
+    }
+  }
 
 	//room 객체 바인딩
 	const { title } = room;
@@ -200,7 +200,7 @@ function Rank() {
 									</Form.Select>
 								</FormGroup>
 								<FormGroup style={{width:"80%", display:"flex", margin:"0 auto"}} >
-									{/* <Button style={{marginBottom: "1em", width: "50%", backgroundColor:"#8C4D25", border:"0", fontSize: "1.3rem"}} type="submit" onClick={onSubmit} variant="primary">방 생성</Button> */}
+									<Button style={{marginBottom: "1em", width: "50%", backgroundColor:"#8C4D25", border:"0", fontSize: "1.3rem"}} type="submit" onClick={onSubmit} variant="primary">방 생성</Button>
 									<Button style={{marginBottom: "1em", width: "50%", backgroundColor:"grey", marginLeft:"1em", fontSize: "1.3rem"}} variant="secondary" onClick={onCloseModal}>취소</Button>
 								</FormGroup>
 							</RankModal>
