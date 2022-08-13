@@ -11,6 +11,7 @@ import Custom from '../features/custom/page/Custom';
 import MyPage from '../features/mypage/page/MyPage';
 import EditMyPage from '../features/mypage/page/MyPageEdit';
 import Help from '../features/help/page/Help';
+import HelpNormal from '../features/help/page/Custom';
 import Statistics from '../features/statistic/page/Statistics';
 import UserRank from '../features/userrank/page/UserRank';
 import NotFound from '../features/notfound/NotFound';
@@ -34,6 +35,7 @@ function App() {
       	  <Route exact path="/game/normal/:id" element={<PrivateRoute path="/game/normal/:id" component={GameNormal}/>}/>
           <Route exact path="/game/custom/:id" element={<PrivateRoute path="/game/custom/:id" component={GameCustom} />} />
       	  <Route exact path="/help" element={<Help />} />
+          <Route exact path="/help/custom" element={<HelpNormal />} />
       	  <Route exact path="/statistics" element={<Statistics />} />
       	  <Route exact path="/userrank" element={<UserRank />} />
           <Route exact path="/news" element={<PrivateRoute path="/news" component={News} />} />

@@ -8,5 +8,5 @@ export default function Slide({ img }) {
 
 const IMG = styled.img`
   width: 100%;
-  height: 500px;
+  height: 300px;
 `;
