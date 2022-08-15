@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import {Button, Form, FormGroup} from 'react-bootstrap';
+import {Button, Form, FormGroup, InputGroup} from 'react-bootstrap';
 import NavBar from "../../../common/navbar/NavBar";
 import RankModal from "../custom_modal";
 import '../custom_modal.css'
@@ -7,7 +7,7 @@ import Pagination from "./cusPagination";
 import { useDispatch } from 'react-redux';
 import { useNavigate}from 'react-router-dom'
 import { cus_roomcreate } from '../customSlice';
-import RoomList from "./cusRoomList";
+import CusRoomList from "./cusRoomList";
 import './Custom.css';
 
 
@@ -76,8 +76,6 @@ function Custom() {
 	});
 
 
-
-	
 	// 방 생성
 	// 로컬 저장
 	let loginInfoString = window.localStorage.getItem("login_user");
@@ -86,10 +84,11 @@ function Custom() {
 	//서버로 전달할 room객체
 	const [room, setRoom] = useState({
 		normal : "False",
-		nickname : loginInfo.nickname, // (roomAdminUserUid가 변경 되면 => oginInfo.id)
+		nickname : loginInfo.nickname,
 		title : "",
-		gameCategoriesUid: "",
-		gameCategoryTopicsUid : "35",
+		customPassword : "",
+		gameCategoriesUid : "1",
+    	gameCategoryTopicsUid : "22",
 		})
 
 	//방 제목
@@ -101,12 +100,12 @@ function Custom() {
         });
 	}
 
-    //방 카테고리
+    //방 비밀번호
     const onPasswordHandler = (e) => {
 		const value = e.target.value
         setRoom({
             ...room,
-            gameCategoriesUid: value
+            customPassword: value
         });
     }
 
@@ -118,10 +117,7 @@ function Custom() {
 
     if(room.title === ''){
         alert('제목을 입력해주세요');
-    } else if(room.gameCategoriesUid === 11) {
-		alert('카테고리를 다시 선택해주세요.')
-	}
-	else{
+    } else {
         // userInfo(UserSlice에 있음) => room
         dispatch(cus_roomcreate(room))
         .then((response) => {
@@ -138,7 +134,7 @@ function Custom() {
   }
 
 	//room 객체 바인딩
-	const { title } = room;
+	const { title, customPassword } = room;
 
 
 	// 모달 관련
@@ -157,13 +153,32 @@ function Custom() {
 	}
 
 
+	// 체크박스 버튼
+	const [checkedButtons, setCheckedButtons] = useState([]);
+	
+	const changeHandler = (checked, id) => {
+		if (checked) {
+		setCheckedButtons([...checkedButtons, id]);
+		console.log('체크 반영 완료');
+		} else {
+		setCheckedButtons(checkedButtons.filter(button => button !== id));
+		console.log('체크 해제 반영 완료');
+		}
+	};
+
+
+	const isAllChecked = checkedButtons.length === 1;
+	const disabled = !isAllChecked;
+
+
+
 	return (
 		<div className="custom_base">
 		<NavBar className="navbar" isCustom={isCustom}/>
 			<div className="layout-container">
 			{/* 게임방 목록 */}
 			<main className="main">
-				<RoomList key={rooms.uid} data={currentRooms(filterRoom)} />
+				<CusRoomList key={rooms.uid} data={currentRooms(filterRoom)} />
 			</main>
 			{/* 하단 */}
 			<footer>
@@ -183,11 +198,21 @@ function Custom() {
 									<Form.Label style={{marginLeft: "10%"}}>방 제목</Form.Label>
 									<Form.Control style={{width: "80%", textalign:"left", marginLeft:"10%", backgroundColor: "dcdcdc", fontSize: "1.2rem"}} name='title' type='text' placeholder='방 제목을 입력해주세요.' value={title} onInput={onChangeTitle}/>
 								</FormGroup>
-	
-								<FormGroup className='room_category mb-5' controlId='formBasicCategory'>
-									<Form.Label style={{marginLeft: "10%"}}>비밀번호</Form.Label>
-            						<Form.Control style={{width: "50%", textalign:"center", margin:"0 auto", marginBottom:"0.5em"}} name="password" type="password" placeholder="비밀번호" value={title} onChange={onPasswordHandler}/>
-								</FormGroup>
+								<FormGroup className='room_password mb-4' controlId='formBasicpassword'>
+									<input type="checkbox" id="check" style={{zoom: "1.5", marginRight: "5%"}}
+										onChange={e => {
+											changeHandler(e.currentTarget.checked, 'check');
+										}}
+										checked={checkedButtons.includes('check') ? true : false}
+										></input>
+										<Form.Label style={{marginRight: "40%", fontSize: "1.5rem"}}>비밀번호</Form.Label>									
+										<Form.Control disabled={disabled} 
+										style={disabled 
+										? {width: "80%", textalign:"left", marginLeft:"10%", backgroundColor: "silver", fontSize: "1.2rem"} 
+										: {width: "80%", textalign:"left", marginLeft:"10%", backgroundColor: "white", fontSize: "1.2rem"}} 
+										name='customPassword' type='password' placeholder='비밀호를 입력해주세요.' value={customPassword} onInput={onPasswordHandler}
+										/>								
+									</FormGroup>
 								<FormGroup style={{width:"80%", display:"flex", margin:"0 auto"}} >
 									<Button style={{marginBottom: "1em", width: "50%", backgroundColor:"#8C4D25", border:"0", fontSize: "1.3rem"}} type="submit" onClick={onSubmit} variant="primary">방 생성</Button>
 									<Button style={{marginBottom: "1em", width: "50%", backgroundColor:"grey", marginLeft:"1em", fontSize: "1.3rem"}} variant="secondary" onClick={onCloseModal}>취소</Button>

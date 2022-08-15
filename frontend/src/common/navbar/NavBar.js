@@ -223,7 +223,6 @@ function NavBar(props) {
               <ProgressBar variant="secondary" now={100} className="m-3"/>
               <Offcanvas.Body>
                 <Nav className="side-text justify-content-center flex-grow-1 pe-3">
-                  <Nav.Link href="/news"><BiIcons.BiNews />  소식</Nav.Link>
                   <Nav.Link href="/userrank"><RiIcons.RiArrowUpDownLine />  신하 순위</Nav.Link>
                   <Nav.Link href="/statistics"><GoIcons.GoGraph />  주제별 통계</Nav.Link>
                   <Nav.Link href="/gossip"><GoIcons.GoCommentDiscussion />  저잣거리</Nav.Link>

@@ -1,5 +1,6 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
+import { useNavigate }from 'react-router-dom'
 import './Room.css';
 import daily_life from '../../../assets/images/food.png'
 import food from '../../../assets/images/food.png'
@@ -9,6 +10,7 @@ import love from '../../../assets/images/love.png'
 import opposite from '../../../assets/images/opposite.png'
 import education from '../../../assets/images/education.png'
 
+ 
 const Logo = [
     "더미",
     "더미데이터",
@@ -23,7 +25,13 @@ const Logo = [
 
 
 function Room(props) {
-    const { title, gameCategoriesUid, adminNickname} = props;
+    const { title, gameCategoriesUid, adminNickname } = props;
+
+    const history = useNavigate();
+    const enterRoom = () => {
+        history('/game/normal/' + props.conferenceRoomUrl)
+    }
+
 
     return (
         <div className="gameroom">
@@ -38,7 +46,7 @@ function Room(props) {
                     <Card.Title>
                         <span>주최자 : {adminNickname}</span>
                     </Card.Title>
-                    <button className="enter">입장하기</button>
+                    <button className="enter" onClick={enterRoom}>입장하기</button>
                 </Card.Body>
             </div>
         </div>

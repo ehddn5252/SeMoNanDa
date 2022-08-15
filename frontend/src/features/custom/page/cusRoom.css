@@ -29,7 +29,7 @@
     margin-bottom: 1rem;
 }
 
-.gameroom {
+.cus_gameroom {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,16 +40,12 @@
     width: 100%;
 }
 
-.image {
-    padding-left: 2rem;
-}
-
 .body {
     margin: 2rem;
     padding-right: 2rem;
 }
 
-.enter {
+.cus_enter {
     background: #dcdcdc;
     display: block;
     position: relative;
@@ -67,7 +63,7 @@
     font-size: 1.5rem;
 }
 
-.enter:hover {
+.cus_enter:hover {
     scale: 1.1;
 }
 

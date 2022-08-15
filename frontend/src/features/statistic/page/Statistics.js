@@ -63,11 +63,9 @@ const Statistics = () => {
     return (
       <Container id='Container'>
         <NavBar />
-        <Form style={{width: "50%", textalign:"center",padding:"0.5em", backgroundImage:`url(${Statistics_form_img})`, backgroundSize:"cover", margin: "0 auto", position:"relative", top:"15%"}}>
         <LogoWrapper>
-            <h1>주제별통계</h1>
-            </LogoWrapper>
-        </Form>
+              <h1>주제별 통계 준비중입니다.</h1>
+        </LogoWrapper>
       </Container>
       );
     }

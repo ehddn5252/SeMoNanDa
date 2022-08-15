@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import cusRoom from './cusRoom'
+import CusRoom from './cusRoom';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import './cusRoom.css'
+import './cusRoom.css';
 
 
 // api를 가져와서 차례대로 보여줌
-function cusRoomList({ data }) {
+function CusRoomList({ data }) {
   return (
     <Row xs={1} md={2} className="customroom_base g-4">
             {data.map((room) => (
               <Col>
-              <cusRoom key={room.uid} {...room} />
+              <CusRoom key={room.uid} {...room} />
               </Col>
             ))}
     </Row>
@@ -19,4 +19,4 @@ function cusRoomList({ data }) {
   }
 
 
-export default cusRoomList;
+export default CusRoomList;

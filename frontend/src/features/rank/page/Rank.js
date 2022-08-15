@@ -5,7 +5,7 @@ import RankModal from "../rank_modal";
 import '../rank_modal.css'
 import Pagination from "./Pagination";
 import { useDispatch } from 'react-redux';
-import { useNavigate}from 'react-router-dom'
+import { useNavigate }from 'react-router-dom'
 import { roomcreate } from './rankSlice';
 import RoomList from "./RoomList";
 import './Rank.css';
@@ -78,8 +78,6 @@ function Rank() {
 	});
 
 
-
-	
 	// 방 생성
 	// 로컬 저장
 	let loginInfoString = window.localStorage.getItem("login_user");
@@ -125,18 +123,22 @@ function Rank() {
 	}
 	else{
         // userInfo(UserSlice에 있음) => room
+		var conferenceRoomUrl = null
+		var data = null
         dispatch(roomcreate(room))
         .then((response) => {
-			console.log('response', response)
-			const conferenceRoomUrl = response.payload.data.conferenceRoomUrl
-			console.log('conferenceRoomUrl', conferenceRoomUrl)
+			conferenceRoomUrl = response.payload.data.conferenceRoomUrl
             if(response.payload.status === 200){
                 history("/rank", {replace: true})
-				var data = JSON.stringify({ customSessionId: conferenceRoomUrl});
+				data = JSON.stringify({ customSessionId: conferenceRoomUrl});
 				axios.post(OPENVIDU_SERVER_URL + 'openvidu/api/sessions', data, {headers: {Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET), 'Content-Type': 'application/json'}})
             }else{
                 history("/rank", {replace:true})
             }
+		}).then(() => {
+			console.log('conferenceRoomUrl', conferenceRoomUrl)
+			axios.post(OPENVIDU_SERVER_URL + 'openvidu/api/sessions/' + conferenceRoomUrl + '/connection', data, {headers: {Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET), 'Content-Type': 'application/json'}})
+			history("/game/normal/" + conferenceRoomUrl)
 		})
     }
   }

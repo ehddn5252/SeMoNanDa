@@ -15,7 +15,6 @@ import HelpNormal from '../features/help/page/Custom';
 import Statistics from '../features/statistic/page/Statistics';
 import UserRank from '../features/userrank/page/UserRank';
 import NotFound from '../features/notfound/NotFound';
-import News from '../features/news/page/News';
 import Gossip from '../features/gossip/page/Gossip';
 import PrivateRoute from '../common/api/PrivateRoute';
 // import NavBar from "../common/navbar/NavBar";
@@ -38,7 +37,6 @@ function App() {
           <Route exact path="/help/custom" element={<HelpNormal />} />
       	  <Route exact path="/statistics" element={<Statistics />} />
       	  <Route exact path="/userrank" element={<UserRank />} />
-          <Route exact path="/news" element={<PrivateRoute path="/news" component={News} />} />
           <Route exact path="/gossip" element={<PrivateRoute path="/gossip" component={Gossip} />} />
       	  <Route exact path="/*" element={<NotFound />} />
         </Routes>
