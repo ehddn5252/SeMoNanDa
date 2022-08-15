@@ -11,9 +11,9 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Slide from "./Slide";
 
-import img1 from "../../../assets/images/help_test_img.jpg";
-import img2 from "../../../assets/images/help_test_img.jpg";
-import img3 from "../../../assets/images/help_test_img.jpg";
+import img1 from "../../../assets/images/light_base.png";
+import img2 from "../../../assets/images/light_base.png";
+import img3 from "../../../assets/images/light_base.png";
 
 //이미지 파일
 import light_base from "../../../assets/images/light_base.png";
@@ -151,7 +151,7 @@ const buttonStyle = styled.div`
 
 ////////////////////////여기까지
 
-export default function Help() {
+export default function HelpCustom() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
 
@@ -189,14 +189,12 @@ export default function Help() {
     <Container>
       <NavBar />
       <Container1>
-          <Link to="/help/custom"><h6>Custom</h6></Link> 
+      <h6>Custom Help</h6>
         <div>
           <div
             style={{
               color: currentSlide === 0 ? "white" : "black",
               backgroundColor: currentSlide === 0 ? "black" : "white",
-              cursor: "pointer"
-              
             }}
             onClick={() => {
               showBtnSlide(0);
@@ -208,7 +206,6 @@ export default function Help() {
             style={{
               color: currentSlide === 1 ? "white" : "black",
               backgroundColor: currentSlide === 1 ? "black" : "white",
-              cursor: "pointer"
             }}
             onClick={() => {
               showBtnSlide(1);
@@ -220,7 +217,6 @@ export default function Help() {
             style={{
               color: currentSlide === 2 ? "white" : "black",
               backgroundColor: currentSlide === 2 ? "black" : "white",
-              cursor: "pointer"
             }}
             onClick={() => {
               showBtnSlide(2);
