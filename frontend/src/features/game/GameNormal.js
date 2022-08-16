@@ -6,6 +6,8 @@ import exit from '../../assets/images/exit.png'
 import ready from '../../assets/images/ready.png'
 import ready_ok from '../../assets/images/ready_ok.png'
 import start from '../../assets/images/start.png'
+import red from '../../assets/images/red_subject.png';
+import blue from '../../assets/images/blue_subject.png';
 
 // 컴포넌트
 import axios1 from '../../common/api/http-common';
@@ -32,7 +34,7 @@ function withRouter(Component) {
   return ComponentWithRouter
 }
 
-class Game extends Component {
+class Game extends Component { 
   constructor(props) {
     super(props);
     this.state = {
@@ -53,6 +55,7 @@ class Game extends Component {
         kingCount : 0,
         coin: 0,
         token: undefined,
+        king: undefined,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -154,7 +157,7 @@ class Game extends Component {
       }
   }
 
-  joinSession() {
+  joinSession() { 
       // --- 1) Get an OpenVidu object ---
   
       this.OV = new OpenVidu();
@@ -248,9 +251,9 @@ class Game extends Component {
                   readyState: 'start',
                 })
                 const topics = event.data.split('***')
-                const title = document.querySelector('.subjectcontent')
-                const suba = document.querySelector('.subjecta')
-                const subb = document.querySelector('.subjectb')
+                const title = document.querySelector('.subjectTopic')
+                const suba = document.querySelector('.subjectRight')
+                const subb = document.querySelector('.subjectLeft')
                 title.innerText = topics[0]
                 suba.innerText = '가. ' + topics[1]
                 subb.innerText = '나. ' + topics[2]
@@ -258,7 +261,7 @@ class Game extends Component {
                 alert('주제가 공개되었습니다.')
               })
 
-              // 플레이어 정보 갱신
+              // 플레이어 정보 갱신 
               mySession.on('signal:check-yourposition', (event) => {
                 // http://localhost:8081/api/game/common/player-info?userID=rkdqudtn1
                 let loginInfoString = window.localStorage.getItem("login_user");
@@ -275,6 +278,12 @@ class Game extends Component {
                       isKing: true,
                       servant: undefined,
                       timeOut:true,
+                      king: this.state.myUserName,
+                    })
+                    mySession.signal({
+                      data: this.state.myUserName,
+                      to: [],
+                      type: 'king',
                     })
                   } else {
                     if (response.data.team === "A") {
@@ -295,6 +304,12 @@ class Game extends Component {
                   }
                 }).catch((err) => {
                   console.log(err)
+                })
+              })
+
+              mySession.on('signal:king', (event) =>{
+                this.setState({
+                  king:event.data
                 })
               })
 
@@ -621,83 +636,85 @@ class Game extends Component {
   };
 
   choiceA() {
-    // http://localhost:8081/api/game/normal/round-end?gameConferenceRoomUid=3&winTeam=A
-    axios1.post(`/game/normal/round-end?gameConferenceRoomUid=${this.state.mySessionId}&winTeam=A`)
+    if (this.state.isKing === true) {
+      axios1.post(`/game/normal/round-end?gameConferenceRoomUid=${this.state.mySessionId}&winTeam=A`)
 
-    const mySession = this.state.session
+      const mySession = this.state.session
 
-    mySession.signal({
-      to:[],
-      type:'choice-a'
-    }).then(() => {
-      axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.mySessionId}`).then((response) =>{
-        console.log(response.data)
-        const mySession = this.state.session
-        if ( response.data.userId === null) {
-          const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
-          mySession.signal({
-            data: topicData,
-            to: [],
-            type: 'topic-choice',
-          }).then(() =>  {
-            const mySession = this.state.session
+      mySession.signal({
+        to:[],
+        type:'choice-a'
+      }).then(() => {
+        axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.mySessionId}`).then((response) =>{
+          console.log(response.data)
+          const mySession = this.state.session
+          if ( response.data.userId === null) {
+            const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
             mySession.signal({
+              data: topicData,
               to: [],
-              type: 'check-yourposition'
+              type: 'topic-choice',
+            }).then(() =>  {
+              const mySession = this.state.session
+              mySession.signal({
+                to: [],
+                type: 'check-yourposition'
+              })
             })
-          })
-        } else {
-          axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.mySessionId}&userId=${response.data.userId}`).then(() => {
-            mySession.signal({
-              data: response.data.userNickname,
-              to: [],
-              type: 'winner'
+          } else {
+            axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.mySessionId}&userId=${response.data.userId}`).then(() => {
+              mySession.signal({
+                data: response.data.userNickname,
+                to: [],
+                type: 'winner'
+              })
             })
-          })
-        }
+          }
+        })
       })
-    })
+      }
   }
 
   choiceB() {
-    // http://localhost:8081/api/game/normal/round-end?gameConferenceRoomUid=3&winTeam=A
-    axios1.post(`/game/normal/round-end?gameConferenceRoomUid=${this.state.mySessionId}&winTeam=B`)
+    if (this.state.isKing === true) {
+      axios1.post(`/game/normal/round-end?gameConferenceRoomUid=${this.state.mySessionId}&winTeam=B`)
 
-    const mySession = this.state.session
+      const mySession = this.state.session
 
-    mySession.signal({
-      to:[],
-      type:'choice-b'
-    }).then(() => {
-      axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.mySessionId}`).then((response) =>{
-        console.log(response.data)
-        const mySession = this.state.session
-        if ( response.data.userId === null) {
-          const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
-          mySession.signal({
-            data: topicData,
-            to: [],
-            type: 'topic-choice',
-          }).then(() =>  {
-            const mySession = this.state.session
+      mySession.signal({
+        to:[],
+        type:'choice-b'
+      }).then(() => {
+        axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.mySessionId}`).then((response) =>{
+          console.log(response.data)
+          const mySession = this.state.session
+          if ( response.data.userId === null) {
+            const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
             mySession.signal({
+              data: topicData,
               to: [],
-              type: 'check-yourposition'
+              type: 'topic-choice',
+            }).then(() =>  {
+              const mySession = this.state.session
+              mySession.signal({
+                to: [],
+                type: 'check-yourposition'
+              })
             })
-          })
-        } else {
-          axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.mySessionId}&userId=${response.data.userId}`).then(() => {
-            mySession.signal({
-              data: response.data.userNickname,
-              to: [],
-              type: 'winner'
+          } else {
+            axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.mySessionId}&userId=${response.data.userId}`).then(() => {
+              mySession.signal({
+                data: response.data.userNickname,
+                to: [],
+                type: 'winner'
+              })
             })
-          })
-        }
+          }
+        })
       })
-    })
+    }
   }
-
+  
   gameset() {
     const mySession = this.state.session
 
@@ -709,11 +726,11 @@ class Game extends Component {
   }
 
   timeSet() {
-    this.myref?.current.resetTimer(); 
+    this.myref.current.resetTimer(); 
   }
 
   timeEnd() {
-    this.myref?.current.endTimer();
+    this.myref.current.endTimer();
   }
   
   timeOver() { 
@@ -756,97 +773,102 @@ class Game extends Component {
 
   render(){
     const messages = this.state.messages;
-    const sub1 = this.state.subscribers.slice(0,3)
-    const sub2 = this.state.subscribers.slice(3,6)
-    // let loginInfoString = window.localStorage.getItem("login_user");
-    // let loginInfo = JSON.parse(loginInfoString)
+    const sub1 = this.state.subscribers.slice(0,2)
+    const sub2 = this.state.subscribers.slice(2,5)
+    while (sub1.length < 2) {
+      sub1.push(undefined)
+    }
+    while (sub2.length < 3) {
+      sub2.push(undefined)
+    }
 
-    console.log(this.state.subscribers)
     return (
       <div className="gamediv">
-        <div className="camdiv">
-          {sub1.map((sub,i) => (
-            <div
-              key={i}
+        <div className='totaldiv'>
+
+        <div className='cam'>
+          <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king }></UserVideoComponent>
+            {sub1.map((sub,i) => (
+              <div
+              key = {i}
               className="stream-container"
-              onClick={() => this.handleMainVideoStream(sub)}
-              >
-              <UserVideoComponent streamManager={ undefined } />
-            </div>
-          ))}
+              onClick={() => this.handleMainVideoStream(sub)}>
+                <UserVideoComponent streamManager={ sub } king={ this.state.king }/>
+              </div>
+            ))}
         </div>
-        <div className="kingdiv">
-          <div className="stream-container">
-            <UserVideoComponent streamManager={this.state.publisher} />
-          </div>
+
+        <div className='cam'>
+            {sub2.map((sub,i) => (
+              <div
+              key = {i}
+              className="stream-container"
+              onClick={() => this.handleMainVideoStream(sub)}>
+                <UserVideoComponent streamManager={ sub } king={ this.state.king }/>
+              </div>
+            ))}
+        </div>
+
+              
           <div className="titlediv">
             <div className="title">
-
+              { this.state.servant ==='나'? (
+                <div className='subjectcontent'  onClick={() => this.choiceA()}>
+                 <div className="subjectdetailnota">
+                   <img className='subjecta' alt='RedSubject' src={blue}/>
+                   <p className="subjectRight">그렇다. 남녀사이엔 친구가 존재 한다.</p>
+                 </div>
+                </div>
+              ) : <div className='subjectcontent'  onClick={() => this.choiceA()}>
+                <div className="subjectdetaila">
+                  <img className='subjecta' alt='RedSubject' src={blue}/>
+                  <p className="subjectRight">그렇다. 남녀사이엔 친구가 존재 한다.</p>
+                </div>
+              </div>}
               <div className="titlecontent">
                 <p className="subject">안건</p>
-                <p className="subjecttopic">남녀사이엔 친구가 존재하는가.</p>
+                <p className="subjectTopic">남녀사이엔 친구가 존재하는가.</p>
               </div>
-              <div className='subjectcontent'>
-                <div className="subjectdetaila">
-                  <p className="subjectdetailcontent subjecta">그렇다. 남녀사이엔 친구가 존재 한다.</p>
+              { this.state.servant ==='가'? (
+                <div className='subjectcontent'  onClick={() => this.choiceA()}>
+                 <div className="subjectdetailnotb">
+                   <img className='subjecta' alt='RedSubject' src={red}/>
+                   <p className="subjectLeft">아니다. 남녀사이엔 친구가 왠 말이냐.</p>
+                 </div>
                 </div>
-                <div className='subjectdetailb'>
-                  <p className="subjectdetailcontent subjectb">아니다. 남녀사이에 친구가 왠 말이냐</p>
+              ) : <div className='subjectcontent'  onClick={() => this.choiceA()}>
+                <div className="subjectdetailb">
+                  <img className='subjecta' alt='RedSubject' src={red}/>
+                  <p className="subjectLeft">아니다. 남녀사이엔 친구가 왠 말이냐.</p>
                 </div>
-              </div>
+              </div>}
             </div>
           </div>
+
         </div>
-        <div className="camdiv">
-          {sub2.map((sub,i) => (
-            <div
-              key={i}
-              className="stream-container"
-              onClick={() => this.handleMainVideoStream(sub)}
-              >
-              <UserVideoComponent streamManager={ undefined } />
-            </div>
-          ))}
-        </div>
-        <div className="chatdiv">
-        <div className="infobg">
-            <div className="infoHeadDiv">
-              <h1>게임진행</h1>
-            </div>
+        <div className="chatdiv"> 
+          <div className="infobg">
             <div className="timerDiv">
+              <p>남은시간: </p>
               <Timer ref={this.myref} timeOver={this.timeOver.bind(this)} state={this.state}></Timer>
             </div>
             <div className="infobox">
-                {this.state.readyState === 'start' ? (
-                this.state.isKing === true? (
-                  <div className='buttondiv'>
-                    <Button className="button" style={{fontSize:"50px"}} variant="danger" onClick={() => this.choiceA()}>가. </Button>{' '}
-                    <Button className="button" style={{fontSize:"50px"}} variant="primary" onClick={() => this.choiceB()}>나. </Button>
-                  </div>
-                ) : (this.state.servant === '가' ? 
-                  <div className="servantdiv"> 
-                    <p>가. 진영</p>
-                    <div className="servantinfo">
-                      <p>코인 : {this.state.coin}개</p>
-                      <p>왕 : {this.state.kingCount}회</p>
-                    </div>
-                  </div>
-                 : (this.state.servant ==='나' ?
-                 <div className="servantdiv">
-                  <p>나. 진영</p>
-                  <div className="servantinfo">
-                   <p>코인 : {this.state.coin}개</p>
-                   <p>왕 : {this.state.kingCount}회</p>
-                  </div>
-                 </div>
-                 : null))
-              ): null}
+              <div className="servantdiv">
+                <div className='coindiv'>
+                <p>코인 : </p>
+                <div>{this.state.coin}개</div>
+                </div>
+                <div className='countdiv'>
+                <p>왕이 된 횟수 : </p> 
+                <div> {this.state.kingCount}회</div>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="chatbg"> 
 
+          <div className="chatoutline">
+            <div className="chatbg"> 
               <div className="chatbox__messages" ref="chatoutput">
-                {/* {this.displayElements} */}
                 <Messages messages={messages} />
               </div>
               <div className="chat chatbox__footer">
@@ -857,15 +879,16 @@ class Game extends Component {
                   onChange={this.handleChatMessageChange}
                   onKeyPress={this.sendmessageByEnter}
                   value={this.state.message}
-                />
+                  />
                 <button
                   className="chat_send"
                   onClick={this.sendmessageByClick}>
                     입력
                 </button>
               </div>
- 
+            </div>
           </div>
+          
           <div className="icons">
             {this.state.isHost === true ? (
               <img className="ready-icon" alt="start" src={start} onClick={() => this.start()}/>

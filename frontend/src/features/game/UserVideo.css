@@ -15,7 +15,20 @@ video {
 }
 
 .streamcomponent {
-    height: 288px;
+    height: 300px;
+}
+
+.kingstreamcomponent {
+    height: 300px;
+    position: relative;
+}
+
+.crown {
+    width: 100px;
+}
+
+.crowndiv {
+    position:absolute;
 }
 .streamcomponent div {
     height: 288px;

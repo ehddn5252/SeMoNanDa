@@ -1,14 +1,42 @@
 .gamediv {
   width: 100%;
   height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+  background: center;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   background-image: url('../../assets/images/gamebg.png');
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   overflow-y: scroll;
+  padding-right: 3%;
+  padding-left: 3%;
+}
+
+.totaldiv{
+  width: 70%;
+  height: 100%;
+  margin-right: 3em;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-evenly;
+}
+
+.cam {
+  width: 100%;
+  height: 30%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.titlediv{
+  width: 100%;
+  height: fit-content;
 }
 
 .camdiv {
@@ -28,6 +56,7 @@
   /* border: 1px solid; */
   width: 400px;
   height: 300px;
+  border-radius: 5%;
 }
 
 .kingdiv .box {
@@ -41,19 +70,15 @@
   /* border: 1px solid */
 }
 
-.titlediv {
-  margin-top: 7%;
-  height: 660px;
-}
-
 .title {
   margin: auto;
   width: 100%;
-  height: 80%;
+  height: fit-content;
   display: flex;
-  flex-flow: column;
+  flex-flow: row;
   justify-content: space-evenly;
   background-color: rgb(255, 255, 255, 0.7);
+  align-items: center;
 }
 
 .titleImg{
@@ -66,13 +91,11 @@
   display: flex;
   flex-flow: column;
   width: 100%;
-  padding-bottom: 1em;
   height: fit-content;
   font-family: JsaHON;
   text-align: center;
   font-size: 20px;
   margin: 0 auto;
-  margin-bottom: 1em;
   border: 1em groove rgba(136, 73, 28, 0.864);
 }
 
@@ -88,37 +111,75 @@ margin-bottom: 0;
 
 .subjectcontent {
   display: flex;
-  justify-content: space-between;
   width: 100%;
   height: fit-content;
   font-size: 30px;
   margin-bottom: 0;
   padding: 1em;
-  
+}
+
+.subjectcontent > p {
+  width: 70%;
+}
+
+.subjecta {
+  src: url(../../assets/images/red_subject.png);
+  width: 30%;
+  height: 100%;
+}
+
+.subjectdetailnota {
+  background-color: gray;
+  border-radius: 10%;
+  color: ghostwhite;
+  width: 100%;
+  padding: 1em;
+  word-break: keep-all;
+  display: flex;
+  font-family: JsaHON;
+  align-items: center;
 }
 
 .subjectdetaila {
-  background-color: rgb(214, 40, 40);
+  background-color: #4181A1;
   border-radius: 10%;
   color: ghostwhite;
-  width: 45%;
+  width: 100%;
   padding: 1em;
   word-break: keep-all;
   display: flex;
-  justify-content: center;
   font-family: JsaHON;
+  align-items: center;
+}
+
+.subjectdetaila > p {
+  text-align: right;
+}
+
+.subjectdetailnotb {
+  background-color: gray;
+  font-family: JsaHON;
+  border-radius: 10%;
+  color: ghostwhite;
+  width: 100%;
+  padding: 1em;
+  word-break: keep-all;
+  display: flex;
+  flex-flow: row-reverse;
+  align-items: center;
 }
 
 .subjectdetailb {
-  background-color: rgb(40, 40, 195);
+  background-color: #EF4D4D;
   font-family: JsaHON;
   border-radius: 10%;
   color: ghostwhite;
-  width: 45%;
+  width: 100%;
   padding: 1em;
   word-break: keep-all;
   display: flex;
-  justify-content: center;
+  flex-flow: row-reverse;
+  align-items: center;
 }
 
 .buttondiv {
@@ -134,10 +195,8 @@ margin-bottom: 0;
 }
 
 .servantdiv {
-  padding-right:55px;
-  padding-left: 70px;
   display:flex;
-  flex-direction: row;
+  flex-direction: column;
   font-family: JsaHON;
   justify-content: space-between;
 }
@@ -146,12 +205,41 @@ margin-bottom: 0;
   font-size:50px;
 }
 
-.timerDiv {
-  height: 30%;
-  font-size:50px;
+.coindiv {
+  width: 100%;
+  font-size:30px;
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+
+.coindiv > p {
+  margin: 0 1em 0 0;
+  font-size: 30px;
+}
+
+.countdiv {
+  width: 100%;
+  font-size:30px;
+  display: flex;
+  align-items: center;
+}
+
+.countdiv > p {
+  margin: 0 1em 0 0;
+  font-size: 30px;
+}
+
+.timerDiv {
+  height: 30%;
+  font-size:30px;
+  display: flex;
+  align-items: center;
+  padding: 1em;
+}
+
+.timerDiv > p {
+  margin: 0 1em 0 0;
+  font-size: 30px;
 }
 
 .servantinfo {
@@ -187,7 +275,7 @@ margin-bottom: 0;
 
 .infobg{
   margin-top: 1em;
-  height: 30%;
+  height: 20%;
   width: 100%;
   background-image: url(../../assets/images/info_form.png);
   background-size: cover;
@@ -198,7 +286,7 @@ margin-bottom: 0;
   height: 50%;
   align-items: center;
   display: flex;
-  justify-content: center;
+  padding-left: 2em;
 }
 
 .infoHeadDiv{
@@ -214,14 +302,26 @@ margin-bottom: 0;
   display:inline-block;
 }
 
+.chatoutline {
+  background-color: rgb(233, 217, 185);
+  background-size: cover;
+  border-radius: 5%;
+  align-self: center;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  width: 100%;
+  height: 65%;
+}
+
 .chatbg {
   width: 100%;
-  height: 55%;
+  height: 100%;
+  background: center;
   background-size: cover;
-  background-image: url(../../assets/images/yellow-paper.jpg);
+  background-image: url(../../assets/images/chat_form.png);
   /* background-color: rgb(255,255,255,0.6); */
   border-style: groove;
-  margin-top: 1em;
 }
 
 .chatbox__messages {
