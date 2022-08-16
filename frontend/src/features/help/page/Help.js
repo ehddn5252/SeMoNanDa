@@ -72,18 +72,20 @@ const StyledLink = styled(Link)`
 `;
 
 //yu
-
 const Container1 = styled.div`
-  width: 40%;
-  margin: auto;
-  height: 130%;
+  width: 45%;
+  margin: 0px 27.5%;
+  padding : 53px 0px;
+  height: 100%;
   overflow: hidden; // 선을 넘어간 이미지들은 숨겨줍니다.
   font-family: JsaHON;
+  display: block;
+  
 `;
 const Button1 = styled.div`
   all: unset;
-  padding: 1em 2em;
-  margin: 2em 2em;
+  padding: 0.5em 1em;
+  margin: 1em 1em;
   color: black;
   background-color: white;
   border-radius: 10px;
@@ -113,6 +115,17 @@ const Text = styled.div`
 `;
 const Center = styled.div`
   text-align: center;
+`;
+
+const HelproomBase = styled.div`
+  display: block;
+  position: relative;
+  height: 130%;
+  background: center;
+  background-repeat: no-repeat;
+  background-image: url(${help_form_img});
+  background-size: contain;
+  width: fit-content;
 `;
 
 const TOTAL_SLIDES = 2; // 전체 슬라이드 개수 (총3개. 배열로 계산)
@@ -153,60 +166,60 @@ export default function Help() {
   return (
     <Container>
       <NavBar />
-      <Form style={{width: "50%", textalign:"center",padding:"0.5em", backgroundImage:`url(${help_form_img})`, backgroundSize:"cover", margin: "0 auto", position:"relative"}}>
-      <Container1>
-        <div
-          style={{ display: "flex", flexFlow: "row", justifyContent: "left"}}
-        >
+      <HelproomBase>
+        <Container1>
           <div
-            style={{
-              color: currentSlide === 0 ? "white" : "black",
-              backgroundColor: currentSlide === 0 ? "black" : "white",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              showBtnSlide(0);
-            }}
+            style={{ display: "flex", flexFlow: "row", justifyContent: "left" ,fontSize : "25px" }}
           >
-            왕의 권한 &nbsp;
+            <div
+              style={{
+                color: currentSlide === 0 ? "white" : "black",
+                // backgroundColor: currentSlide === 0 ? "black" : "white",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                showBtnSlide(0);
+              }}
+            >
+              왕의 권한 &nbsp;
+            </div>
+            <div
+              style={{
+                color: currentSlide === 1 ? "white" : "black",
+                //   backgroundColor: currentSlide === 1 ? "black" : "white",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                showBtnSlide(1);
+              }}
+            >
+              2번 &nbsp;
+            </div>
+            <div
+              style={{
+                color: currentSlide === 2 ? "white" : "black",
+                //   backgroundColor: currentSlide === 2 ? "black" : "white",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                showBtnSlide(2);
+              }}
+            >
+              3번 &nbsp;
+            </div>
           </div>
-          <div
-            style={{
-              color: currentSlide === 1 ? "white" : "black",
-              backgroundColor: currentSlide === 1 ? "black" : "white",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              showBtnSlide(1);
-            }}
-          >
-            2번&nbsp;
-          </div>
-          <div
-            style={{
-              color: currentSlide === 2 ? "white" : "black",
-              backgroundColor: currentSlide === 2 ? "black" : "white",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              showBtnSlide(2);
-            }}
-          >
-            3번&nbsp;
-          </div>
-        </div>
 
-        <SliderContainer ref={slideRef}>
-          <Slide img={img1} />
-          <Slide img={img2} />
-          <Slide img={img3} />
-        </SliderContainer>
-        <Center>
-          <Button1 onClick={PrevSlide}>이전</Button1>
-          <Button1 onClick={NextSlide}>다음</Button1>
-        </Center>
-      </Container1>
-      </Form>
+          <SliderContainer ref={slideRef}>
+            <Slide img={img1} />
+            <Slide img={img2} />
+            <Slide img={img3} />
+          </SliderContainer>
+          <Center>
+            <Button1 onClick={PrevSlide}>이전</Button1>
+            <Button1 onClick={NextSlide}>다음</Button1>
+          </Center>
+        </Container1>
+      </HelproomBase>
     </Container>
   );
 }
