@@ -71,6 +71,7 @@ class Game extends Component {
     this.handleChatMessageChange = this.handleChatMessageChange.bind(this);
     this.readyClick = this.readyClick.bind(this);
     this.myref = React.createRef();
+    this.exit = this.exit.bind(this);
   }
 
   // 처음 방을 들어갔을 때 실행
@@ -887,7 +888,7 @@ class Game extends Component {
             ):(this.state.isReady === false ?
               <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
               :<img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)}
-            <img className="icon" alt="exit" src={exit}/>
+            <img className="icon" alt="exit" src={exit} onClick={()=> this.exit()}/>
           </div>
         </div>
       </div>
