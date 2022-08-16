@@ -351,7 +351,7 @@ class Game extends Component {
 
               mySession.on('signal:winner', (event)=> {
                 alert(`승자는 ${event.data}님 입니다.`)
-                window.location.href = 'http://localhost:3000'
+                window.location.href = 'https://i7e103.p.ssafy.io/'
               })
 
 
@@ -560,9 +560,7 @@ class Game extends Component {
       $.ajax({
         type: 'GET',
         // https://i7e103.p.ssafy.io:8082
-        url: `https://i7e103.p.ssafy.io:8082/openvidu/api/sessions/${
-          this.state.mySessionId
-        }/connection`,
+        url: `https://i7e103.p.ssafy.io:8082/openvidu/api/sessions/${this.state.mySessionId}/connection`,
         
         headers: {
           Authorization: `Basic ${btoa(
@@ -583,9 +581,7 @@ class Game extends Component {
     return new Promise((resolve, reject) => {
       $.ajax({
         type: 'GET',
-        url: `https://${window.location.hostname}:4443/openvidu/api/sessions/${
-          this.state.mySessionId
-        }/connection`,
+        url: `https://i7e103.p.ssafy.io:8082/openvidu/api/sessions/${this.state.mySessionId}/connection`,
 
         headers: {
           Authorization: `Basic ${btoa(

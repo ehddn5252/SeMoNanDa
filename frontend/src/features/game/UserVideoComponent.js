@@ -12,7 +12,6 @@ export default class UserVideoComponent extends Component {
     }
 
     render() {
-        console.log(this.props.king)
         return (
             <div>
                 {this.props.streamManager !== undefined ? (
