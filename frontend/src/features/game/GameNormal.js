@@ -19,7 +19,6 @@ import { OpenVidu } from 'openvidu-browser';
 import React, { Component, createRef } from 'react';
 import { useParams } from 'react-router-dom';
 import $ from 'jquery'; 
-import Button from 'react-bootstrap/Button';
 import { connect } from 'react-redux'
 
 const OPENVIDU_SERVER_URL = 'https://i7e103.p.ssafy.io:8082';
@@ -56,6 +55,7 @@ class Game extends Component {
         coin: 0,
         token: undefined,
         king: undefined,
+        roomUid: undefined,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -86,8 +86,18 @@ class Game extends Component {
         myUserName : loginInfo.name,
       })
 
+      // 방URL정보로 방의 정보 가져오기
+      axios1.get(`/room/url?url=${this.state.mySessionId}`).then((response) => {
+        console.log(response)
+        this.setState({
+          roomUid: response.data.uid,
+        })
+      }).catch((err) => {
+        console.log(err)
+      })
+
       // 플레이어 입장
-      axios1.post(`/game/common/join?gameConferenceRoomUid=${this.state.mySessionId}&userId=${loginInfo.id}`).then((response) => {
+      axios1.post(`/game/common/join?gameConferenceRoomUid=${this.state.roomUid}&userId=${loginInfo.id}`).then((response) => {
         console.log(response)
       }).catch((err) => {
         console.log(err)
@@ -103,7 +113,7 @@ class Game extends Component {
     setTimeout(() => {
       let loginInfoString = window.localStorage.getItem("login_user");
       let loginInfo = JSON.parse(loginInfoString)
-      axios1.post(`/game/common/quit?gameConferenceRoomUid=${this.state.mySessionId}&userId=${loginInfo.id}`).then((response) => {
+      axios1.post(`/game/common/quit?gameConferenceRoomUid=${this.state.roomUid}&userId=${loginInfo.id}`).then((response) => {
         console.log(response)
       }).catch((err) => {
         console.log(err)
@@ -562,7 +572,6 @@ class Game extends Component {
         success: (response) => {
           let content = response.content;
           content.sort((a, b) => a.createdAt - b.createdAt);
-          console.log(content[0])
           resolve(content[0].clientData);
         },
         error: (error) => reject(error),
@@ -609,8 +618,8 @@ class Game extends Component {
         })
         setTimeout(()=> {
           // http://localhost:8081/api/game/common/game-start?gameConferenceRoomUid=3
-          axios1.post(`/game/common/game-start?gameConferenceRoomUid=${this.state.mySessionId}`).then(() => {
-            axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.mySessionId}`).then((response) =>{
+          axios1.post(`/game/common/game-start?gameConferenceRoomUid=${this.state.roomUid}`).then(() => {
+            axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.roomUid}`).then((response) =>{
               console.log(response.data)
               const mySession = this.state.session
               const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
@@ -637,7 +646,7 @@ class Game extends Component {
 
   choiceA() {
     if (this.state.isKing === true) {
-      axios1.post(`/game/normal/round-end?gameConferenceRoomUid=${this.state.mySessionId}&winTeam=A`)
+      axios1.post(`/game/normal/round-end?gameConferenceRoomUid=${this.state.roomUid}&winTeam=A`)
 
       const mySession = this.state.session
 
@@ -645,7 +654,7 @@ class Game extends Component {
         to:[],
         type:'choice-a'
       }).then(() => {
-        axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.mySessionId}`).then((response) =>{
+        axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.roomUid}`).then((response) =>{
           console.log(response.data)
           const mySession = this.state.session
           if ( response.data.userId === null) {
@@ -662,7 +671,7 @@ class Game extends Component {
               })
             })
           } else {
-            axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.mySessionId}&userId=${response.data.userId}`).then(() => {
+            axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.roomUid}&userId=${response.data.userId}`).then(() => {
               mySession.signal({
                 data: response.data.userNickname,
                 to: [],
@@ -677,7 +686,7 @@ class Game extends Component {
 
   choiceB() {
     if (this.state.isKing === true) {
-      axios1.post(`/game/normal/round-end?gameConferenceRoomUid=${this.state.mySessionId}&winTeam=B`)
+      axios1.post(`/game/normal/round-end?gameConferenceRoomUid=${this.state.roomUid}&winTeam=B`)
 
       const mySession = this.state.session
 
@@ -685,7 +694,7 @@ class Game extends Component {
         to:[],
         type:'choice-b'
       }).then(() => {
-        axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.mySessionId}`).then((response) =>{
+        axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.roomUid}`).then((response) =>{
           console.log(response.data)
           const mySession = this.state.session
           if ( response.data.userId === null) {
@@ -702,7 +711,7 @@ class Game extends Component {
               })
             })
           } else {
-            axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.mySessionId}&userId=${response.data.userId}`).then(() => {
+            axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.roomUid}&userId=${response.data.userId}`).then(() => {
               mySession.signal({
                 data: response.data.userNickname,
                 to: [],
@@ -735,14 +744,14 @@ class Game extends Component {
   
   timeOver() { 
     if (this.state.isKing) {
-      axios1.post(`/game/normal/time-out?gameConferenceRoomUid=${this.state.mySessionId}`)
+      axios1.post(`/game/normal/time-out?gameConferenceRoomUid=${this.state.roomUid}`)
       const mySession = this.state.session
 
       mySession.signal({
         to: [],
         type: 'time-out'
       }).then(() => {
-        axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.mySessionId}`).then((response) =>{
+        axios1.post(`/game/normal/round-start?gameConferenceRoomUid=${this.state.roomUid}`).then((response) =>{
         console.log(response.data)
         const mySession = this.state.session
         if ( response.data.userId === null) {
@@ -759,7 +768,7 @@ class Game extends Component {
             })
           })
         } else {
-          axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.mySessionId}&userId=${response.data.userId}`).then(() => {
+          axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.roomUid}&userId=${response.data.userId}`).then(() => {
             mySession.signal({
               data: response.data.userNickname,
               to: [],
