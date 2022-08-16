@@ -76,6 +76,7 @@ class Game extends Component {
   // 처음 방을 들어갔을 때 실행
   componentDidMount() {
     window.addEventListener('beforeunload', this.onbeforeunload);
+    window.addEventListener('beforeunload', this.exit())
     setTimeout(()=> {
       // storage에서 login한 user 정보 가져오기
       let loginInfoString = window.localStorage.getItem("login_user");
@@ -133,6 +134,7 @@ class Game extends Component {
     }, 500);
     window.location.reload();
     window.removeEventListener('beforeunload', this.onbeforeunload);
+    window.removeEventListener('beforeunload', this.exit())
   }
 
   componentDidUpdate(previousProps, previousState) {
@@ -143,6 +145,12 @@ class Game extends Component {
 
   onbeforeunload(event) {
       this.leaveSession();
+  }
+
+  exit(){
+    let loginInfoString = window.localStorage.getItem("login_user");
+    let loginInfo = JSON.parse(loginInfoString)
+    axios1.post(`/game/common/quit?gameConferenceRoomUid=${this.state.roomUid}&userId=${loginInfo.id}`)
   }
 
   handleChangeSessionId(e) {
