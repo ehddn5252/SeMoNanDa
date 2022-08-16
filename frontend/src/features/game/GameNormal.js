@@ -97,9 +97,14 @@ class Game extends Component {
           console.log(err)
         })
 
-        if ( loginInfo.uid === response.data.room_admin_uid ) {
-          console.log('hi')
+        // 방장인 경우 게임시작 권한
+        if ( loginInfo.uid === response.data.roomAdminUserUid ) {
+          this.setState({
+            isHost:true,
+            isReady:true,
+          })
         }
+
         this.setState({
           roomUid: response.data.uid,
         })
