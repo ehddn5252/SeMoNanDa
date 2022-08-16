@@ -354,7 +354,15 @@ class Game extends Component {
               })
 
               mySession.on('signal:room-over', () =>{
-                alert('방장이 방을 나가 대기실로 이동합니다.').then(() => window.location.href = 'https://i7e103.p.ssafy.io/rank')
+                if(this.state.isHost === false) {
+                  let loginInfoString = window.localStorage.getItem("login_user");
+                  let loginInfo = JSON.parse(loginInfoString)
+                  alert('방장이 방을 나가 대기실로 이동합니다.')
+                  axios1.post(`/game/common/quit?gameConferenceRoomUid=${this.state.roomUid}&userId=${loginInfo.id}`)
+                  .then((response) => {
+                    window.location.href = 'https://i7e103.p.ssafy.io/rank'
+                  })
+                }
               })
 
               // --- 4) Connect to the session with a valid user token ---
@@ -755,9 +763,12 @@ class Game extends Component {
     axios1.post(`/game/common/quit?gameConferenceRoomUid=${this.state.roomUid}&userId=${loginInfo.id}`)
     .then((response) => {
       if (this.state.isHost) {
-        mySession.signal({
-          to: [],
-          type: 'room-over',
+        axios1.delete(`/room?uid=${this.state.roomUid}`)
+        .then(() => {
+          mySession.signal({
+            to: [],
+            type: 'room-over',
+          })
         })
       }
       window.location.href = 'https://i7e103.p.ssafy.io/rank'
