@@ -568,11 +568,13 @@ class Game extends Component {
           )}`,
         },
         success: (response) => {
+          console.log(response)
           let content = response.content;
           content.sort((a, b) => a.createdAt - b.createdAt);
+          console.log(content[0].clientData)
           resolve(content[0].clientData);
         },
-        error: (error) => reject(error),
+        error: (error) => console.log(error),
       });
     });
   }
