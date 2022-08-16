@@ -88,17 +88,17 @@ class Game extends Component {
 
       // 방URL정보로 방의 정보 가져오기
       axios1.get(`/room/url?url=${this.state.mySessionId}`).then((response) => {
-        console.log(response)
+        
+        // 플레이어 입장
+        axios1.post(`/game/common/join?gameConferenceRoomUid=${response.data.uid}&userId=${loginInfo.id}`).then((response) => {
+          console.log(response)
+        }).catch((err) => {
+          console.log(err)
+        })
+        
         this.setState({
           roomUid: response.data.uid,
         })
-      }).catch((err) => {
-        console.log(err)
-      })
-
-      // 플레이어 입장
-      axios1.post(`/game/common/join?gameConferenceRoomUid=${this.state.roomUid}&userId=${loginInfo.id}`).then((response) => {
-        console.log(response)
       }).catch((err) => {
         console.log(err)
       })
