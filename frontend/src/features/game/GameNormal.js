@@ -348,8 +348,8 @@ class Game extends Component {
               })
 
               mySession.on('signal:winner', (event)=> {
-                alert(`승자는 ${event.data}님 입니다.`)
-                window.location.href = 'https://i7e103.p.ssafy.io/'
+                alert(`승자는 ${event.data}님 입니다. 대기방으로 이동합니다.`)
+                window.location.href = 'https://i7e103.p.ssafy.io/rank'
               })
 
 
@@ -803,13 +803,13 @@ class Game extends Component {
                 <p className="subjectTopic">남녀사이엔 친구가 존재하는가.</p>
               </div>
               { this.state.servant ==='가'? (
-                <div className='subjectcontent'  onClick={() => this.choiceA()}>
+                <div className='subjectcontent'  onClick={() => this.choiceB()}>
                  <div className="subjectdetailnotb">
                    <img className='subjecta' alt='RedSubject' src={red}/>
                    <p className="subjectLeft">아니다. 남녀사이엔 친구가 왠 말이냐.</p>
                  </div>
                 </div>
-              ) : <div className='subjectcontent'  onClick={() => this.choiceA()}>
+              ) : <div className='subjectcontent'  onClick={() => this.choiceB()}>
                 <div className="subjectdetailb">
                   <img className='subjecta' alt='RedSubject' src={red}/>
                   <p className="subjectLeft">아니다. 남녀사이엔 친구가 왠 말이냐.</p>
