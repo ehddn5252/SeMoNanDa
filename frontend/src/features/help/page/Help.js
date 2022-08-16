@@ -17,7 +17,7 @@ import img3 from "../../../assets/images/help_test_img.jpg";
 
 //이미지 파일
 import light_base from "../../../assets/images/light_base.png";
-import help_form_img from "../../../assets/images/help_form_img.png";
+import help_form_img from "../../../assets/images/두루마기.png";
 import login_img from "../../../assets/images/login_img.png";
 
 //메인페이지 배경화면 Container
@@ -72,20 +72,13 @@ const StyledLink = styled(Link)`
 `;
 
 //yu
-const yu = {
-  display: "flex",
-  backgroundColor: "gray",
-  border: "1px solid black",
-  width: "80%",
-  height: "40%",
-  margin: "0 auto",
-};
 
 const Container1 = styled.div`
   width: 40%;
   margin: auto;
   height: 130%;
   overflow: hidden; // 선을 넘어간 이미지들은 숨겨줍니다.
+  font-family: JsaHON;
 `;
 const Button1 = styled.div`
   all: unset;
@@ -124,33 +117,6 @@ const Center = styled.div`
 
 const TOTAL_SLIDES = 2; // 전체 슬라이드 개수 (총3개. 배열로 계산)
 
-/////////////////////여기서
-const buttonOnclickStyle = styled.div`
-  width: 17%;
-  height: 50px;
-  border: 1.5px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
-  cursor: pointer;
-
-  background-color: #e5c17b;
-`;
-
-const buttonStyle = styled.div`
-  width: 17%;
-  height: 50px;
-  border: 1.5px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  cursor: pointer;
-`;
-
-////////////////////////여기까지
-
 export default function Help() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
@@ -180,58 +146,55 @@ export default function Help() {
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 에니메이션을 만듭니다.
   }, [currentSlide]);
 
-  ////////////////
   const showBtnSlide = (idx) => {
     setCurrentSlide(idx);
   };
-  /////////////////////////
+
   return (
     <Container>
       <NavBar />
       <Container1>
-          <Link to="/help/custom"><h6>Custom</h6></Link> 
-        <div>
+        <div
+          style={{ display: "flex", flexFlow: "row", justifyContent: "left" }}
+        >
           <div
             style={{
               color: currentSlide === 0 ? "white" : "black",
               backgroundColor: currentSlide === 0 ? "black" : "white",
-              cursor: "pointer"
-              
+              cursor: "pointer",
             }}
             onClick={() => {
               showBtnSlide(0);
             }}
           >
-            1번
+            왕의 권한 &nbsp;
           </div>
           <div
             style={{
               color: currentSlide === 1 ? "white" : "black",
               backgroundColor: currentSlide === 1 ? "black" : "white",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             onClick={() => {
               showBtnSlide(1);
             }}
           >
-            2번
+            2번&nbsp;
           </div>
           <div
             style={{
               color: currentSlide === 2 ? "white" : "black",
               backgroundColor: currentSlide === 2 ? "black" : "white",
-              cursor: "pointer"
+              cursor: "pointer",
             }}
             onClick={() => {
               showBtnSlide(2);
             }}
           >
-            3번
+            3번&nbsp;
           </div>
         </div>
-        {/* <Text>
-          <p>{currentSlide + 1}번 째 사진</p>
-        </Text> */}
+
         <SliderContainer ref={slideRef}>
           <Slide img={img1} />
           <Slide img={img2} />
