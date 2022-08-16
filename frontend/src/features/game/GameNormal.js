@@ -88,14 +88,18 @@ class Game extends Component {
 
       // 방URL정보로 방의 정보 가져오기
       axios1.get(`/room/url?url=${this.state.mySessionId}`).then((response) => {
-        
+        console.log('방정보')
+        console.log(response)
         // 플레이어 입장
         axios1.post(`/game/common/join?gameConferenceRoomUid=${response.data.uid}&userId=${loginInfo.id}`).then((response) => {
           console.log(response)
         }).catch((err) => {
           console.log(err)
         })
-        
+
+        if ( loginInfo.uid === response.data.room_admin_uid ) {
+          console.log('hi')
+        }
         this.setState({
           roomUid: response.data.uid,
         })
@@ -215,17 +219,6 @@ class Game extends Component {
 
               // On every Stream destroyed...
               mySession.on('streamDestroyed', (event) => {
-                this.updateHost().then((clientData) => {
-                  const host = JSON.parse(clientData).clientData;
-                  console.log('호스트' + host)
-                  mySession.signal({
-                    data: host,
-                    to: [],
-                    type: 'update-host',
-                  })
-                  .then(() => {})
-                  .cat((error) => {});
-                });
                 // Remove the stream from 'subscribers' array
                 this.deleteSubscriber(event.stream.streamManager);
               });
@@ -370,14 +363,6 @@ class Game extends Component {
                       .then(async () => {
                           var devices = await this.OV.getDevices();
                           var videoDevices = devices.filter(device => device.kind === 'videoinput');
-                          this.updateHost().then((firstUser) => {
-                            const host = JSON.parse(firstUser).clientData;
-            
-                            if (this.state.myUserName === host)
-                              this.setState({ 
-                              isHost: true,
-                              isReady: true});
-                          });
                           // --- 5) Get your own camera stream ---
                       
                           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
@@ -552,30 +537,6 @@ class Game extends Component {
     }
     this.setState({
       isReady: !this.state.isReady,
-    });
-  }
-
-  updateHost() {
-    return new Promise((resolve, reject) => {
-      $.ajax({
-        type: 'GET',
-        // https://i7e103.p.ssafy.io:8082
-        url: `https://i7e103.p.ssafy.io:8082/openvidu/api/sessions/${this.state.mySessionId}/connection`,
-        
-        headers: {
-          Authorization: `Basic ${btoa(
-            `OPENVIDUAPP:${OPENVIDU_SERVER_SECRET}`
-          )}`,
-        },
-        success: (response) => {
-          console.log(response)
-          let content = response.content;
-          content.sort((a, b) => a.createdAt - b.createdAt);
-          console.log(content[0].clientData)
-          resolve(content[0].clientData);
-        },
-        error: (error) => console.log(error),
-      });
     });
   }
 
@@ -902,7 +863,7 @@ class Game extends Component {
             ):(this.state.isReady === false ?
               <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
               :<img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)}
-            <img className="icon" alt="exit" src={exit} onClick={() => this.updateHost()}/>
+            <img className="icon" alt="exit" src={exit}/>
           </div>
         </div>
       </div>

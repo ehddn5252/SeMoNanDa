@@ -104,6 +104,7 @@ function Login() {
                 name: response_user.name,
                 phonenumber: response_user.phonenumber,
                 description: response_user.description,
+                uid: response_user.uid,
               }
               window.location.reload();
               window.localStorage.setItem('login_user',JSON.stringify(login_user));
