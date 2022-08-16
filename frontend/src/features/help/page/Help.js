@@ -153,9 +153,10 @@ export default function Help() {
   return (
     <Container>
       <NavBar />
+      <Form style={{width: "50%", textalign:"center",padding:"0.5em", backgroundImage:`url(${help_form_img})`, backgroundSize:"cover", margin: "0 auto", position:"relative"}}>
       <Container1>
         <div
-          style={{ display: "flex", flexFlow: "row", justifyContent: "left" }}
+          style={{ display: "flex", flexFlow: "row", justifyContent: "left"}}
         >
           <div
             style={{
@@ -205,6 +206,7 @@ export default function Help() {
           <Button1 onClick={NextSlide}>다음</Button1>
         </Center>
       </Container1>
+      </Form>
     </Container>
   );
 }
