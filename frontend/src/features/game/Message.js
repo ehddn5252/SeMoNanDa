@@ -11,14 +11,14 @@ const Username = styled.p`
 `;
 
 const MessageContainer = styled.div`
-  width: 100px;
+  width: 90%;
   margin-right: 0%;
 `;
 
 const Text = styled.p`
   font-size: 1.5rem;
   margin-left: 0.5em;
-  width: 100%;
+  width: fit-content;
   padding-left: 5px;
   padding-right: 5px;
   background-color: white;
