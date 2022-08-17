@@ -418,10 +418,8 @@ class Game extends Component {
                     console.log(result)
                     console.log(result.data)
                     if(result.data.muted){
-                      console.log("꺼짐")
                       publisher.publishAudio(false)
                     }else{
-                      console.log("켜짐")
                       publisher.publishAudio(true)
                     }
                     if(result.data.camOff){
