@@ -232,7 +232,7 @@
   font-size:30px;
   display: flex;
   align-items: center;
-  padding: 1em;
+  padding-left: 1em;
 }
 
 .timerDiv > p {
