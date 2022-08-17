@@ -919,12 +919,10 @@ class Game extends Component {
             <div className="infobox">
               <div className="servantdiv">
                 <div className='coindiv'>
-                <p>금화 갯수 : </p>
-                <div>{this.state.coin}개</div>
+                <p>금화 갯수 : {this.state.coin}개</p>
                 </div>
                 <div className='countdiv'>
-                <p>왕이 된 횟수 : </p> 
-                <div> {this.state.kingCount}회</div>
+                <p>왕이 된 횟수 : {this.state.kingCount}회</p> 
                 </div>
               </div>
             </div>

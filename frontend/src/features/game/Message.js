@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const Username = styled.p`
   color: #42387a;
-  font-size: 2em;
+  font-size: 2vw;
   font-weight: 600;
   margin-left: 0.5em;
   width: 100%;
@@ -16,7 +16,7 @@ const MessageContainer = styled.div`
 `;
 
 const Text = styled.p`
-  font-size: 1.5rem;
+  font-size: 1.5vw;
   margin-left: 0.5em;
   width: fit-content;
   padding-left: 5px;

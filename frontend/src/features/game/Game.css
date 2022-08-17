@@ -89,12 +89,12 @@
 }
 
 .subject {
-  font-size: 70px;
+  font-size: 3.5vw;
   margin: 0;
 }
 
 .subjectTopic{
-  font-size: 40px;
+  font-size: 2.0vw;
   margin-bottom: 0;
 }
 
@@ -211,7 +211,7 @@
 
 .coindiv > p {
   margin: 0 1em 0 0;
-  font-size: 30px;
+  font-size: 1.5vw;
 }
 
 .countdiv {
@@ -223,7 +223,7 @@
 
 .countdiv > p {
   margin: 0 1em 0 0;
-  font-size: 30px;
+  font-size: 1.5vw;
 }
 
 .timerDiv {
@@ -236,7 +236,7 @@
 
 .timerDiv > p {
   margin: 0 1em 0 0;
-  font-size: 30px;
+  font-size: 1.5vw;
 }
 
 .servantinfo {
@@ -361,6 +361,7 @@
   position: relative;
   width: 20%;
   margin-left: 1em;
+  font-size:1.0vw;
 }
 
 .chat_send:hover{
@@ -382,8 +383,8 @@
 
 .ready-icon {
   margin: auto;
-  width: 100px;
-  height: 100px;
+  width: 7vw;
+  height: 7vw;
 }
 
 .ready-icon:hover{
@@ -393,8 +394,8 @@
 
 .icon {
   margin: auto;
-  width: 100px;
-  height: 100px;
+  width: 7vw;
+  height: 7vw;
 }
 
 .icon:hover{
