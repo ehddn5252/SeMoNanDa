@@ -823,30 +823,30 @@ class Game extends Component {
                 <div className='subjectcontent'  onClick={() => this.choiceA()}>
                  <div className="subjectdetailnota">
                    <img className='subjecta' alt='RedSubject' src={blue}/>
-                   <p className="subjectRight">그렇다. 남녀사이엔 친구가 존재 한다.</p>
+                   <p className="subjectRight"></p>
                  </div>
                 </div>
               ) : <div className='subjectcontent'  onClick={() => this.choiceA()}>
                 <div className="subjectdetaila">
                   <img className='subjecta' alt='RedSubject' src={blue}/>
-                  <p className="subjectRight">그렇다. 남녀사이엔 친구가 존재 한다.</p>
+                  <p className="subjectRight"></p>
                 </div>
               </div>}
               <div className="titlecontent">
                 <p className="subject">안건</p>
-                <p className="subjectTopic">남녀사이엔 친구가 존재하는가.</p>
+                <p className="subjectTopic"></p>
               </div>
               { this.state.servant ==='가'? (
                 <div className='subjectcontent'  onClick={() => this.choiceB()}>
                  <div className="subjectdetailnotb">
                    <img className='subjecta' alt='RedSubject' src={red}/>
-                   <p className="subjectLeft">아니다. 남녀사이엔 친구가 왠 말이냐.</p>
+                   <p className="subjectLeft"></p>
                  </div>
                 </div>
               ) : <div className='subjectcontent'  onClick={() => this.choiceB()}>
                 <div className="subjectdetailb">
                   <img className='subjecta' alt='RedSubject' src={red}/>
-                  <p className="subjectLeft">아니다. 남녀사이엔 친구가 왠 말이냐.</p>
+                  <p className="subjectLeft"></p>
                 </div>
               </div>}
             </div>
@@ -862,7 +862,7 @@ class Game extends Component {
             <div className="infobox">
               <div className="servantdiv">
                 <div className='coindiv'>
-                <p>코인 : </p>
+                <p>금화 갯수 : </p>
                 <div>{this.state.coin}개</div>
                 </div>
                 <div className='countdiv'>
