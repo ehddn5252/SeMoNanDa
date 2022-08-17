@@ -693,18 +693,20 @@ class Game extends Component {
           console.log(response.data)
           const mySession = this.state.session
           if ( response.data.userId === null) {
-            const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
-            mySession.signal({
-              data: topicData,
-              to: [],
-              type: 'topic-choice',
-            }).then(() =>  {
-              const mySession = this.state.session
+            setTimeout(() => {
+              const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
               mySession.signal({
+                data: topicData,
                 to: [],
-                type: 'check-yourposition'
+                type: 'topic-choice',
+              }).then(() =>  {
+                const mySession = this.state.session
+                mySession.signal({
+                  to: [],
+                  type: 'check-yourposition'
+                })
               })
-            })
+            }, 5000)
           } else {
             axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.roomUid}&userId=${response.data.userId}`).then(() => {
               mySession.signal({
@@ -739,18 +741,20 @@ class Game extends Component {
           console.log(response.data)
           const mySession = this.state.session
           if ( response.data.userId === null) {
-            const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
-            mySession.signal({
-              data: topicData,
-              to: [],
-              type: 'topic-choice',
-            }).then(() =>  {
-              const mySession = this.state.session
+            setTimeout(() => {
+              const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
               mySession.signal({
+                data: topicData,
                 to: [],
-                type: 'check-yourposition'
+                type: 'topic-choice',
+              }).then(() =>  {
+                const mySession = this.state.session
+                mySession.signal({
+                  to: [],
+                  type: 'check-yourposition'
+                })
               })
-            })
+            }, 5000)
           } else {
             axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.roomUid}&userId=${response.data.userId}`).then(() => {
               mySession.signal({
