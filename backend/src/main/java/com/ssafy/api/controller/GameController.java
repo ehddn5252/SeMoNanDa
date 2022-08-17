@@ -259,5 +259,18 @@ public class GameController {
 		gameService.quit(userId, gameConferenceRoomUid);
 		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
 	}
-	
+	@PostMapping("/common/delete")
+	@ApiOperation(value = "방 나가기", notes = "컨퍼런스 룸의 UID를 통해 방과 방에 있는 플레이어 정보를 삭제한다.") 
+    @ApiResponses({
+        @ApiResponse(code = 200, message = "성공"),
+        @ApiResponse(code = 401, message = "인증 실패"),
+        @ApiResponse(code = 404, message = "사용자 없음"),
+        @ApiResponse(code = 500, message = "서버 오류")
+    })
+	public ResponseEntity<? extends BaseResponseBody> delete(
+			@RequestParam("gameConferenceRoomUid") @ApiParam(value="게임 컨퍼런스룸 Uid 정보", required = true) int gameConferenceRoomUid) {
+
+		gameService.delete(gameConferenceRoomUid);
+		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success"));
+	}
 }

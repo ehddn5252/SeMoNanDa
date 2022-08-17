@@ -21,4 +21,5 @@ public interface GameService {
 	void join(String userId, int gameConferenceRoomUid);
 	void quit(String userId, int gameConferenceRoomUid);
 	void timeOutEnd(int gameConferenceRoomUid);
+	void delete(int gameConferenceRoomUid);
 }
