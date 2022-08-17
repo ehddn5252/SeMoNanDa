@@ -2,7 +2,9 @@ import React, { useState, useEffect, useMemo } from "react";
 import ReactDOM from "react-dom";
 import UserPagination from "./UserPagination";
 import { Button, Form, FormGroup, FormLabel } from "react-bootstrap";
-import axios1 from '../../../common/api/http-common';
+import axios1 from "../../../common/api/http-common";
+import {category} from './SSlice';
+import { useDispatch } from 'react-redux';
 
 import styled from "styled-components";
 
@@ -49,6 +51,8 @@ function Collapse() {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
+  const dispatch = useDispatch();
+
   //서버로 전달할 categoryUid 객체
   const [uid, setUid] = useState({
     categoryUid: "",
@@ -62,49 +66,51 @@ function Collapse() {
       categoryUid: value,
     });
     console.log("여기", value);
+
+    dispatch(category(value))
+    .then((response) => {
+        console.log("category_response",response)
+        if(response.payload.status === 200){
+          console.log("ㅋㅋ",response)
+        }else{
+       
+           console.log("안됩니다")
+        }
+        
+      })
+  
   };
 
-console.log("uid",uid); //-> 
 
-let uuid = parseInt(uid.categoryUid);
 
-    // useEffect(() => {
-    //     console.log("zz",uid.categoryUid);
-    //   fetch(`https://i7e103.p.ssafy.io/api/statis/subject/category?categoryUID=${uuid}}`, {
-    //     method: "POST",
-    //     })
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //       setTopic(res);
-    //     });
-    // }, []);
+  useEffect(() => {
+    //console.log("zz", uid.categoryUid);
+    fetch(`https://i7e103.p.ssafy.io/api/statis/subject`, {
+      method: "POST",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        setTopic(res);
+      });
+  }, []);
 
-    useEffect(() => {
-        console.log("zz",uid.categoryUid);
-      fetch(`https://i7e103.p.ssafy.io/api/statis/subject`, {
-        method: "POST",
-        })
-        .then((res) => res.json())
-        .then((res) => {
-          setTopic(res);
-        });
-    }, []);
+  // 전달된 메시지를 필터링하여 방 목록을 보여줌
+  const filterTopic = topics.filter((topic) => {        
+    return topic.categoryUid;
+  });
 
-    	// 전달된 메시지를 필터링하여 방 목록을 보여줌
-	const filterTopic = topics.filter((topic) => {
-        return topic.categoryUid;
-        });
+  //console.log("filterTopic", filterTopic );
 
-    // useMemo(() => {
-    //     console.log("zz",uid.categoryUid);
-    //   fetch(`https://i7e103.p.ssafy.io/api/statis/subject/category?categoryUID=3`, {
-    //     method: "POST",
-    //     })
-    //     .then((res) => res.json())
-    //     .then((res) => {
-    //       setTopic(res);
-    //     });
-    // }, []);
+  // useMemo(() => {
+  //     console.log("zz",uid.categoryUid);
+  //   fetch(`https://i7e103.p.ssafy.io/api/statis/subject/category?categoryUID=3`, {
+  //     method: "POST",
+  //     })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setTopic(res);
+  //     });
+  // }, []);
 
   return (
     <Accordion allowZeroExpanded style={{ fontFamily: "JsaHON" }}>
@@ -136,50 +142,50 @@ let uuid = parseInt(uid.categoryUid);
       {topics
         .slice(offset, offset + limit)
         .map(
-          ({ categoryUid, topic, answerA, answerB, teamAWinCount, teamBWinCount }, idx) => (
-           <div>
+          (
             {
-                categoryUid == uid.categoryUid
-                ?  <AccordionItem
-                style={{
-                  backgroundImage: `url(${Statistics_form_img})`,
-                  width: "60%",
-                  margin: "0px 20%",
-                }}
-              >
-                <AccordionItemHeading>
-                  <AccordionItemButton>
-                    {topic} {answerA} vs {answerB}
-                  </AccordionItemButton>
-                </AccordionItemHeading>
-                <AccordionItemPanel>
-                  {" "}
-                  Awin : {teamAWinCount} , 확률 :
-                  {teamAWinCount === 0
-                    ? 0 + "%"
-                    : (teamAWinCount / (teamAWinCount + teamBWinCount)).toFixed(
-                        3
-                      ) *
-                        100 +
-                      "%"}
-                  <br />
-                  Bwin : {teamBWinCount}, 확률 :
-                  {teamBWinCount === 0
-                    ? 0 + "%"
-                    : (teamBWinCount / (teamAWinCount + teamBWinCount)).toFixed(
-                        3
-                      ) *
-                        100 +
-                      "%"}
-                </AccordionItemPanel>
-              </AccordionItem>
-                : ( teamAWinCount === 0
-                    ? 100 + '%'
-                    : teamAWinCount / (teamAWinCount + teamAWinCount) * 100 + '%'
-                )
-              }
-              </div>
-           
+              categoryUid,
+              topic,
+              answerA,
+              answerB,
+              teamAWinCount,
+              teamBWinCount,
+            },
+            idx
+          ) => (
+            <AccordionItem
+              style={{
+                backgroundImage: `url(${Statistics_form_img})`,
+                width: "60%",
+                margin: "0px 20%",
+              }}
+            >
+              <AccordionItemHeading>
+                <AccordionItemButton>
+                  {topic} {answerA} vs {answerB}
+                </AccordionItemButton>
+              </AccordionItemHeading>
+              <AccordionItemPanel>
+                {" "}
+                Awin : {teamAWinCount} , 확률 :
+                {teamAWinCount === 0
+                  ? 0 + "%"
+                  : (teamAWinCount / (teamAWinCount + teamBWinCount)).toFixed(
+                      3
+                    ) *
+                      100 +
+                    "%"}
+                <br />
+                Bwin : {teamBWinCount}, 확률 :
+                {teamBWinCount === 0
+                  ? 0 + "%"
+                  : (teamBWinCount / (teamAWinCount + teamBWinCount)).toFixed(
+                      3
+                    ) *
+                      100 +
+                    "%"}
+              </AccordionItemPanel>
+            </AccordionItem>
           )
         )}
       <div>

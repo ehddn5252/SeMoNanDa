@@ -100,34 +100,34 @@ function Statistics() {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
-  useEffect(() => {
-    fetch("https://i7e103.p.ssafy.io/api/statis/subject", {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setTopic(res);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://i7e103.p.ssafy.io/api/statis/subject", {
+  //     method: "POST",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setTopic(res);
+  //     });
+  // }, []);
 
   // for (let index = 0; index < topics.length; index++) {
   //   console.log(topics[index]);
   // }
 
   //서버로 전달할 categoryUid 객체
-  const [uid, setUid] = useState({
-    categoryUid: "",
-  });
+  // const [uid, setUid] = useState({
+  //   categoryUid: "",
+  // });
 
-  //categoryUid
-  const onSelectUid = (e) => {
-    const value = e.target.value;
-    setUid({
-      ...uid,
-      categoryUid: value,
-    });
-    console.log(value);
-  };
+  // //categoryUid
+  // const onSelectUid = (e) => {
+  //   const value = e.target.value;
+  //   setUid({
+  //     ...uid,
+  //     categoryUid: value,
+  //   });
+  //   console.log(value);
+  // };
 
   return (
     <Container>
