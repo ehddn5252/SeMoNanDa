@@ -839,10 +839,11 @@ class Game extends Component {
           mySession.signal({
             to: [],
             type: 'room-over',
-          })
+          }).then(() => window.location.href = 'https://i7e103.p.ssafy.io/rank')
         })
+      } else {
+        window.location.href = 'https://i7e103.p.ssafy.io/rank'
       }
-      window.location.href = 'https://i7e103.p.ssafy.io/rank'
     })
   }
 
