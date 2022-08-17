@@ -114,122 +114,28 @@ function Statistics() {
   //   console.log(topics[index]);
   // }
 
-  // //서버로 전달할 categoryUid 객체
-  // const [uid, setUid] = useState({
-  //   categoryUid: "",
-  // });
+  //서버로 전달할 categoryUid 객체
+  const [uid, setUid] = useState({
+    categoryUid: "",
+  });
 
-  // //categoryUid
-  // const onSelectUid = (e) => {
-  //   const value = e.target.value;
-  //   setUid({
-  //     ...uid,
-  //     categoryUid: value,
-  //   });
-  //   console.log(value);
-  // };
+  //categoryUid
+  const onSelectUid = (e) => {
+    const value = e.target.value;
+    setUid({
+      ...uid,
+      categoryUid: value,
+    });
+    console.log(value);
+  };
 
   return (
     <Container>
       <NavBar />
-      <div>
-        <HeaderContainer>
-          <h3>종합 순위</h3>
-          <div>
-            {/* 드롭박스 */}
-            {/* <Form.Select
-              style={{
-                width: "80%",
-                marginLeft: "10%",
-                backgroundColor: "dcdcdc",
-                fontSize: "1.2rem",
-              }}
-              aria-label="Default select example"
-              onClick={onSelectUid}
-            >
-              <option value="11">카테고리를 선택해주세요.</option>
-              <option value="2">일상생활</option>
-              <option value="3">음식</option>
-              <option value="4">개발자</option>
-              <option value="5">MBTI</option>
-              <option value="6">연애</option>
-              <option value="7">극과극</option>
-              <option value="8">교육</option>
-            </Form.Select> */}
-          </div>
-        </HeaderContainer>
-      </div>
-
-      <Table
-        striped
-        bordered
-        hover
-        style={{
-          width: "60%",
-          background: "white",
-          fontFamily: "JsaHON",
-          margin: "0 auto",
-        }}
-      >
-        <thead>
-          <tr>
-            <th>토픽</th>
-            <th>answerA</th>
-            <th>answerB</th>
-            {/* <th>teamAWinCount</th>
-            <th>teamBWinCount</th> */}
-            <th>버튼</th>
-          </tr>
-        </thead>
-        {topics
-          .slice(offset, offset + limit)
-          .map(
-            (
-              { topic, answerA, answerB, teamAWinCount, teamBWinCount },
-              idx
-            ) => (
-              <tbody>
-                <tr>
-                  <td>{topic}</td>
-                  <td>{answerA}</td>
-                  <td>{answerB}</td>
-                  <td>zzz</td>
-
-                  {/* <td>{teamAWinCount}</td>
-                  <td>{teamBWinCount}</td> */}
-                </tr>{" "}
-                <tr>
-                  <td> </td>
-                  <td>
-                    Awin : {teamAWinCount} , 확률 :
-                    {(teamAWinCount / (teamAWinCount + teamBWinCount)).toFixed(
-                      2
-                    ) *
-                      100 +
-                      "%"}
-                  </td>
-                  <td>
-                    Bwin : {teamBWinCount}, 확률 :
-                    {(teamBWinCount / (teamAWinCount + teamBWinCount)).toFixed(
-                      2
-                    ) *
-                      100 +
-                      "%"}
-                  </td>
-                  <td> </td>
-                </tr>
-              </tbody>
-            )
-          )}
-      </Table>
-      <div>
-        <UserPagination
-          total={topics.length}
-          limit={limit}
-          page={page}
-          setPage={setPage}
-        />
-      </div>
+        <div>
+          <Collapse />
+        </div>
+   
     </Container>
   );
 }

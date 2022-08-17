@@ -39,6 +39,7 @@ const Button = styled.button`
 `;
 
 
+
 function UserPagination({ total, limit, page, setPage }) {
   const numPages = Math.ceil(total / limit);
 
