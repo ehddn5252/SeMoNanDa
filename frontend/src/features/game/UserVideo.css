@@ -27,22 +27,26 @@ video {
 
 .micdiv {
     position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 10%;
+    height: 10%;
 }
 
 .mic{
-    width:5%;
+    width:100%;
 }
 
 .cameradiv{
     position: absolute;
     bottom: 0;
-    right: 0;
+    left: 0;
+    width: 10%;
+    height: 10%;
 }
 
 .camera{
-    width:5%;
-    bottom: 0;
-    right: 5%;
+    width:100%;
 }
 
 .streamdiv {
