@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import OpenViduVideoComponent from './OvVideo';
 import crown from '../../assets/images/crown.png'
 import './UserVideo.css';
+import replacemnet from '../../assets/images/screen_replacement.png'
 
 
 export default class UserVideoComponent extends Component {
@@ -13,7 +14,7 @@ export default class UserVideoComponent extends Component {
 
     render() {
         return (
-            <div>
+            <div className='streamdiv'>
                 {this.props.streamManager !== undefined ? (
                      this.getNicknameTag() === this.props.king ? (
                         <div className="kingstreamcomponent">
@@ -24,7 +25,9 @@ export default class UserVideoComponent extends Component {
                 : <div className="streamcomponent">
                     <OpenViduVideoComponent streamManager={this.props.streamManager} />
                 </div>
-                ) : <div className="box"></div>}
+                ) : <div className="box">
+                        <img className="replacement" src={replacemnet} alt='screen'></img>
+                    </div>}
             </div>
         );
     }

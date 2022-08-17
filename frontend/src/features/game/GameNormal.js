@@ -20,6 +20,7 @@ import React, { Component, createRef } from 'react';
 import { useParams } from 'react-router-dom';
 import $ from 'jquery'; 
 import { connect } from 'react-redux'
+import Swal from 'sweetalert2'
 
 const OPENVIDU_SERVER_URL = 'https://i7e103.p.ssafy.io:8082';
 const OPENVIDU_SERVER_SECRET = 'SMND';
@@ -267,7 +268,10 @@ class Game extends Component {
                 suba.innerText = '가. ' + topics[1]
                 subb.innerText = '나. ' + topics[2]
                 this.timeSet()
-                alert('주제가 공개되었습니다.')
+                Swal.fire({
+                  title:'주제가 공개되었습니다.',
+                  confirmButtonText:'확인',
+                })
               })
 
               // 플레이어 정보 갱신 
@@ -282,7 +286,10 @@ class Game extends Component {
                     kingCount: response.data.kingCount,
                   })
                   if (response.data.roleUid === 1) {
-                    alert('당신은 왕 입니다.')
+                    Swal.fire({
+                      title:'당신은 왕 입니다.',
+                      confirmButtonText:'확인',
+                    })
                     this.setState({
                       isKing: true,
                       servant: undefined,
@@ -296,14 +303,20 @@ class Game extends Component {
                     })
                   } else {
                     if (response.data.team === "A") {
-                      alert('당신은 가. 입니다.')
+                      Swal.fire({
+                        title:'당신은 가. 입니다.',
+                        confirmButtonText:'확인',
+                      })
                       this.setState({
                         isKing: false,
                         servant: '가',
                         timeOut:true,
                       })
                     } else{
-                      alert('당신은 나. 입니다.')
+                      Swal.fire({
+                        title:'당신은 나. 입니다.',
+                        confirmButtonText:'확인',
+                      })
                       this.setState({
                         isKing: false,
                         servant: '나',
@@ -323,7 +336,10 @@ class Game extends Component {
               })
 
               mySession.on('signal:choice-a', ()=> {
-                alert('왕이 가. 를 선택하였습니다.')
+                Swal.fire({
+                  title:'왕이 가. 를 선택하였습니다.',
+                  confirmButtonText:'확인',
+                })
                 this.setState({
                   isKing: false,
                   servant: undefined,
@@ -332,7 +348,10 @@ class Game extends Component {
               })
 
               mySession.on('signal:choice-b', ()=> {
-                alert('왕이 나. 를 선택하였습니다.')
+                Swal.fire({
+                  title:'왕이 나. 를 선택하였습니다.',
+                  confirmButtonText:'확인',
+                })
                 this.setState({
                   isKing:false,
                   servant: undefined,
@@ -341,7 +360,10 @@ class Game extends Component {
               })
 
               mySession.on('signal:time-out', (event) =>{
-                alert('왕이 시간 내 선택을 하지 못하였습니다. 왕을제외한 모든 플레이어가 코인을 하나씩 받습니다.')
+                Swal.fire({
+                  title:'왕이 시간 내 선택을 하지 못하였습니다. 왕을제외한 모든 플레이어가 코인을 하나씩 받습니다.',
+                  confirmButtonText:'확인',
+                })
                 this.setState({
                   isKing: false,
                   servant: undefined,
@@ -349,18 +371,28 @@ class Game extends Component {
               })
 
               mySession.on('signal:winner', (event)=> {
-                alert(`승자는 ${event.data}님 입니다. 대기방으로 이동합니다.`)
-                window.location.href = 'https://i7e103.p.ssafy.io/rank'
+                Swal.fire({
+                  title:`승자는 ${event.data}님 입니다. 확인 버튼을 누르면 방 목록으로 돌아갑니다.`,
+                  confirmButtonText:'확인',
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = 'https://i7e103.p.ssafy.io/rank'
+                  }
+                })
               })
 
               mySession.on('signal:room-over', () =>{
                 if(this.state.isHost === false) {
                   let loginInfoString = window.localStorage.getItem("login_user");
                   let loginInfo = JSON.parse(loginInfoString)
-                  alert('방장이 방을 나가 대기실로 이동합니다.')
                   axios1.post(`/game/common/quit?gameConferenceRoomUid=${this.state.roomUid}&userId=${loginInfo.id}`)
-                  .then((response) => {
-                    window.location.href = 'https://i7e103.p.ssafy.io/rank'
+                  Swal.fire({
+                    title:'방장이 방을 나가 대기실로 이동합니다.',
+                    confirmButtonText:'확인',
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.href = 'https://i7e103.p.ssafy.io/rank'
+                    }
                   })
                 }
               })
@@ -581,14 +613,29 @@ class Game extends Component {
     let players = this.state.subscribers.length +1
 
     if (players < 3 ) {
-      alert('게임에 필요한 인원이 부족합니다.')
-    } else if (players > 7) {
-      alert('인원 수 가 너무 많습니다.')
+      Swal.fire({
+        title:'게임에 필요한 인원이 부족합니다.',
+        icon: 'error',
+        confirmButtonText:'확인',
+      })
+    } else if (players > 6) {
+      Swal.fire({
+        title:'인원 수 가 너무 많습니다.',
+        icon: 'error',
+        confirmButtonText:'확인',
+      })
     } else {
       if ( this.state.readyPlayer !== players ) {
-        alert('모든 플레이어가 준비되지 않았습니다.')
+        Swal.fire({
+          title:'모든 플레이어가 준비되지 않았습니다.',
+          icon: 'error',
+          confirmButtonText:'확인',
+        })
       } else {
-        alert('게임 시작!!')
+        Swal.fire({
+          title:'게임 시작!!',
+          confirmButtonText:'확인',
+        })
         this.setState ({
           readyState : 'start'
         })
@@ -658,7 +705,11 @@ class Game extends Component {
         })
       })
       } else {
-        alert('왕만 선택할 수 있습니다.')
+        Swal.fire({
+          icon:'error',
+          title:'왕만 선택할 수 있습니다.',
+          confirmButtonText: '확인',
+        })
       }
   }
 
@@ -700,7 +751,11 @@ class Game extends Component {
         })
       })
     } else {
-      alert('왕만 선택할 수 있습니다.')
+      Swal.fire({
+        icon:'error',
+        title:'왕만 선택할 수 있습니다.',
+        confirmButtonText: '확인',
+      })
     }
   }
   
