@@ -92,12 +92,13 @@ class Game extends Component {
       axios1.get(`/room/url?url=${this.state.mySessionId}`).then((response) => {
         console.log('방정보')
         console.log(response)
+        const roomNum = response.data.roomAdminUserUid
         // 플레이어 입장
         axios1.post(`/game/common/join?gameConferenceRoomUid=${response.data.uid}&userId=${loginInfo.id}`).then((response) => {
           console.log('응답은')
           console.log(loginInfo.uid)
-          console.log(response.data.roomAdminUserUid)
-          if ( loginInfo.uid === response.data.roomAdminUserUid ) {
+          console.log(roomNum)
+          if ( loginInfo.uid === roomNum ) {
             console.log('같아용~~')
             axios1.post(`/game/common/ready?userID=${loginInfo.id}`).then((response) => {
               console.log('응답')
