@@ -3,12 +3,13 @@ import {Button, Form, FormGroup, InputGroup} from 'react-bootstrap';
 import NavBar from "../../../common/navbar/NavBar";
 import RankModal from "../custom_modal";
 import '../custom_modal.css'
-import Pagination from "./cusPagination";
+import CusPagination from "./cusPagination";
 import { useDispatch } from 'react-redux';
 import { useNavigate}from 'react-router-dom'
 import { cus_roomcreate } from '../customSlice';
 import CusRoomList from "./cusRoomList";
 import './Custom.css';
+import axios from "axios";
 
 
 function Custom() {
@@ -18,22 +19,18 @@ function Custom() {
 
 
 	// 페이지네이션
-	const [currentPage, setCurrentPage] = useState(1);
-	const [roomsPerPage, setRoomsPerPage] = useState(4);
-
-	const indexOfLast = currentPage * roomsPerPage;
-	const indexOfFirst = indexOfLast - roomsPerPage;
+	const [limit, setLimit] = useState(4);
+	const [page, setPage] = useState(1);
+	const offset = (page - 1) * limit;
 	const currentRooms = (rooms) => {
 		let currentRooms = 0;
-		currentRooms = rooms.slice(indexOfFirst, indexOfLast);
+		currentRooms = rooms.slice(offset, offset+limit);
 		return currentRooms;
 	};
 
-
-	// api 주소
-	// axios1.get('/room/normal/list')
-	// fetch('http://localhost:8080/api/room/normal/list')
-
+	// 배포서버
+	const OPENVIDU_SERVER_URL = 'https://i7e103.p.ssafy.io:8082/';
+	const OPENVIDU_SERVER_SECRET = 'SMND';
 
 	// api(검색창)
 	const [rooms, setRooms] = useState([]);
@@ -119,16 +116,21 @@ function Custom() {
         alert('제목을 입력해주세요');
     } else {
         // userInfo(UserSlice에 있음) => room
+		let conferenceRoomUrl = null
+		let data = null
         dispatch(cus_roomcreate(room))
         .then((response) => {
-            console.log("create_response",response)
+			conferenceRoomUrl = response.payload.data.conferenceRoomUrl
             if(response.payload.status === 200){
                 history("/custom", {replace: true})
-				console.log('된다', room);
+				data = JSON.stringify({ customSessionId: conferenceRoomUrl});
+				axios.post(OPENVIDU_SERVER_URL + 'openvidu/api/sessions', data, {headers: {Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET), 'Content-Type': 'application/json'}})
             }else{
                 history("/custom", {replace:true})
-				console.log('안된다', room);
             }
+		}).then(() => {
+			axios.post(OPENVIDU_SERVER_URL + 'openvidu/api/sessions/' + conferenceRoomUrl + '/connection', data, {headers: {Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET), 'Content-Type': 'application/json'}})
+			history("/game/custom/" + conferenceRoomUrl)
 		})
     }
   }
@@ -159,10 +161,8 @@ function Custom() {
 	const changeHandler = (checked, id) => {
 		if (checked) {
 		setCheckedButtons([...checkedButtons, id]);
-		console.log('체크 반영 완료');
 		} else {
 		setCheckedButtons(checkedButtons.filter(button => button !== id));
-		console.log('체크 해제 반영 완료');
 		}
 	};
 
@@ -183,10 +183,11 @@ function Custom() {
 			{/* 하단 */}
 			<footer>
 				{/* 페이지네이션 */}
-				<Pagination 
-					roomsPerPage={roomsPerPage}
-					totalRooms={rooms.length}
-					paginate={setCurrentPage}
+				<CusPagination 
+					total={rooms.length}
+					limit={limit}
+					page={page}
+					setPage={setPage}
 				/>
 				{/* 검색 및 방생성 */}
 				<div className="bottom">

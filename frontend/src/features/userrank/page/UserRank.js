@@ -81,7 +81,7 @@ const UserRank = () => {
             <th>승률</th>
           </tr>
         </thead>
-
+        
         {users.slice(offset, offset+limit).map(({ nickname, rankpoint, numberOfWins, numberOfLoses}, idx ) => (
         <tbody>
           <tr>

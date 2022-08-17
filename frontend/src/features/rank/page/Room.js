@@ -27,11 +27,11 @@ const Logo = [
 function Room(props) {
     const { title, gameCategoriesUid, adminNickname } = props;
 
+    // 방입장
     const history = useNavigate();
     const enterRoom = () => {
         history('/game/normal/' + props.conferenceRoomUrl)
     }
-
 
     return (
         <div className="gameroom">

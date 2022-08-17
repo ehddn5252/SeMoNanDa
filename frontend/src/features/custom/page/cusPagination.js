@@ -1,61 +1,69 @@
 import React from "react";
 import styled from "styled-components";
-import './Custom.css';
 
-const PageUl = styled.ul`
+const Nav = styled.nav`
   display: flex;
-  text-align: center;
   justify-content: center;
-  border-radius: 3px;
+  align-items: center;
+  gap: 4px;
   margin: 1rem;
+  margin-bottom: 3rem;
 `;
 
-const PageLi = styled.li`
-  display: inline-block;
-  margin: 1rem;
-  font-size: 30px;
-  font-weight: 1000;
-  border-radius: 5px;
-  width: 20px;
+const Button = styled.button`
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 0;
+  background: grey;
+  color: white;
+  font-size: 1rem;
+
   &:hover {
+    background: black;
     cursor: pointer;
-    color: white;
-    background-color: #263a6c;
+    transform: translateY(-2px);
   }
-  &:focus::after {
-    color: white;
-    background-color: #263a6c;
+
+  &[disabled] {
+    background: grey;
+    cursor: revert;
+    transform: revert;
+  }
+
+  &[aria-current] {
+    background: green;
+    font-weight: bold;
+    cursor: revert;
+    transform: revert;
   }
 `;
 
-const PageSpan = styled.span`
-  &:hover::after,
-  &:focus::after {
-    border-radius: 100%;
-    color: white;
-  }
-`;
 
-const C_Pagination = ({ roomsPerPage, totalRooms, paginate }) => {
-  const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(totalRooms / roomsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+function CusPagination({ total, limit, page, setPage }) {
+  const numPages = Math.ceil(total / limit);
+
   return (
-    <div>
-      <nav>
-        <PageUl className="pagination">
-          {pageNumbers.map((number) => (
-            <PageLi key={number} className="page-item">
-              <PageSpan onClick={() => paginate(number)} className="page">
-                {number}
-              </PageSpan>
-            </PageLi>
+    <Nav>
+      <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
+          &lt;
+        </Button>
+        {Array(numPages)
+          .fill()
+          .map((_, i) => (
+            <Button
+              key={i + 1}
+              onClick={() => setPage(i + 1)}
+              aria-current={page === i + 1 ? "page" : null}
+            >
+              {i + 1}
+            </Button>
           ))}
-        </PageUl>
-      </nav>
-    </div>
+        <Button onClick={() => setPage(page + 1)} disabled={page === numPages}>
+          &gt;
+        </Button>
+    </Nav>
   );
 };
 
-export default C_Pagination;
+export default CusPagination;

@@ -416,10 +416,12 @@ class Game extends Component {
               this.getToken().then((token) => {
                   // First param is the token got from OpenVidu Server. Second param can be retrieved by every user on event
                   // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+                  let loginInfoString = window.localStorage.getItem("login_user");
+                  let loginInfo = JSON.parse(loginInfoString)
                   mySession
                       .connect(
                           token,
-                          { clientData: this.state.myUserName },
+                          { clientData: `${loginInfo.id}` },
                       )
                       .then(async () => {
                           var devices = await this.OV.getDevices();
@@ -693,18 +695,20 @@ class Game extends Component {
           console.log(response.data)
           const mySession = this.state.session
           if ( response.data.userId === null) {
-            const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
-            mySession.signal({
-              data: topicData,
-              to: [],
-              type: 'topic-choice',
-            }).then(() =>  {
-              const mySession = this.state.session
+            setTimeout(() => {
+              const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
               mySession.signal({
+                data: topicData,
                 to: [],
-                type: 'check-yourposition'
+                type: 'topic-choice',
+              }).then(() =>  {
+                const mySession = this.state.session
+                mySession.signal({
+                  to: [],
+                  type: 'check-yourposition'
+                })
               })
-            })
+            }, 5000)
           } else {
             axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.roomUid}&userId=${response.data.userId}`).then(() => {
               mySession.signal({
@@ -739,18 +743,20 @@ class Game extends Component {
           console.log(response.data)
           const mySession = this.state.session
           if ( response.data.userId === null) {
-            const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
-            mySession.signal({
-              data: topicData,
-              to: [],
-              type: 'topic-choice',
-            }).then(() =>  {
-              const mySession = this.state.session
+            setTimeout(() => {
+              const topicData = `${response.data.topic}***${response.data.answerA}***${response.data.answerB}`
               mySession.signal({
+                data: topicData,
                 to: [],
-                type: 'check-yourposition'
+                type: 'topic-choice',
+              }).then(() =>  {
+                const mySession = this.state.session
+                mySession.signal({
+                  to: [],
+                  type: 'check-yourposition'
+                })
               })
-            })
+            }, 5000)
           } else {
             axios1.post(`/game/normal/game-end?gameConferenceRoomUid=${this.state.roomUid}&userId=${response.data.userId}`).then(() => {
               mySession.signal({
@@ -865,14 +871,14 @@ class Game extends Component {
 
         <div className='cam'>
           <div className='stream-container'>
-            <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king }></UserVideoComponent>
+            <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king } sessionId = {this.state.mySessionId}></UserVideoComponent>
           </div>
           {sub1.map((sub,i) => (
             <div
             key = {i}
             className="stream-container"
             onClick={() => this.handleMainVideoStream(sub)}>
-              <UserVideoComponent streamManager={ sub } king={ this.state.king }/>
+              <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId}/>
             </div>
           ))}
         </div>
@@ -883,7 +889,7 @@ class Game extends Component {
               key = {i}
               className="stream-container"
               onClick={() => this.handleMainVideoStream(sub)}>
-                <UserVideoComponent streamManager={ sub } king={ this.state.king }/>
+                <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId}/>
               </div>
             ))}
         </div>
