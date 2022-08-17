@@ -63,9 +63,20 @@ const UserRank = () => {
     return (
       <Container id="Container">
         <NavBar />
+          <Form style={{width: "50%", textalign:"center",padding:"0.5em", backgroundImage:`url(${userRank_from_img})`, backgroundSize:"cover", margin: "0 auto", position:"relative", top:"15%"}}>
           <LogoWrapper>
-              <h1>신하 순위 준비중입니다.</h1>
-          </LogoWrapper>
+              <h1>저잣거리</h1>
+              <h1>저잣거리</h1>
+              <h1>저잣거리</h1>
+              <h1>저잣거리</h1>
+              <h1>저잣거리</h1>
+              <h1>저잣거리</h1>
+              <h1>저잣거리</h1>
+              <h1>저잣거리</h1>
+              <h1>저잣거리</h1>
+              <h1>저잣거리</h1>
+              </LogoWrapper>
+          </Form>
         </Container>
         );
       }
