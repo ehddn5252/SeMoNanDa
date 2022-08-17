@@ -416,10 +416,12 @@ class Game extends Component {
               this.getToken().then((token) => {
                   // First param is the token got from OpenVidu Server. Second param can be retrieved by every user on event
                   // 'streamCreated' (property Stream.connection.data), and will be appended to DOM as the user's nickname
+                  let loginInfoString = window.localStorage.getItem("login_user");
+                  let loginInfo = JSON.parse(loginInfoString)
                   mySession
                       .connect(
                           token,
-                          { clientData: this.state.myUserName },
+                          { clientData: `${loginInfo.id}` },
                       )
                       .then(async () => {
                           var devices = await this.OV.getDevices();
@@ -869,14 +871,14 @@ class Game extends Component {
 
         <div className='cam'>
           <div className='stream-container'>
-            <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king }></UserVideoComponent>
+            <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king } sessionId = {this.state.mySessionId}></UserVideoComponent>
           </div>
           {sub1.map((sub,i) => (
             <div
             key = {i}
             className="stream-container"
             onClick={() => this.handleMainVideoStream(sub)}>
-              <UserVideoComponent streamManager={ sub } king={ this.state.king }/>
+              <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId}/>
             </div>
           ))}
         </div>
@@ -887,7 +889,7 @@ class Game extends Component {
               key = {i}
               className="stream-container"
               onClick={() => this.handleMainVideoStream(sub)}>
-                <UserVideoComponent streamManager={ sub } king={ this.state.king }/>
+                <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId}/>
               </div>
             ))}
         </div>
