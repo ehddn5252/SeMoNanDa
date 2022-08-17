@@ -94,8 +94,11 @@ class Game extends Component {
         console.log(response)
         // 플레이어 입장
         axios1.post(`/game/common/join?gameConferenceRoomUid=${response.data.uid}&userId=${loginInfo.id}`).then((response) => {
-          console.log(response)
-          if( loginInfo.uid === response.data.roomAdminUserUid) {
+          console.log('응답은')
+          console.log(loginInfo.uid)
+          console.log(response.data.roomAdminUserUid)
+          if ( loginInfo.uid === response.data.roomAdminUserUid ) {
+            console.log('같아용~~')
             axios1.post(`/game/common/ready?userID=${loginInfo.id}`).then((response) => {
               console.log('응답')
               console.log(response)
