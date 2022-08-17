@@ -7,7 +7,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  background-image: url('../../assets/images/gamebg.png');
+  background-image: url('../../assets/images/background22.png');
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -50,24 +50,12 @@
 
 .box {
   background-color: antiquewhite;
-  background-image: url('../../assets/images/human.png');
   background-size: cover;
   margin: auto;
   /* border: 1px solid; */
-  width: 400px;
-  height: 300px;
+  width: 90%;
+  height: 100%;
   border-radius: 5%;
-}
-
-.kingdiv .box {
-  width: 500px;
-  height: 400px;
-}
-
-.kingdiv {
-  margin-top: 10px;
-  width: 30%;
-  /* border: 1px solid */
 }
 
 .title {
@@ -85,6 +73,7 @@
   width: 10%;
   background-size: 10%;
 }
+
 .titlecontent {
   background-image: url(../../assets/images/subject_form.png);
   background-size: cover;
@@ -100,12 +89,12 @@
 }
 
 .subject {
-  font-size: 50px;
+  font-size: 70px;
   margin: 0;
 }
 
 .subjectTopic{
-  font-size: 70px;
+  font-size: 40px;
   margin-bottom: 0;
 }
 
@@ -413,6 +402,8 @@
 }
 
 .stream-container {
+  width: 33%;
+  height: 95%;
   display: flex;
   justify-content: center;
 }
