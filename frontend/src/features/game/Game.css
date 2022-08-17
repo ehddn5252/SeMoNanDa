@@ -402,6 +402,8 @@
 }
 
 .stream-container {
+  width: 33%;
+  height: 95%;
   display: flex;
   justify-content: center;
 }
