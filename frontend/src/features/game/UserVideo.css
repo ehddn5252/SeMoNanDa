@@ -35,6 +35,7 @@ video {
     width: 10%;
     height: 10%;
     background-color: aliceblue;
+    border-right: 1px solid black;
 }
 
 .mic{
