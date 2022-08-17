@@ -19,15 +19,14 @@ import com.ssafy.db.qentity.QGameCategoryTopic;
  */
 @Repository
 public class GameCategoryRepositorySupport {
-    @Autowired
-    private JPAQueryFactory jpaQueryFactory;
-    QGameCategory qGameCategory = QGameCategory.gameCategory;
-    QGameCategoryTopic qGameCategoryTopic = QGameCategoryTopic.gameCategoryTopic;
+	@Autowired
+	private JPAQueryFactory jpaQueryFactory;
+	QGameCategory qGameCategory = QGameCategory.gameCategory;
+	QGameCategoryTopic qGameCategoryTopic = QGameCategoryTopic.gameCategoryTopic;
 
 	public List<GameCategory> getTopic() {
 		List<GameCategory> res;
-		res = jpaQueryFactory.selectFrom(qGameCategory)
-				.orderBy(qGameCategory.subjectCount.desc()).fetch();
+		res = jpaQueryFactory.selectFrom(qGameCategory).orderBy(qGameCategory.subjectCount.desc()).fetch();
 		return res;
 	}
 
@@ -39,18 +38,22 @@ public class GameCategoryRepositorySupport {
 
 	public List<GameCategoryTopic> getSubjectByCategory(int categoryUID) {
 		List<GameCategoryTopic> res;
-		res = jpaQueryFactory.selectFrom(qGameCategoryTopic).where(qGameCategoryTopic.categoryUid.eq(categoryUID))
-				.where(qGameCategoryTopic.uid.ne(22)).fetch();
+		if (categoryUID == 11) {
+			res = jpaQueryFactory.selectFrom(qGameCategoryTopic).where(qGameCategoryTopic.uid.ne(22)).fetch();
+		} else {
+			res = jpaQueryFactory.selectFrom(qGameCategoryTopic).where(qGameCategoryTopic.categoryUid.eq(categoryUID))
+					.where(qGameCategoryTopic.uid.ne(22)).fetch();
+		}
 		return res;
 	}
 
 	public List<GameCategoryTopic> getSubjectSearch(String search) {
 		List<GameCategoryTopic> res;
-		res = jpaQueryFactory.selectFrom(qGameCategoryTopic)
-				.where(qGameCategoryTopic.uid.ne(22))
-				.where(qGameCategoryTopic.answerA.contains(search).or(qGameCategoryTopic.answerB.contains(search).or(qGameCategoryTopic.topic.contains(search))))
+		res = jpaQueryFactory.selectFrom(qGameCategoryTopic).where(qGameCategoryTopic.uid.ne(22))
+				.where(qGameCategoryTopic.answerA.contains(search)
+						.or(qGameCategoryTopic.answerB.contains(search).or(qGameCategoryTopic.topic.contains(search))))
 				.fetch();
 		return res;
 	}
-    
+
 }
