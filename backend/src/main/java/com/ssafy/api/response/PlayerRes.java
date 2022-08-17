@@ -1,5 +1,7 @@
 package com.ssafy.api.response;
 
+import javax.persistence.Column;
+
 import com.ssafy.common.model.response.BaseResponseBody;
 import com.ssafy.db.entity.Player;
 import com.ssafy.db.entity.User;
@@ -33,6 +35,12 @@ public class PlayerRes{
 	boolean randomKing;
 	@ApiModelProperty(name="Ready State")
 	boolean readyState;
+	@ApiModelProperty(name="is_muted")
+	boolean isMuted;
+	@ApiModelProperty(name="is_cam_off")
+	boolean isCamOff;
+	@ApiModelProperty(name="is_change_voice")
+	boolean isChangeVoice;
 	
 	public static PlayerRes of(Player player) {
 		PlayerRes res = new PlayerRes();
@@ -46,6 +54,9 @@ public class PlayerRes{
 		res.setTotalGoldfinch(player.getTotalGoldfinch());
 		res.setRandomKing(player.isRandomKing());
 		res.setReadyState(player.isReadyState());
+		res.setMuted(player.isMuted());
+		res.setCamOff(player.isCamOff());
+		res.setChangeVoice(player.isChangeVoice());
 		return res;
 	}
 }
