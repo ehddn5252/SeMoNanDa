@@ -13,7 +13,7 @@ video {
 }
 
 .crown {
-    width: 100px;
+    width: 5%;
 }
 
 .replacement {
@@ -22,7 +22,27 @@ video {
 }
 
 .crowndiv {
-    position:absolute;
+    position: absolute;
+}
+
+.micdiv {
+    position: absolute;
+}
+
+.mic{
+    width:5%;
+}
+
+.cameradiv{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.camera{
+    width:5%;
+    bottom: 0;
+    right: 5%;
 }
 
 .streamdiv {
