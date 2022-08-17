@@ -75,26 +75,28 @@ const StyledLink = styled(Link)`
 const Container1 = styled.div`
   width: 45%;
   margin: 0px 27.5%;
-  padding : 53px 0px;
+  padding: 53px 0px;
   height: 100%;
   overflow: hidden; // 선을 넘어간 이미지들은 숨겨줍니다.
   font-family: JsaHON;
   display: block;
-  
 `;
 const Button1 = styled.div`
   all: unset;
   padding: 0.5em 1em;
   margin: 1em 1em;
-  color: black;
-  background-color: white;
-  border-radius: 10px;
-  border: 1px solid black;
+
   cursor: pointer;
   &:hover {
-    background-color: black;
-    color: white;
+    background-color: darkred;
+    color: darkred;
   }
+
+  background: linear-gradient(90deg, rgb(255, 255, 255) 2%, rgb(0, 0, 0) 550%);
+  border-radius: 500px;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  box-shadow: 12px 12px 24px rgb(175, 175, 235);
 `;
 const SliderContainer = styled.div`
   margin: 0 auto;
@@ -169,11 +171,21 @@ export default function Help() {
       <HelproomBase>
         <Container1>
           <div
-            style={{ display: "flex", flexFlow: "row", justifyContent: "left" ,fontSize : "25px" }}
+            style={{
+              display: "flex",
+              flexFlow: "row",
+              justifyContent: "left",
+              fontSize: "25px",
+            }}
           >
             <div
               style={{
-                color: currentSlide === 0 ? "white" : "black",
+                color: currentSlide === 0 ? "black" : "black",
+                fontWeight: currentSlide === 0 ? "bold" : "",
+                textShadow:
+                  currentSlide === 0
+                    ? "-0.2px 0 white, 0 0.2px white, 0.2px 0 white, 0 -0.2px white"
+                    : "",
                 // backgroundColor: currentSlide === 0 ? "black" : "white",
                 cursor: "pointer",
               }}
@@ -185,7 +197,12 @@ export default function Help() {
             </div>
             <div
               style={{
-                color: currentSlide === 1 ? "white" : "black",
+                color: currentSlide === 1 ? "black" : "black",
+                fontWeight: currentSlide === 1 ? "bold" : "",
+                textShadow:
+                currentSlide === 1
+                  ? "-0.2px 0 white, 0 0.2px white, 0.2px 0 white, 0 -0.2px white"
+                  : "",
                 //   backgroundColor: currentSlide === 1 ? "black" : "white",
                 cursor: "pointer",
               }}
@@ -197,7 +214,12 @@ export default function Help() {
             </div>
             <div
               style={{
-                color: currentSlide === 2 ? "white" : "black",
+                color: currentSlide === 2 ? "black" : "black",
+                fontWeight: currentSlide === 2 ? "bold" : "",
+                textShadow:
+                currentSlide === 2
+                  ? "-0.2px 0 white, 0 0.2px white, 0.2px 0 white, 0 -0.2px white"
+                  : "",
                 //   backgroundColor: currentSlide === 2 ? "black" : "white",
                 cursor: "pointer",
               }}
