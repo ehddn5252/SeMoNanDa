@@ -3,11 +3,11 @@ import {Button, Form, FormGroup, InputGroup} from 'react-bootstrap';
 import NavBar from "../../../common/navbar/NavBar";
 import RankModal from "../custom_modal";
 import '../custom_modal.css'
-import CusPagination from "./CusPagination";
+import CusPagination from "./cusPagination";
 import { useDispatch } from 'react-redux';
 import { useNavigate}from 'react-router-dom'
 import { cus_roomcreate } from '../customSlice';
-import CusRoomList from "./CusRoomList";
+import CusRoomList from "./cusRoomList";
 import './Custom.css';
 import axios from "axios";
 

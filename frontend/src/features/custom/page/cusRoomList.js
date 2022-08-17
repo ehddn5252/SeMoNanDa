@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import CusRoom from './CusRoom';
+import CusRoom from './cusRoom';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
-import './CusRoom.css';
+import './cusRoom.css';
 
 
 // api를 가져와서 차례대로 보여줌
