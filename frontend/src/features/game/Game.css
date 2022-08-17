@@ -152,6 +152,10 @@ margin-bottom: 0;
   align-items: center;
 }
 
+.subjectdetaila:hover {
+  cursor: pointer;
+}
+
 .subjectdetaila > p {
   text-align: right;
 }
@@ -180,6 +184,10 @@ margin-bottom: 0;
   display: flex;
   flex-flow: row-reverse;
   align-items: center;
+}
+
+.subjectdetailb:hover {
+  cursor: pointer;
 }
 
 .buttondiv {

@@ -657,6 +657,8 @@ class Game extends Component {
           }
         })
       })
+      } else {
+        alert('왕만 선택할 수 있습니다.')
       }
   }
 
@@ -697,6 +699,8 @@ class Game extends Component {
           }
         })
       })
+    } else {
+      alert('왕만 선택할 수 있습니다.')
     }
   }
   
@@ -813,7 +817,6 @@ class Game extends Component {
             ))}
         </div>
 
-              
           <div className="titlediv">
             <div className="title">
               { this.state.servant ==='나'? (
