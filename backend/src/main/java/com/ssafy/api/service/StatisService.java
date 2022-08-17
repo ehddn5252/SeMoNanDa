@@ -15,4 +15,8 @@ public interface StatisService {
 	List<GameCategory> getTopic();
 
 	List<GameCategoryTopic> getSubject();
+
+	List<GameCategoryTopic> getSubjectByCategory(int categoryUID);
+
+	List<GameCategoryTopic> getSubjectSearch(String search);
 }

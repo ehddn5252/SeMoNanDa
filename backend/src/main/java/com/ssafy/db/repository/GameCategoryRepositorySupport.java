@@ -33,7 +33,23 @@ public class GameCategoryRepositorySupport {
 
 	public List<GameCategoryTopic> getSubject() {
 		List<GameCategoryTopic> res;
-		res = jpaQueryFactory.selectFrom(qGameCategoryTopic).fetch();
+		res = jpaQueryFactory.selectFrom(qGameCategoryTopic).where(qGameCategoryTopic.uid.ne(22)).fetch();
+		return res;
+	}
+
+	public List<GameCategoryTopic> getSubjectByCategory(int categoryUID) {
+		List<GameCategoryTopic> res;
+		res = jpaQueryFactory.selectFrom(qGameCategoryTopic).where(qGameCategoryTopic.categoryUid.eq(categoryUID))
+				.where(qGameCategoryTopic.uid.ne(22)).fetch();
+		return res;
+	}
+
+	public List<GameCategoryTopic> getSubjectSearch(String search) {
+		List<GameCategoryTopic> res;
+		res = jpaQueryFactory.selectFrom(qGameCategoryTopic)
+				.where(qGameCategoryTopic.uid.ne(22))
+				.where(qGameCategoryTopic.answerA.contains(search).or(qGameCategoryTopic.answerB.contains(search).or(qGameCategoryTopic.topic.contains(search))))
+				.fetch();
 		return res;
 	}
     

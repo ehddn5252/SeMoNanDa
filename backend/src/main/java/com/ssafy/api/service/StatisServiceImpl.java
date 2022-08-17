@@ -53,4 +53,14 @@ public class StatisServiceImpl implements StatisService {
 		List<GameCategoryTopic> res = gameCategoryRepositorySupport.getSubject();
 		return res;
 	}
+	@Override
+	public List<GameCategoryTopic> getSubjectByCategory(int categoryUID) {
+		List<GameCategoryTopic> res = gameCategoryRepositorySupport.getSubjectByCategory(categoryUID);
+		return res;
+	}
+	@Override
+	public List<GameCategoryTopic> getSubjectSearch(String search) {
+		List<GameCategoryTopic> res = gameCategoryRepositorySupport.getSubjectSearch(search);
+		return res;
+	}
 }
