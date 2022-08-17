@@ -18,11 +18,12 @@ export default class UserVideoComponent extends Component {
         console.log(JSON.parse(this.props.streamManager.stream.connection.data).clientData);
         var userId = JSON.parse(this.props.streamManager.stream.connection.data).clientData;
         axios1.get(`/room/url?url=${this.props.sessionId}`).then((response) => {
-            console.log('방정보')
-            console.log(response)
-            axios1.post(`/game/common/penalty?gameConferenceRoomUid=${response}&userID=${userId}&penalty=0`).then((response) => {
-                console.log('응답')
-                console.log(response)
+            axios1.post(`/game/common/penalty?gameConferenceRoomUid=${response.data.uid}&userID=${userId}&penalty=0`).then((response) => {
+   
+                this.props.session.signal({
+                    to: [],
+                    type: 'penaltyChange',
+                  });
               }).catch((err) => {
                 console.log(err)
               })
@@ -32,7 +33,20 @@ export default class UserVideoComponent extends Component {
         
     }
     changeVid() {
-        console.log(JSON.parse(this.props.streamManager.stream.connection.data).clientData)
+        console.log(JSON.parse(this.props.streamManager.stream.connection.data).clientData);
+        var userId = JSON.parse(this.props.streamManager.stream.connection.data).clientData;
+        axios1.get(`/room/url?url=${this.props.sessionId}`).then((response) => {
+            axios1.post(`/game/common/penalty?gameConferenceRoomUid=${response.data.uid}&userID=${userId}&penalty=1`).then((response) => {
+                this.props.session.signal({
+                    to: [],
+                    type: 'penaltyChange',
+                  });
+            }).catch((err) => {
+                console.log(err)
+              })
+          }).catch((err) => {
+            console.log(err)
+          })
     }
 
     render() {

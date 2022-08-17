@@ -24,6 +24,7 @@ import Swal from 'sweetalert2'
 
 const OPENVIDU_SERVER_URL = 'https://i7e103.p.ssafy.io:8082';
 const OPENVIDU_SERVER_SECRET = 'SMND';
+let publisher;
 
 // url parameter 사용을 위한 HOC
 function withRouter(Component) {
@@ -409,6 +410,28 @@ class Game extends Component {
                 }
               })
 
+              mySession.on('signal:penaltyChange', () =>{
+                let loginInfoString = window.localStorage.getItem("login_user");
+                  let loginInfo = JSON.parse(loginInfoString)
+                axios1.get(`/game/common/player-info?userID=${loginInfo.id}`)
+                  .then((result) => {
+                    console.log(result)
+                    console.log(result.data)
+                    if(result.data.muted){
+                      console.log("꺼짐")
+                      publisher.publishAudio(false)
+                    }else{
+                      console.log("켜짐")
+                      publisher.publishAudio(true)
+                    }
+                    if(result.data.camOff){
+                      publisher.publishVideo(false)
+                    }else{
+                      publisher.publishVideo(true)
+                    }
+                  })
+              })
+
               // --- 4) Connect to the session with a valid user token ---
             
               // 'getToken' method is simulating what your server-side should do.
@@ -430,7 +453,7 @@ class Game extends Component {
                       
                           // Init a publisher passing undefined as targetElement (we don't want OpenVidu to insert a video
                           // element: we will manage it on our own) and with the desired properties
-                          let publisher = this.OV.initPublisher(undefined, {
+                          publisher = this.OV.initPublisher(undefined, {
                               audioSource: undefined, // The source of audio. If undefined default microphone
                               videoSource: videoDevices[0].deviceId, // The source of video. If undefined default webcam
                               publishAudio: true, // Whether you want to start publishing with your audio unmuted or not
@@ -871,14 +894,14 @@ class Game extends Component {
 
         <div className='cam'>
           <div className='stream-container'>
-            <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king } sessionId = {this.state.mySessionId}></UserVideoComponent>
+            <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}></UserVideoComponent>
           </div>
           {sub1.map((sub,i) => (
             <div
             key = {i}
             className="stream-container"
             onClick={() => this.handleMainVideoStream(sub)}>
-              <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId}/>
+              <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
             </div>
           ))}
         </div>
@@ -889,7 +912,7 @@ class Game extends Component {
               key = {i}
               className="stream-container"
               onClick={() => this.handleMainVideoStream(sub)}>
-                <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId}/>
+                <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
               </div>
             ))}
         </div>
