@@ -92,14 +92,26 @@ class Game extends Component {
       axios1.get(`/room/url?url=${this.state.mySessionId}`).then((response) => {
         console.log('방정보')
         console.log(response)
+        const roomNum = response.data.roomAdminUserUid
         // 플레이어 입장
         axios1.post(`/game/common/join?gameConferenceRoomUid=${response.data.uid}&userId=${loginInfo.id}`).then((response) => {
-          console.log(response)
+          console.log('응답은')
+          console.log(loginInfo.uid)
+          console.log(roomNum)
+          if ( loginInfo.uid === roomNum ) {
+            console.log('같아용~~')
+            axios1.post(`/game/common/ready?userID=${loginInfo.id}`).then((response) => {
+              console.log('응답')
+              console.log(response)
+            }).catch((err) => {
+              console.log(err)
+            })
+          }
         }).catch((err) => {
           console.log(err)
         })
 
-        // 방장인 경우 게임시작 권한
+        // 방장인 경우 게임시작 권한 및 자동 레디
         if ( loginInfo.uid === response.data.roomAdminUserUid ) {
           this.setState({
             isHost:true,
