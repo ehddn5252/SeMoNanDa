@@ -1,10 +1,17 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
-import './cusRoom.css';
+import { useNavigate }from 'react-router-dom'
+import './CusRoom.css';
 
 
 function CusRoom(props) {
     const { title, customPassword, adminNickname} = props;
+
+    // 방입장
+    const history = useNavigate();
+    const enterRoom = () => {
+        history('/game/custom/' + props.conferenceRoomUrl)
+    }
 
     return (
         <div className="cus_gameroom">
@@ -19,7 +26,7 @@ function CusRoom(props) {
                     <Card.Title>
                         <span>주최자 : {adminNickname}</span>
                     </Card.Title>
-                    <button className="cus_enter">입장하기</button>
+                    <button className="cus_enter" onClick={enterRoom}>입장하기</button>
                 </Card.Body>
             </div>
         </div>

@@ -19,23 +19,18 @@ function Rank() {
 
 
 	// 페이지네이션
-	const [currentPage, setCurrentPage] = useState(1);
-	const [roomsPerPage, setRoomsPerPage] = useState(4);
-
-	const indexOfLast = currentPage * roomsPerPage;
-	const indexOfFirst = indexOfLast - roomsPerPage;
+	const [limit, setLimit] = useState(4);
+	const [page, setPage] = useState(1);
+	const offset = (page - 1) * limit;
 	const currentRooms = (rooms) => {
 		let currentRooms = 0;
-		currentRooms = rooms.slice(indexOfFirst, indexOfLast);
+		currentRooms = rooms.slice(offset, offset+limit);
 		return currentRooms;
 	};
 
+	// 배포서버
 	const OPENVIDU_SERVER_URL = 'https://i7e103.p.ssafy.io:8082/';
 	const OPENVIDU_SERVER_SECRET = 'SMND';
-
-	// api 주소
-	// axios1.get('/room/normal/list')
-	// fetch('http://localhost:8080/api/room/normal/list')
 	
 	// api(검색창)
 	const [rooms, setRooms] = useState([]);
@@ -123,8 +118,8 @@ function Rank() {
 	}
 	else{
         // userInfo(UserSlice에 있음) => room
-		var conferenceRoomUrl = null
-		var data = null
+		let conferenceRoomUrl = null
+		let data = null
         dispatch(roomcreate(room))
         .then((response) => {
 			conferenceRoomUrl = response.payload.data.conferenceRoomUrl
@@ -136,7 +131,6 @@ function Rank() {
                 history("/rank", {replace:true})
             }
 		}).then(() => {
-			console.log('conferenceRoomUrl', conferenceRoomUrl)
 			axios.post(OPENVIDU_SERVER_URL + 'openvidu/api/sessions/' + conferenceRoomUrl + '/connection', data, {headers: {Authorization: 'Basic ' + btoa('OPENVIDUAPP:' + OPENVIDU_SERVER_SECRET), 'Content-Type': 'application/json'}})
 			history("/game/normal/" + conferenceRoomUrl)
 		})
@@ -175,9 +169,10 @@ function Rank() {
 			<footer>
 				{/* 페이지네이션 */}
 				<Pagination 
-					roomsPerPage={roomsPerPage}
-					totalRooms={rooms.length}
-					paginate={setCurrentPage}
+					total={rooms.length}
+					limit={limit}
+					page={page}
+					setPage={setPage}
 				/>
 				{/* 검색 및 방생성 */}
 				<div className="bottom">
