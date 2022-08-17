@@ -834,19 +834,19 @@ class Game extends Component {
               </div>}
               <div className="titlecontent">
                 <p className="subject">안건</p>
-                <p className="subjectTopic"></p>
+                <p className="subjectTopic">게임이 시작될 때 까지 기다려주세요.</p>
               </div>
               { this.state.servant ==='가'? (
                 <div className='subjectcontent'  onClick={() => this.choiceB()}>
                  <div className="subjectdetailnotb">
                    <img className='subjecta' alt='RedSubject' src={red}/>
-                   <p className="subjectLeft"></p>
+                   <p className="subjectLeft"> </p>
                  </div>
                 </div>
               ) : <div className='subjectcontent'  onClick={() => this.choiceB()}>
                 <div className="subjectdetailb">
                   <img className='subjecta' alt='RedSubject' src={red}/>
-                  <p className="subjectLeft"></p>
+                  <p className="subjectLeft"> </p>
                 </div>
               </div>}
             </div>
