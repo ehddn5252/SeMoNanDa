@@ -850,15 +850,17 @@ class Game extends Component {
         <div className='totaldiv'>
 
         <div className='cam'>
-          <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king }></UserVideoComponent>
-            {sub1.map((sub,i) => (
-              <div
-              key = {i}
-              className="stream-container"
-              onClick={() => this.handleMainVideoStream(sub)}>
-                <UserVideoComponent streamManager={ sub } king={ this.state.king }/>
-              </div>
-            ))}
+          <div className='stream-container'>
+            <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king }></UserVideoComponent>
+          </div>
+          {sub1.map((sub,i) => (
+            <div
+            key = {i}
+            className="stream-container"
+            onClick={() => this.handleMainVideoStream(sub)}>
+              <UserVideoComponent streamManager={ sub } king={ this.state.king }/>
+            </div>
+          ))}
         </div>
 
         <div className='cam'>
