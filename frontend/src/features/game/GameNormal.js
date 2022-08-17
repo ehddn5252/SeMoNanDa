@@ -99,8 +99,17 @@ class Game extends Component {
           console.log(err)
         })
 
-        // 방장인 경우 게임시작 권한
+        // 방장인 경우 게임시작 권한 및 자동 레디
         if ( loginInfo.uid === response.data.roomAdminUserUid ) {
+          let loginInfoString = window.localStorage.getItem("login_user");
+          let loginInfo = JSON.parse(loginInfoString)
+          // http://localhost:8081/api/game/common/ready?userID=rkdqudtn3 
+          axios1.post(`/game/common/ready?userID=${loginInfo.id}`).then((response) => {
+            console.log('응답')
+            console.log(response)
+          }).catch((err) => {
+            console.log(err)
+          })
           this.setState({
             isHost:true,
             isReady:true,
