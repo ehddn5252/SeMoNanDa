@@ -104,6 +104,12 @@ public class GameServiceImpl implements GameService {
 		return;
 	}
 
+	@Override
+	public void delete(int gameConferenceRoomUid) {
+		playerRepositorySupport.delete(gameConferenceRoomUid);
+		return;
+	}
+
 	
 
 	

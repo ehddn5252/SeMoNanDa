@@ -599,4 +599,11 @@ public class PlayerRepositorySupport {
 		}
 	}
 
+	public void delete(int gameConferenceRoomUid) {
+		// 해당 방에 있는 플레이어를 삭제한다.
+		jpaQueryFactory.delete(qPlayer).where(qPlayer.uid.in(jpaQueryFactory.select(qPlayer.uid).from(qPlayer).where(qPlayer.gameConferenceRoomUid.eq(gameConferenceRoomUid))));
+		// 해당 방을 삭제한다.
+		jpaQueryFactory.delete(qGameConferenceRoom).where(qGameConferenceRoom.uid.eq(gameConferenceRoomUid));
+	}
+
 }
