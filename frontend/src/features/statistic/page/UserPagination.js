@@ -14,7 +14,7 @@ border: none;
 border-radius: 8px;
 padding: 8px;
 margin: 0;
-background: lightgrey;
+background: grey;
 color: white;
 font-size: 1rem;
 
@@ -25,7 +25,7 @@ font-size: 1rem;
 }
 
 &[disabled] {
-  background: lightgrey;
+  background: grey;
   cursor: revert;
   transform: revert;
 }
