@@ -61,12 +61,14 @@ export default class UserVideoComponent extends Component {
                             <div className='crowndiv'><img className='crown' src={crown}></img></div>
                             {this.props.isKing ? (
                                 <div>
-                                    {this.props.streamManager.properties.publishAudio
+                                    <div className='micdiv' onClick={() => this.changeMic()}><img className='mic' src={mic}></img></div>
+                                    <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={camera}></img></div>
+                                    {/* {this.props.streamManager.properties.publishAudio
                                         ? <div className='micdiv' onClick={() => this.changeMic()}><img className='mic' src={mic}></img></div>
                                         : <div className='micdiv' onClick={() => this.changeMic()}><img className='mic' src={micOFF}></img></div>}
                                     {this.props.streamManager.properties.publishVideo
                                         ? <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={camera}></img></div>
-                                        : <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={cameraOFF}></img></div>}
+                                        : <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={cameraOFF}></img></div>} */}
                                 </div>
                                 )
                             : null}
@@ -76,12 +78,14 @@ export default class UserVideoComponent extends Component {
                     <OpenViduVideoComponent streamManager={this.props.streamManager} />
                     {this.props.isKing ? (
                                 <div>
-                                    {this.props.streamManager.properties.publishAudio
+                                    <div className='micdiv' onClick={() => this.changeMic()}><img className='mic' src={mic}></img></div>
+                                    <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={camera}></img></div>
+                                    {/* {this.props.streamManager.properties.publishAudio
                                         ? <div className='micdiv' onClick={() => this.changeMic()}><img className='mic' src={mic}></img></div>
                                         : <div className='micdiv' onClick={() => this.changeMic()}><img className='mic' src={micOFF}></img></div>}
                                     {this.props.streamManager.properties.publishVideo
                                         ? <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={camera}></img></div>
-                                        : <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={cameraOFF}></img></div>}
+                                        : <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={cameraOFF}></img></div>} */}
                                 </div>
                                 )
                             : null}
