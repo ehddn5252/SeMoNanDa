@@ -20,7 +20,7 @@ public class RankRepositorySupport {
 		List<User> users = jpaQueryFactory
 				.select(Projections.fields(com.ssafy.db.entity.User.class, quser.id.as("id"),
 						quser.nickname.as("nickname"), quser.rankpoint.as("rankpoint"),
-						quser.numberOfWins.as("numberOfWins"), quser.numberOfWins.as("numberOfLoses")))
+						quser.numberOfWins.as("numberOfWins"), quser.numberOfLoses.as("numberOfLoses")))
 				.from(quser).orderBy(quser.rankpoint.desc()).fetch();
 		return users;
 

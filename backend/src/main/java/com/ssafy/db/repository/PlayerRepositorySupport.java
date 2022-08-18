@@ -540,6 +540,10 @@ public class PlayerRepositorySupport {
 		// 5. 해당 방의 conference uid를 가지고 있는 selected topic을 삭제한다.
 		jpaQueryFactory.delete(qSelectedTopic).where(qSelectedTopic.gameConferenceRoomUid.eq(gameConferenceRoomUid))
 				.execute();
+		jpaQueryFactory.delete(qPlayer).where(qPlayer.uid.in(jpaQueryFactory.select(qPlayer.uid).from(qPlayer)
+				.where(qPlayer.gameConferenceRoomUid.eq(gameConferenceRoomUid)))).execute();
+		// 해당 방을 삭제한다.
+		jpaQueryFactory.delete(qGameConferenceRoom).where(qGameConferenceRoom.uid.eq(gameConferenceRoomUid)).execute();
 	}
 
 	@Transactional
