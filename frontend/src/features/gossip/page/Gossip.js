@@ -9,7 +9,7 @@ import NavBar from '../../../common/navbar/NavBar';
 //이미지 파일
 import light_base from "../../../assets/images/light_base.png"
 import Statistics_form_img from "../../../assets/images/Statistics_form_img.png"
-import login_img from "../../../assets/images/login_img.png"
+import scroll_yellow from "../../../assets/images/두루마기2.png";
 
 
 //메인페이지 배경화면 Container
