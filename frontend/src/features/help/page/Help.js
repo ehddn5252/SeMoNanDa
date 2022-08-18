@@ -73,14 +73,25 @@ const StyledLink = styled(Link)`
 
 //yu
 const Container1 = styled.div`
-  width: 45%;
-  margin: 0px 27.5%;
-  padding: 53px 0px;
+  width: 47%;
+  margin: 0px 26%;
+  padding: 50px 0px;
   height: 100%;
   overflow: hidden; // 선을 넘어간 이미지들은 숨겨줍니다.
   font-family: JsaHON;
   display: block;
 `;
+const HeaderContainer = styled.div`
+  display: flex;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  font-family: JsaHON;
+  width: 30%;
+  height: 4rem;
+  padding: 1rem;
+  justify-content: center;
+`;
+
 const Button1 = styled.div`
   all: unset;
   padding: 0.5em 1em;
@@ -120,14 +131,14 @@ const Center = styled.div`
 `;
 
 const HelproomBase = styled.div`
-  display: block;
+display: block;
   position: relative;
-  height: 130%;
+  height: 120%;
   background: center;
   background-repeat: no-repeat;
   background-image: url(${help_form_img});
   background-size: contain;
-  width: fit-content;
+
 `;
 
 const TOTAL_SLIDES = 2; // 전체 슬라이드 개수 (총3개. 배열로 계산)
@@ -169,6 +180,9 @@ export default function Help() {
     <Container>
       <NavBar />
       <HelproomBase>
+      {/* <HeaderContainer>
+        <h2>도움말</h2>
+        </HeaderContainer> */}
         <Container1>
           <div
             style={{
@@ -184,7 +198,7 @@ export default function Help() {
                 fontWeight: currentSlide === 0 ? "bold" : "",
                 textShadow:
                   currentSlide === 0
-                    ? "-0.2px 0 white, 0 0.2px white, 0.2px 0 white, 0 -0.2px white"
+                    ? "-0.3px 0 white, 0 0.3px white, 0.3px 0 white, 0 -0.3px white"
                     : "",
                 // backgroundColor: currentSlide === 0 ? "black" : "white",
                 cursor: "pointer",

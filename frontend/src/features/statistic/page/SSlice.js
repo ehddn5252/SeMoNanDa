@@ -16,3 +16,16 @@ export const category = createAsyncThunk(
     }
   }
 );
+
+export const categoryAll = createAsyncThunk(
+  "CATEGORYAll",
+  async (topics, { rejectWithValue }) => {
+  
+    try {
+      const response = await axios.post(`/statis/subject`);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err.response);
+    }
+  }
+);

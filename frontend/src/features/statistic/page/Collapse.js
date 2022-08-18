@@ -3,8 +3,8 @@ import ReactDOM from "react-dom";
 import UserPagination from "./UserPagination";
 import { Button, Form, FormGroup, FormLabel } from "react-bootstrap";
 import axios1 from "../../../common/api/http-common";
-import {category, categoryAll} from './SSlice';
-import { useDispatch } from 'react-redux';
+import { category, categoryAll } from "./SSlice";
+import { useDispatch } from "react-redux";
 
 import styled from "styled-components";
 
@@ -38,7 +38,6 @@ const HeaderContainer = styled.div`
   margin: 0 auto;
   margin-bottom: 1rem;
   font-family: JsaHON;
-  background-color: lightgray;
   width: 30%;
   height: 4rem;
   padding: 1rem;
@@ -55,80 +54,57 @@ function Collapse() {
 
   //서버로 전달할 categoryUid 객체
   const [uid, setUid] = useState({
-    categoryUid: "",
+    categoryUid: "11",
   });
 
-  //categoryUid
+  //onSelectUid 함수
   const onSelectUid = (e) => {
     const value = e.target.value;
     setUid({
       ...uid,
       categoryUid: value,
     });
-  
 
-    // dispatch(categoryAll())
-    // .then((response) => {
-    //     console.log("category_response",response)
-    //     if(response.payload.status === 200){
-    //       console.log(response)
-    //     }else{
-    //         console.log("value", value);
-    //        console.log("안됩니다")
-    //        console.log("==============")
-    //     }
-        
-    //   })
-  
     console.log(uid);
-
-    dispatch(category(uid))
-    .then((response) => {
-      //   console.log("category_response",response)
-        if(response.payload.status === 200){
-          console.log("response",response)
-          console.log(response.payload.data);
-
-          setTopic(response.payload.data);
-         
-
-          console.log("topicsssss" , topics);
-        }else{
-            console.log("value", value);
-           console.log("안됩니다")
-           console.log("==============")
-        }
-        
-      })
-  
   };
+  //onSelectUid 함수 끝
 
-
+  //11로 하면 여기서
+  // useEffect(() => {
+  //   const data = { categoryUid: 11 };
+  //   dispatch(categoryAll(data)).then((response) => {
+  //     //   console.log("category_response",response)
+  //     if (response.payload.status === 200) {
+  //       setTopic(response.payload.data);
+  //     } else {
+  //     }
+  //   });
+  // }, []);
+  //여기까지 지워도 됨
 
   useEffect(() => {
-   
-  }, [topics]);
+    console.log("topics useEffect 실행");
 
-  // 전달된 메시지를 필터링하여 방 목록을 보여줌
-  const filterTopic = topics.filter((topic) => {        
-    return topic.categoryUid;
-  });
-
-  //console.log("filterTopic", filterTopic );
-
-  // useMemo(() => {
-  //     console.log("zz",uid.categoryUid);
-  //   fetch(`https://i7e103.p.ssafy.io/api/statis/subject/category?categoryUID=3`, {
-  //     method: "POST",
-  //     })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       setTopic(res);
-  //     });
-  // }, []);
+    if (uid.categoryUid == "11") {
+      dispatch(categoryAll()).then((response) => {
+        if (response.payload.status === 200) {
+          setTopic(response.payload.data);
+        } else {
+        }
+      });
+    } else {
+      dispatch(category(uid)).then((response) => {
+        if (response.payload.status === 200) {
+          setTopic(response.payload.data);
+        } else {
+          console.log("안됩니다");
+        }
+      });
+    }
+  }, [uid]);
 
   return (
-    <Accordion allowZeroExpanded style={{ fontFamily: "JsaHON" }}>
+    <Accordion allowZeroExpanded style={{ fontFamily: "JsaHON",borderStyle: "none", width: "80%", margin : "0px 10%", padding : "50px 0px"}}>
       <HeaderContainer>
         <h3>종합 순위</h3>
         <div>
@@ -156,8 +132,9 @@ function Collapse() {
       </HeaderContainer>
       {topics
         .slice(offset, offset + limit)
-        .map((
-          {
+        .map(
+          (
+            {
               uid,
               categoryUid,
               topic,
@@ -165,54 +142,57 @@ function Collapse() {
               answerB,
               teamAWinCount,
               teamBWinCount,
-            }, idx
+            },
+            idx
           ) => (
-
             // backgroundImage: `url(${Statistics_form_img})`,
-            <div>
-            {
-                1 === 1
-                ?  <AccordionItem
-                style={{
-                  backgroundImage: `url(${Statistics_form_img})`,
-                  width: "60%",
-                  margin: "0px 20%",
-                }}
-              >
-                <AccordionItemHeading>
-                  <AccordionItemButton>
-                    {topic} {answerA} vs {answerB}
-                  </AccordionItemButton>
-                </AccordionItemHeading>
-                <AccordionItemPanel>
-                  {" "}
-                  Awin : {teamAWinCount} , 확률 :
-                  {teamAWinCount === 0
-                    ? 0 + "%"
-                    : (teamAWinCount / (teamAWinCount + teamBWinCount)).toFixed(
-                        3
-                      ) *
-                        100 +
-                      "%"}
-                  <br />
-                  Bwin : {teamBWinCount}, 확률 :
-                  {teamBWinCount === 0
-                    ? 0 + "%"
-                    : (teamBWinCount / (teamAWinCount + teamBWinCount)).toFixed(
-                        3
-                      ) *
-                        100 +
-                      "%"}
-                </AccordionItemPanel>
-              </AccordionItem>
-                : ( teamAWinCount === 0
-                    ? 100 + '%'
-                    : teamAWinCount / (teamAWinCount + teamAWinCount) * 100 + '%'
-                )
-              }
-              </div>
+            <div  key={uid}>
+              {1 === 1 ? (
+                <AccordionItem
+                  style={{
+                    backgroundImage: `url(${Statistics_form_img})`,
+                    width: "60%",
+                    margin: "0px 20%",
+              
+                  }}
+                >
+                  <AccordionItemHeading>
+                    <AccordionItemButton>
+                      {topic} {answerA} vs {answerB}
+                    </AccordionItemButton>
+                  </AccordionItemHeading>
+                  <AccordionItemPanel>
+                    {" "}
+                    Awin : {teamAWinCount} , 확률 :
+                    {teamAWinCount === 0
+                      ? 0 + "%"
+                      : (
+                          teamAWinCount /
+                          (teamAWinCount + teamBWinCount)
+                        ).toFixed(3) *
+                          100 +
+                        "%"}
+                    <br />
+                    Bwin : {teamBWinCount}, 확률 :
+                    {teamBWinCount === 0
+                      ? 0 + "%"
+                      : (
+                          teamBWinCount /
+                          (teamAWinCount + teamBWinCount)
+                        ).toFixed(3) *
+                          100 +
+                        "%"}
+                  </AccordionItemPanel>
+                </AccordionItem>
+              ) : teamAWinCount === 0 ? (
+                100 + "%"
+              ) : (
+                (teamAWinCount / (teamAWinCount + teamAWinCount)) * 100 + "%"
+              )}
+            </div>
           )
         )}
+        <br/>
       <div>
         <UserPagination
           total={topics.length}

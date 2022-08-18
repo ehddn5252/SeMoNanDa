@@ -10,7 +10,7 @@ import UserPagination from "./UserPagination";
 //이미지 파일
 import light_base from "../../../assets/images/light_base.png";
 import Statistics_form_img from "../../../assets/images/Statistics_form_img.png";
-import login_img from "../../../assets/images/login_img.png";
+import scroll_blue from "../../../assets/images/두루마기_하늘.png";
 
 //yu
 import "@grapecity/wijmo.styles/wijmo.css";
@@ -33,6 +33,27 @@ const Container = styled.div`
   background-size: cover;
   padding-top: 10%;
   padding-bottom: 10%;
+`;
+//yu
+const Base = styled.div`
+  display: block;
+  position: relative;
+  height: 120%;
+  background: center;
+  background-repeat: no-repeat;
+  background-image: url(${scroll_blue});
+  background-size: contain;
+  
+`;
+
+const Container1 = styled.div`
+  width: 45%;
+  margin: 0px 27.5%;
+  padding: 53px 0px;
+  height: 100%;
+  overflow: hidden; // 선을 넘어간 이미지들은 숨겨줍니다.
+  font-family: JsaHON;
+  display: block;
 `;
 
 //로고 영역
@@ -95,47 +116,16 @@ const HeaderContainer = styled.div`
 `;
 
 function Statistics() {
-  const [topics, setTopic] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
-
-  // useEffect(() => {
-  //   fetch("https://i7e103.p.ssafy.io/api/statis/subject", {
-  //     method: "POST",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       setTopic(res);
-  //     });
-  // }, []);
-
-  // for (let index = 0; index < topics.length; index++) {
-  //   console.log(topics[index]);
-  // }
-
-  //서버로 전달할 categoryUid 객체
-  // const [uid, setUid] = useState({
-  //   categoryUid: "",
-  // });
-
-  // //categoryUid
-  // const onSelectUid = (e) => {
-  //   const value = e.target.value;
-  //   setUid({
-  //     ...uid,
-  //     categoryUid: value,
-  //   });
-  //   console.log(value);
-  // };
-
   return (
     <Container>
       <NavBar />
+      <Base>
+      
         <div>
           <Collapse />
         </div>
-   
+      
+      </Base>
     </Container>
   );
 }
