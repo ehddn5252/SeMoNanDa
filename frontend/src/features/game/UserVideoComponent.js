@@ -22,9 +22,9 @@ export default class UserVideoComponent extends Component {
         console.log(micimg.src.split('/'))
         console.log(mic)
         if (micimg.src === mic) {
-            micimg.src = mic
-        } else {
             micimg.src = micOFF
+        } else {
+            micimg.src = mic
         } 
         var userId = JSON.parse(this.props.streamManager.stream.connection.data).clientData;
         axios1.get(`/room/url?url=${this.props.sessionId}`).then((response) => {
