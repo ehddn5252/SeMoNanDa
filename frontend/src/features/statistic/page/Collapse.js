@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import UserPagination from "./UserPagination";
 import { Button, Form, FormGroup, FormLabel } from "react-bootstrap";
 import axios1 from "../../../common/api/http-common";
-import {category} from './SSlice';
+import {category, categoryAll} from './SSlice';
 import { useDispatch } from 'react-redux';
 
 import styled from "styled-components";
@@ -65,16 +65,32 @@ function Collapse() {
       ...uid,
       categoryUid: value,
     });
-    console.log("여기", value);
+  
 
-    dispatch(category(value))
+    // dispatch(categoryAll())
+    // .then((response) => {
+    //     console.log("category_response",response)
+    //     if(response.payload.status === 200){
+    //       console.log(response)
+    //     }else{
+    //         console.log("value", value);
+    //        console.log("안됩니다")
+    //        console.log("==============")
+    //     }
+        
+    //   })
+  
+    console.log(uid);
+
+    dispatch(category(uid))
     .then((response) => {
-        console.log("category_response",response)
+      //   console.log("category_response",response)
         if(response.payload.status === 200){
-          console.log("ㅋㅋ",response)
+          console.log(response)
         }else{
-       
+            console.log("value", value);
            console.log("안됩니다")
+           console.log("==============")
         }
         
       })
@@ -83,16 +99,16 @@ function Collapse() {
 
 
 
-  useEffect(() => {
-    //console.log("zz", uid.categoryUid);
-    fetch(`https://i7e103.p.ssafy.io/api/statis/subject`, {
-      method: "POST",
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        setTopic(res);
-      });
-  }, []);
+  // useEffect(() => {
+  //   //console.log("zz", uid.categoryUid);
+  //   fetch(`https://i7e103.p.ssafy.io/api/statis/subject`, {
+  //     method: "POST",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => {
+  //       setTopic(res);
+  //     });
+  // }, []);
 
   // 전달된 메시지를 필터링하여 방 목록을 보여줌
   const filterTopic = topics.filter((topic) => {        
@@ -144,6 +160,7 @@ function Collapse() {
         .map(
           (
             {
+              uid,
               categoryUid,
               topic,
               answerA,
@@ -153,7 +170,7 @@ function Collapse() {
             },
             idx
           ) => (
-            <AccordionItem
+            <AccordionItem key={uid}
               style={{
                 backgroundImage: `url(${Statistics_form_img})`,
                 width: "60%",
