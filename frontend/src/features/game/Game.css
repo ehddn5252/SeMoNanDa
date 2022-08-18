@@ -392,6 +392,12 @@
   height: 7vw;
 }
 
+.start-icon {
+  margin: auto;
+  width: 7vw;
+  height: 7vw;
+}
+
 .ready-icon:hover{
   cursor: pointer;
   transform: scale(1.5);

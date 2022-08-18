@@ -18,14 +18,6 @@ export default class UserVideoComponent extends Component {
 
     changeMic() {
         console.log(JSON.parse(this.props.streamManager.stream.connection.data).clientData);
-        const micimg = document.querySelector('.mic')
-        console.log(micimg.src.split('/'))
-        console.log(mic)
-        if (micimg.src === mic) {
-            micimg.src = micOFF
-        } else {
-            micimg.src = mic
-        } 
         var userId = JSON.parse(this.props.streamManager.stream.connection.data).clientData;
         axios1.get(`/room/url?url=${this.props.sessionId}`).then((response) => {
             axios1.post(`/game/common/penalty?gameConferenceRoomUid=${response.data.uid}&userID=${userId}&penalty=0`).then((response) => {
@@ -44,12 +36,6 @@ export default class UserVideoComponent extends Component {
     }
     changeVid() {
         console.log(JSON.parse(this.props.streamManager.stream.connection.data).clientData);
-        const vid = document.querySelector('.camera')
-        if (vid.src === camera ) {
-            vid.src = cameraOFF
-        } else {
-            vid.src = camera
-        }
         var userId = JSON.parse(this.props.streamManager.stream.connection.data).clientData;
         axios1.get(`/room/url?url=${this.props.sessionId}`).then((response) => {
             axios1.post(`/game/common/penalty?gameConferenceRoomUid=${response.data.uid}&userID=${userId}&penalty=1`).then((response) => {
@@ -73,8 +59,8 @@ export default class UserVideoComponent extends Component {
                         <div className="kingstreamcomponent">
                             <OpenViduVideoComponent streamManager={this.props.streamManager} />
                             <div className='crowndiv'><img className='crown' src={crown}></img></div>
-                            <div className='miccontroldiv'><img className='mic' src={mic}></img></div>
-                            <div className='camcontroldiv'><img className='camera' src={camera}></img></div>
+                            <div className='micdiv'><img className='mic' src={mic}></img></div>
+                            <div className='cameradiv'><img className='camera' src={camera}></img></div>
                         </div>
                     )
                 : <div className="streamcomponent">

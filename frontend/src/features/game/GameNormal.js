@@ -283,10 +283,6 @@ class Game extends Component {
                 suba.innerText = '가. ' + topics[1]
                 subb.innerText = '나. ' + topics[2]
                 this.timeSet()
-                Swal.fire({
-                  title:'주제가 공개되었습니다.',
-                  confirmButtonText:'확인',
-                })
               })
 
               // 플레이어 정보 갱신 
@@ -302,7 +298,8 @@ class Game extends Component {
                   })
                   if (response.data.roleUid === 1) {
                     Swal.fire({
-                      title:'당신은 왕 입니다.',
+                      title:'주제가 공개되었습니다.',
+                      text: '당신은 왕 입니다.',
                       confirmButtonText:'확인',
                     })
                     this.setState({
@@ -319,7 +316,8 @@ class Game extends Component {
                   } else {
                     if (response.data.team === "A") {
                       Swal.fire({
-                        title:'당신은 가. 입니다.',
+                        title:'주제가 공개되었습니다.',
+                        text: '당신은 가. 입니다.',
                         confirmButtonText:'확인',
                       })
                       this.setState({
@@ -329,7 +327,8 @@ class Game extends Component {
                       })
                     } else{
                       Swal.fire({
-                        title:'당신은 나. 입니다.',
+                        title:'주제가 공개되었습니다.',
+                        text: '당신은 나. 입니다.',
                         confirmButtonText:'확인',
                       })
                       this.setState({
@@ -996,11 +995,14 @@ class Game extends Component {
           </div>
           
           <div className="icons">
-            {this.state.isHost === true ? (
-              <img className="ready-icon" alt="start" src={start} onClick={() => this.start()}/>
-            ):(this.state.isReady === false ?
-              <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
-              :<img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)}
+            {this.state.readyState === 'ready'
+            ? (this.state.isHost
+              ? <img className="ready-icon" alt="start" src={start} onClick={() => this.start()}/>
+              : (this.state.isReady === false
+                ? <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
+                : <img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)
+                )
+            : <img className="start-icon" alt="start" src={start} />}
             <img className="icon" alt="exit" src={exit} onClick={()=> this.exit()}/>
           </div>
         </div>
