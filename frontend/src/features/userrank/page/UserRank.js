@@ -9,8 +9,8 @@ import UserPagination from "./UserPagination";
 
 //이미지 파일
 import light_base from "../../../assets/images/light_base.png";
-import userRank_from_img from "../../../assets/images/userRank_from_img.png";
-
+import Statistics_form_img from "../../../assets/images/Statistics_form_img.png";
+import scroll_yellow from "../../../assets/images/두루마기2.png";
 
 //메인페이지 배경화면 Container
 const Container = styled.div`
@@ -22,8 +22,8 @@ const Container = styled.div`
   background-repeat: no-repeat;
   background-image: url(${light_base});
   background-size: cover;
-  padding-top: 7%;
-  padding-bottom: 7%;
+  padding-top: 10%;
+  padding-bottom: 10%;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
@@ -31,12 +31,11 @@ const Container = styled.div`
 `;
 
 //header
-const Header_container = styled.div`
-  display:flex;
+const HeaderContainer = styled.div`
+  display: flex;
   margin: 0 auto;
-  margin-bottom: 1rem;
+  
   font-family: JsaHON;
-  background-color : lightgray;
   width: 30%;
   height: 4rem;
   padding: 1rem;
@@ -44,6 +43,17 @@ const Header_container = styled.div`
 `;
 
 
+//yu
+const Base = styled.div`
+  display: block;
+  position: relative;
+  height: 120%;
+  background: center;
+  background-repeat: no-repeat;
+  background-image: url(${scroll_yellow});
+  background-size: contain;
+  
+`;
 const UserRank = () => {
   const [users, setUsers] = useState([]);
   const [limit, setLimit] = useState(10);
@@ -65,12 +75,13 @@ const UserRank = () => {
   return (
     <Container id="Container">
       <NavBar />
-      <div>
-        <Header_container>
+      <Base>
+      <div style={{ fontFamily: "JsaHON",borderStyle: "none", width: "80%", margin : "0px 10%", padding : "50px 0px"}}>
+        <HeaderContainer>
           <h3>종합 순위</h3>
-        </Header_container>
-        </div>
-        <Table striped bordered hover style={{ width: '60%', background: "white", fontFamily: "JsaHON", margin: "0 auto" }}>
+        </HeaderContainer>
+ 
+        <Table striped bordered hover style={{ width: '55%', backgroundImage: `url(${Statistics_form_img})`, margin: "0 auto" ,fontSize:"0.8rem"}}>
         <thead>
           <tr>
             <th>순위</th>
@@ -104,6 +115,7 @@ const UserRank = () => {
         </tbody>
         ))}
       </Table>
+      </div>
       <div>
       <UserPagination 
             total={users.length}
@@ -112,6 +124,9 @@ const UserRank = () => {
             setPage={setPage}
             />
       </div>
+      
+      </Base>
+      
     </Container>
   );
 };
