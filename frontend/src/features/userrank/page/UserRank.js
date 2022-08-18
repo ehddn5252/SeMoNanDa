@@ -85,7 +85,7 @@ const UserRank = () => {
         {users.slice(offset, offset+limit).map(({ nickname, rankpoint, numberOfWins, numberOfLoses}, idx ) => (
         <tbody>
           <tr>
-            <td>{idx+1}</td>
+            <td>{(page - 1) * 10 + idx + 1}</td>
             <td>{nickname}</td>
             <td>{rankpoint}</td>
             <td>{numberOfWins}</td>
