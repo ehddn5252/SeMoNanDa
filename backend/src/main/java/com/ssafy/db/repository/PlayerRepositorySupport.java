@@ -358,7 +358,7 @@ public class PlayerRepositorySupport {
 		User winner = null;
 		System.out.println("UID" + gameConferenceRoomUid + "번방의 의 왕이 " + randomKingUser.getNickname() + "으로 선정됨.");
 		if (jpaQueryFactory.select(qPlayer.kingCount).from(qPlayer).where(qPlayer.usersUid.eq(randomKingUser.getUid()))
-				.fetchOne() >= 3) {
+				.fetchOne() >= 2) {
 			winner = randomKingUser;
 		}
 		// 팀 배정
