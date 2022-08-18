@@ -358,7 +358,7 @@ class Game extends Component {
                   isKing: false,
                   servant: undefined,
                   timeOut: false,
-                }).then(() => this.timeEnd())
+                }, () => { this.timeEnd()})
               })
 
               mySession.on('signal:choice-b', ()=> {
@@ -370,7 +370,7 @@ class Game extends Component {
                   isKing:false,
                   servant: undefined,
                   timeOut: false,
-                }).then(() =>this.timeEnd())
+                }, () => { this.timeEnd()})
               })
 
               mySession.on('signal:time-out', (event) =>{
