@@ -46,7 +46,7 @@ const HeaderContainer = styled.div`
 `;
 
 function Collapse() {
-  const [topics, setTopic] = useState([]);
+  let [topics, setTopic] = useState([]);
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
@@ -86,7 +86,13 @@ function Collapse() {
     .then((response) => {
       //   console.log("category_response",response)
         if(response.payload.status === 200){
-          console.log(response)
+          console.log("response",response)
+          console.log(response.payload.data);
+
+          setTopic(response.payload.data);
+         
+
+          console.log("topicsssss" , topics);
         }else{
             console.log("value", value);
            console.log("안됩니다")
@@ -99,16 +105,9 @@ function Collapse() {
 
 
 
-  // useEffect(() => {
-  //   //console.log("zz", uid.categoryUid);
-  //   fetch(`https://i7e103.p.ssafy.io/api/statis/subject`, {
-  //     method: "POST",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       setTopic(res);
-  //     });
-  // }, []);
+  useEffect(() => {
+   
+  }, [topics]);
 
   // 전달된 메시지를 필터링하여 방 목록을 보여줌
   const filterTopic = topics.filter((topic) => {        
@@ -142,7 +141,7 @@ function Collapse() {
               fontSize: "1.2rem",
             }}
             aria-label="Default select example"
-            onClick={onSelectUid}
+            onChange={onSelectUid}
           >
             <option value="11">카테고리를 선택해주세요.</option>
             <option value="2">일상생활</option>
@@ -157,9 +156,8 @@ function Collapse() {
       </HeaderContainer>
       {topics
         .slice(offset, offset + limit)
-        .map(
-          (
-            {
+        .map((
+          {
               uid,
               categoryUid,
               topic,
@@ -167,42 +165,52 @@ function Collapse() {
               answerB,
               teamAWinCount,
               teamBWinCount,
-            },
-            idx
+            }, idx
           ) => (
-            <AccordionItem key={uid}
-              style={{
-                backgroundImage: `url(${Statistics_form_img})`,
-                width: "60%",
-                margin: "0px 20%",
-              }}
-            >
-              <AccordionItemHeading>
-                <AccordionItemButton>
-                  {topic} {answerA} vs {answerB}
-                </AccordionItemButton>
-              </AccordionItemHeading>
-              <AccordionItemPanel>
-                {" "}
-                Awin : {teamAWinCount} , 확률 :
-                {teamAWinCount === 0
-                  ? 0 + "%"
-                  : (teamAWinCount / (teamAWinCount + teamBWinCount)).toFixed(
-                      3
-                    ) *
-                      100 +
-                    "%"}
-                <br />
-                Bwin : {teamBWinCount}, 확률 :
-                {teamBWinCount === 0
-                  ? 0 + "%"
-                  : (teamBWinCount / (teamAWinCount + teamBWinCount)).toFixed(
-                      3
-                    ) *
-                      100 +
-                    "%"}
-              </AccordionItemPanel>
-            </AccordionItem>
+
+            // backgroundImage: `url(${Statistics_form_img})`,
+            <div>
+            {
+                1 === 1
+                ?  <AccordionItem
+                style={{
+                  backgroundImage: `url(${Statistics_form_img})`,
+                  width: "60%",
+                  margin: "0px 20%",
+                }}
+              >
+                <AccordionItemHeading>
+                  <AccordionItemButton>
+                    {topic} {answerA} vs {answerB}
+                  </AccordionItemButton>
+                </AccordionItemHeading>
+                <AccordionItemPanel>
+                  {" "}
+                  Awin : {teamAWinCount} , 확률 :
+                  {teamAWinCount === 0
+                    ? 0 + "%"
+                    : (teamAWinCount / (teamAWinCount + teamBWinCount)).toFixed(
+                        3
+                      ) *
+                        100 +
+                      "%"}
+                  <br />
+                  Bwin : {teamBWinCount}, 확률 :
+                  {teamBWinCount === 0
+                    ? 0 + "%"
+                    : (teamBWinCount / (teamAWinCount + teamBWinCount)).toFixed(
+                        3
+                      ) *
+                        100 +
+                      "%"}
+                </AccordionItemPanel>
+              </AccordionItem>
+                : ( teamAWinCount === 0
+                    ? 100 + '%'
+                    : teamAWinCount / (teamAWinCount + teamAWinCount) * 100 + '%'
+                )
+              }
+              </div>
           )
         )}
       <div>

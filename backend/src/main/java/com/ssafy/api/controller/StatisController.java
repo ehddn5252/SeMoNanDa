@@ -63,7 +63,7 @@ public class StatisController {
 		List<GameCategoryTopic> res = statisService.getSubject();
 		return ResponseEntity.status(200).body(res);
 	}
-	@PostMapping("/subject/category")
+	@GetMapping("/subject/category")
 	@ApiOperation(value = "주제 승률 정보", notes = "특정 카테고리 <strong>주제 승률을</strong>내림차순으로 반환한다.")
 	@ApiResponses({ @ApiResponse(code = 200, message = "성공"), @ApiResponse(code = 401, message = "인증 실패"),
 			@ApiResponse(code = 404, message = "게시물 없음"), @ApiResponse(code = 500, message = "서버 오류") })
