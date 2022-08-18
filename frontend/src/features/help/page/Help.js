@@ -73,9 +73,9 @@ const StyledLink = styled(Link)`
 
 //yu
 const Container1 = styled.div`
-  width: 47%;
-  margin: 0px 26%;
-  padding: 50px 0px;
+  width: 55%;
+  margin: 0px 22.3%;
+  padding: 80px 0px;
   height: 100%;
   overflow: hidden; // 선을 넘어간 이미지들은 숨겨줍니다.
   font-family: JsaHON;
@@ -189,7 +189,7 @@ export default function Help() {
               display: "flex",
               flexFlow: "row",
               justifyContent: "left",
-              fontSize: "25px",
+              fontSize: "35px",
             }}
           >
             <div
@@ -250,6 +250,7 @@ export default function Help() {
             <Slide img={img2} />
             <Slide img={img3} />
           </SliderContainer>
+          <br/>
           <Center>
             <Button1 onClick={PrevSlide}>이전</Button1>
             <Button1 onClick={NextSlide}>다음</Button1>

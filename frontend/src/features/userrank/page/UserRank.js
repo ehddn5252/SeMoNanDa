@@ -10,7 +10,8 @@ import UserPagination from "./UserPagination";
 //이미지 파일
 import light_base from "../../../assets/images/light_base.png";
 import Statistics_form_img from "../../../assets/images/Statistics_form_img.png";
-import scroll_yellow from "../../../assets/images/두루마기2.png";
+import scroll_blue from "../../../assets/images/scroll_blue.png";
+import scroll_basic from "../../../assets/images/scroll_basic.png";
 
 //메인페이지 배경화면 Container
 const Container = styled.div`
@@ -34,11 +35,10 @@ const Container = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   margin: 0 auto;
-  
   font-family: JsaHON;
   width: 30%;
   height: 4rem;
-  padding: 1rem;
+  padding: 2rem;
   justify-content: center;
 `;
 
@@ -50,7 +50,7 @@ const Base = styled.div`
   height: 120%;
   background: center;
   background-repeat: no-repeat;
-  background-image: url(${scroll_yellow});
+  background-image: url(${scroll_blue});
   background-size: contain;
   
 `;
@@ -77,12 +77,12 @@ const UserRank = () => {
       <NavBar />
       <Base>
       <div style={{ fontFamily: "JsaHON",borderStyle: "none", width: "80%", margin : "0px 10%", padding : "50px 0px"}}>
-        <HeaderContainer>
-          <h3>종합 순위</h3>
+        <HeaderContainer style={{color : ""}}>
+          <h1>신하 순위</h1>
         </HeaderContainer>
- 
-        <Table striped bordered hover style={{ width: '55%', backgroundImage: `url(${Statistics_form_img})`, margin: "0 auto" ,fontSize:"0.8rem"}}>
-        <thead>
+        <br/>
+        <Table striped  style={{ width: '70%', backgroundImage: `url(${scroll_basic})`, margin: "0 auto" ,fontSize:"1.1rem"}}>
+        <thead style={{fontSize : "1rem"}}>
           <tr>
             <th>순위</th>
             <th>닉네임</th>

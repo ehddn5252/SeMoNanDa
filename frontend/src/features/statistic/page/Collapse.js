@@ -19,6 +19,7 @@ import {
 // Demo styles, see 'Styles' section below for some notes on use.
 import "react-accessible-accordion/dist/fancy-example.css";
 import Statistics_form_img from "../../../assets/images/Statistics_form_img.png";
+import scroll_basic from "../../../assets/images/scroll_basic.png";
 
 const StatisticsRoomBase = styled.div`
   display: block;
@@ -36,11 +37,10 @@ const StatisticsRoomBase = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   margin: 0 auto;
-  margin-bottom: 1rem;
   font-family: JsaHON;
-  width: 30%;
+  width: 40%;
   height: 4rem;
-  padding: 1rem;
+  padding: 2rem;
   justify-content: center;
 `;
 
@@ -104,17 +104,18 @@ function Collapse() {
   }, [uid]);
 
   return (
-    <Accordion allowZeroExpanded style={{ fontFamily: "JsaHON",borderStyle: "none", width: "80%", margin : "0px 10%", padding : "50px 0px"}}>
+    <Accordion allowZeroExpanded style={{ fontFamily: "JsaHON",borderStyle: "none", width: "90%", margin : "0px 5%", padding : "50px 0px", }}>
       <HeaderContainer>
-        <h3>종합 순위</h3>
+        <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 종합 순위</h1>
         <div>
           {/* 드롭박스 */}
           <Form.Select
             style={{
               width: "100%",
               marginLeft: "10%",
+        
               backgroundColor: "dcdcdc",
-              fontSize: "1.2rem",
+              fontSize: "1rem",
             }}
             aria-label="Default select example"
             onChange={onSelectUid}
@@ -130,6 +131,8 @@ function Collapse() {
           </Form.Select>
         </div>
       </HeaderContainer>
+      <br/>
+      <br/>
       {topics
         .slice(offset, offset + limit)
         .map(
@@ -150,14 +153,16 @@ function Collapse() {
               {1 === 1 ? (
                 <AccordionItem
                   style={{
-                    backgroundImage: `url(${Statistics_form_img})`,
+                    backgroundImage: `url(${scroll_basic})`,
                     width: "60%",
                     margin: "0px 20%",
-              
+                    fontSize : "1.2rem"
                   }}
                 >
                   <AccordionItemHeading>
-                    <AccordionItemButton>
+                    <AccordionItemButton  style={{
+                    backgroundImage: `url(${scroll_basic})`,
+                    }}>
                       {topic} {answerA} vs {answerB}
                     </AccordionItemButton>
                   </AccordionItemHeading>
@@ -192,6 +197,7 @@ function Collapse() {
             </div>
           )
         )}
+        <br/>
         <br/>
       <div>
         <UserPagination
