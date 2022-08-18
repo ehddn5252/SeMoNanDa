@@ -4,7 +4,9 @@ import crown from '../../assets/images/kingmark.png'
 import './UserVideo.css';
 import replacemnet from '../../assets/images/screen_replacement.png'
 import camera from '../../assets/images/camera_on_white.png'
+import cameraOFF from '../../assets/images/camera_off_white.png'
 import mic from '../../assets/images/mic_on_white.png'
+import micOFF from '../../assets/images/mic_off_white.png'
 import axios1 from '../../common/api/http-common';
 
 export default class UserVideoComponent extends Component {
@@ -16,6 +18,14 @@ export default class UserVideoComponent extends Component {
 
     changeMic() {
         console.log(JSON.parse(this.props.streamManager.stream.connection.data).clientData);
+        const micimg = document.querySelector('.mic')
+        console.log(micimg.src.split('/'))
+        console.log(mic)
+        if (micimg.src === mic) {
+            micimg.src = mic
+        } else {
+            micimg.src = micOFF
+        } 
         var userId = JSON.parse(this.props.streamManager.stream.connection.data).clientData;
         axios1.get(`/room/url?url=${this.props.sessionId}`).then((response) => {
             axios1.post(`/game/common/penalty?gameConferenceRoomUid=${response.data.uid}&userID=${userId}&penalty=0`).then((response) => {
@@ -34,6 +44,12 @@ export default class UserVideoComponent extends Component {
     }
     changeVid() {
         console.log(JSON.parse(this.props.streamManager.stream.connection.data).clientData);
+        const vid = document.querySelector('.camera')
+        if (vid.src === camera ) {
+            vid.src = cameraOFF
+        } else {
+            vid.src = camera
+        }
         var userId = JSON.parse(this.props.streamManager.stream.connection.data).clientData;
         axios1.get(`/room/url?url=${this.props.sessionId}`).then((response) => {
             axios1.post(`/game/common/penalty?gameConferenceRoomUid=${response.data.uid}&userID=${userId}&penalty=1`).then((response) => {

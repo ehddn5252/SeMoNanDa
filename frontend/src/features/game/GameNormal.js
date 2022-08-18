@@ -41,6 +41,7 @@ class Game extends Component {
     this.state = {
         mySessionId: this.props.params.id,
         myUserName: undefined,
+        myUserId: undefined,
         session: undefined,
         mainStreamManager: undefined,
         publisher: undefined,
@@ -56,7 +57,7 @@ class Game extends Component {
         kingCount : 0,
         coin: 0,
         token: undefined,
-        king: undefined,
+        king: '123',
         roomUid: undefined,
     };
 
@@ -87,6 +88,7 @@ class Game extends Component {
       this.setState({
         token,
         myUserName : loginInfo.name,
+        myUserId : loginInfo.id,
       })
 
       // 방URL정보로 방의 정보 가져오기
@@ -307,10 +309,10 @@ class Game extends Component {
                       isKing: true,
                       servant: undefined,
                       timeOut:true,
-                      king: this.state.myUserName,
+                      king: this.state.myUserId,
                     })
                     mySession.signal({
-                      data: this.state.myUserName,
+                      data: this.state.myUserId,
                       to: [],
                       type: 'king',
                     })
@@ -886,6 +888,7 @@ class Game extends Component {
       sub2.push(undefined)
     }
 
+    console.log(sub1)
     return (
       <div className="gamediv">
         <div className='totaldiv'>

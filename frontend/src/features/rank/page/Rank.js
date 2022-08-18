@@ -75,7 +75,7 @@ function Rank() {
 
 	// 방 생성
 	// 로컬 저장
-	let loginInfoString = window.localStorage.getItem("login_user");
+	let loginInfoString = window.sessionStorage.getItem("login_user");
 	let loginInfo = JSON.parse(loginInfoString);
 
 	//서버로 전달할 room객체
