@@ -194,11 +194,11 @@ export default function Help() {
           >
             <div
               style={{
-                color: currentSlide === 0 ? "black" : "black",
-                fontWeight: currentSlide === 0 ? "bold" : "",
+                color: currentSlide === 0 ? "lightgray" : "lightgray",
+                fontWeight: currentSlide === 0 ? "" : "",
                 textShadow:
                   currentSlide === 0
-                    ? "-0.3px 0 white, 0 0.3px white, 0.3px 0 white, 0 -0.3px white"
+                    ? "-2px 0 black, 0 2px black, 2px 0 black, 0 2px black"
                     : "",
                 // backgroundColor: currentSlide === 0 ? "black" : "white",
                 cursor: "pointer",
@@ -211,11 +211,11 @@ export default function Help() {
             </div>
             <div
               style={{
-                color: currentSlide === 1 ? "black" : "black",
-                fontWeight: currentSlide === 1 ? "bold" : "",
+                color: currentSlide === 1 ? "lightgray" : "lightgray",
+                fontWeight: currentSlide === 1 ? "" : "",
                 textShadow:
                 currentSlide === 1
-                  ? "-0.2px 0 white, 0 0.2px white, 0.2px 0 white, 0 -0.2px white"
+                  ? "-2px 0 black, 0 2px black, 2px 0 black, 0 2px black"
                   : "",
                 //   backgroundColor: currentSlide === 1 ? "black" : "white",
                 cursor: "pointer",
@@ -228,11 +228,11 @@ export default function Help() {
             </div>
             <div
               style={{
-                color: currentSlide === 2 ? "black" : "black",
-                fontWeight: currentSlide === 2 ? "bold" : "",
+                color: currentSlide === 2 ? "lightgray" : "lightgray",
+                fontWeight: currentSlide === 2 ? "" : "",
                 textShadow:
                 currentSlide === 2
-                  ? "-0.2px 0 white, 0 0.2px white, 0.2px 0 white, 0 -0.2px white"
+                  ? "-2px 0 black, 0 2px black, 2px 0 black, 0 2px black"
                   : "",
                 //   backgroundColor: currentSlide === 2 ? "black" : "white",
                 cursor: "pointer",
