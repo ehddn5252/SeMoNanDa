@@ -10,7 +10,7 @@ import UserPagination from "./UserPagination";
 //이미지 파일
 import light_base from "../../../assets/images/light_base.png";
 import Statistics_form_img from "../../../assets/images/Statistics_form_img.png";
-import scroll_blue from "../../../assets/images/두루마기_하늘.png";
+import scroll_green from "../../../assets/images/scroll_green.png";
 
 //yu
 import "@grapecity/wijmo.styles/wijmo.css";
@@ -41,7 +41,7 @@ const Base = styled.div`
   height: 120%;
   background: center;
   background-repeat: no-repeat;
-  background-image: url(${scroll_blue});
+  background-image: url(${scroll_green});
   background-size: contain;
   
 `;
@@ -106,12 +106,10 @@ const StatisticsRoomBase = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   margin: 0 auto;
-  margin-bottom: 1rem;
   font-family: JsaHON;
-  background-color: lightgray;
   width: 30%;
   height: 4rem;
-  padding: 1rem;
+  padding: 2rem;
   justify-content: center;
 `;
 

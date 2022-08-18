@@ -37,12 +37,11 @@ const StatisticsRoomBase = styled.div`
 const HeaderContainer = styled.div`
   display: flex;
   margin: 0 auto;
-  margin-bottom: 1rem;
   font-family: JsaHON;
   width: 40%;
   height: 4rem;
-  padding: 1rem ;
- 
+  padding: 2rem;
+  justify-content: center;
 `;
 
 function Collapse() {
@@ -105,7 +104,7 @@ function Collapse() {
   }, [uid]);
 
   return (
-    <Accordion allowZeroExpanded style={{ fontFamily: "JsaHON",borderStyle: "none", width: "80%", margin : "0px 10%", padding : "50px 0px", }}>
+    <Accordion allowZeroExpanded style={{ fontFamily: "JsaHON",borderStyle: "none", width: "90%", margin : "0px 5%", padding : "50px 0px", }}>
       <HeaderContainer>
         <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 종합 순위</h1>
         <div>
@@ -132,6 +131,8 @@ function Collapse() {
           </Form.Select>
         </div>
       </HeaderContainer>
+      <br/>
+      <br/>
       {topics
         .slice(offset, offset + limit)
         .map(
@@ -155,12 +156,13 @@ function Collapse() {
                     backgroundImage: `url(${scroll_basic})`,
                     width: "60%",
                     margin: "0px 20%",
-              
+                    fontSize : "1.2rem"
                   }}
                 >
                   <AccordionItemHeading>
                     <AccordionItemButton  style={{
-                    backgroundImage: `url(${scroll_basic})`}}>
+                    backgroundImage: `url(${scroll_basic})`,
+                    }}>
                       {topic} {answerA} vs {answerB}
                     </AccordionItemButton>
                   </AccordionItemHeading>
@@ -195,6 +197,7 @@ function Collapse() {
             </div>
           )
         )}
+        <br/>
         <br/>
       <div>
         <UserPagination
