@@ -1,6 +1,6 @@
 # 세모논다(semononda)
 
-세모논다 대표이미지 추가할 예정
+![대표이미지](/uploads/42ddec1e61815997776b55aab7ee4356/대표이미지.PNG)
 
 ## 링크 : [http://i7e103.p.ssafy.io/](http://i7e103.p.ssafy.io/)
 
@@ -57,7 +57,7 @@ _- 전국 최초 논쟁 플랫폼 -_
     - 논쟁에 대한 입장을 랜덤으로 배정받는다.
     - 왕이 해당 진영을 선택할 수 있도록 왕을 설득하여야 한다.
     - 승리 진영으로 선택되면 해당 진영의 모든 신하는 금화를 하나 하사 받는다.
-- 진행
+- #### 진행
   - 공식 경연
     - 하나의 주제 카테고리 안에서 매 라운드마다 랜덤한 주제가 선정된다.
     - 처음 턴의 왕과 금화를 보유한 신하가 충분치 않을 시에는 왕을 랜덤으로 선정한다.
@@ -274,9 +274,9 @@ backend
 
 |   Name   | 강병수           | 권도건                  | 정찬우           | 김동우                        | 김유정                          | 박찬호                             |
 | :------: | ---------------- | ----------------------- | ---------------- | ----------------------------- | ------------------------------- | ---------------------------------- |
-| Profile  | 이미지예정       | 이미지예정              | 이미지예정       | 이미지예정                    | 이미지예정                      | 이미지예정                         |
+| Profile  | ![수정됨_강병수](/uploads/bde4fa6461206cf753719b81733a4fbb/수정됨_강병수.png)       | ![수정됨_권도건](/uploads/09fdbe825d04c4387e17c9b6689ead28/수정됨_권도건.png)             | ![수정됨_정찬우](/uploads/c7510981972a4d4054e743cf32fb1d4f/수정됨_정찬우.png)       |![수정됨_김동우](/uploads/0f0d4a2aa204674c0048df4f4526deef/수정됨_김동우.png)                   | ![수정됨_김유정](/uploads/9574b6ad296e106610c20d6cc7829d01/수정됨_김유정.png)                      | ![수정됨_박찬호](/uploads/c2dd4f83519246e53c553f5d6e7921ab/수정됨_박찬호.png)                  |
 | Position | Frontend & UI/UX | 팀장 & Frontend & UI/UX | Frontend & UI/UX | Backend Develop & CI/CD & UCC | Backend Develop & CI/CD & UI/UX | Backend Develop & CI/CD & openVidu |
-|   Git    | 깃링크           | 깃링크                  | 깃링크           | 깃링크                        | 깃링크                          | 깃링크                             |
+|   Git    | 깃링크           | [doogun](https://github.com/doogun)                  | [jeong-chan](https://github.com/jeong-chan)           | [ehddn5252](https://github.com/ehddn5252)                        | [yujeonge](https://github.com/yujeonge)                          | [taurus429](https://github.com/taurus429)                             |
 
 ## ✔ 프로젝트 산출물
 
