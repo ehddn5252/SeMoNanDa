@@ -2,12 +2,13 @@
 import './Game.css';
 
 // img파일
-import exit from '../../assets/images/exit.png'
+import exit from '../../assets/images/game_exit.png'
 import ready from '../../assets/images/ready.png'
 import ready_ok from '../../assets/images/ready_ok.png'
-import start from '../../assets/images/start.png'
+import start from '../../assets/images/game_start.png'
 import red from '../../assets/images/red_subject.png';
 import blue from '../../assets/images/blue_subject.png';
+import ing from '../../assets/images/game_ing.png'
 
 // 컴포넌트
 import axios1 from '../../common/api/http-common';
@@ -894,14 +895,14 @@ class Game extends Component {
 
         <div className='cam'>
           <div className='stream-container'>
-            <UserVideoComponent streamManager={this.state.publisher} king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}></UserVideoComponent>
+            <UserVideoComponent isKing={this.state.isKing} streamManager={this.state.publisher} king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}></UserVideoComponent>
           </div>
           {sub1.map((sub,i) => (
             <div
             key = {i}
             className="stream-container"
             onClick={() => this.handleMainVideoStream(sub)}>
-              <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
+              <UserVideoComponent isKing={this.state.isKing} streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
             </div>
           ))}
         </div>
@@ -912,7 +913,7 @@ class Game extends Component {
               key = {i}
               className="stream-container"
               onClick={() => this.handleMainVideoStream(sub)}>
-                <UserVideoComponent streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
+                <UserVideoComponent isKing={this.state.isKing} streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
               </div>
             ))}
         </div>
@@ -1002,7 +1003,7 @@ class Game extends Component {
                 ? <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
                 : <img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)
                 )
-            : <img className="start-icon" alt="start" src={start} />}
+            : <img className="ing-icon" alt="ing" src={ing} />}
             <img className="icon" alt="exit" src={exit} onClick={()=> this.exit()}/>
           </div>
         </div>

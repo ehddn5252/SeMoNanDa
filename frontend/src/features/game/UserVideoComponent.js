@@ -59,14 +59,22 @@ export default class UserVideoComponent extends Component {
                         <div className="kingstreamcomponent">
                             <OpenViduVideoComponent streamManager={this.props.streamManager} />
                             <div className='crowndiv'><img className='crown' src={crown}></img></div>
-                            <div className='micdiv'><img className='mic' src={mic}></img></div>
-                            <div className='cameradiv'><img className='camera' src={camera}></img></div>
+                            {this.props.isKing ? (
+                                <div>
+                                <div className='micdiv' onClick={() => this.changeMic()}><img className='mic' src={mic}></img></div>
+                                <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={camera}></img></div></div>
+                                )
+                            : null}
                         </div>
                     )
                 : <div className="streamcomponent">
                     <OpenViduVideoComponent streamManager={this.props.streamManager} />
-                    <div className='micdiv' onClick={() => this.changeMic()}><img className='mic' src={mic}></img></div>
-                    <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={camera}></img></div>
+                    {this.props.isKing ? (
+                                <div>
+                                <div className='micdiv' onClick={() => this.changeMic()}><img className='mic' src={mic}></img></div>
+                                <div className='cameradiv' onClick={() => this.changeVid()}><img className='camera' src={camera}></img></div></div>
+                                )
+                            : null}
                 </div>
                 ) : <div className="box">
                         <img className="replacement" src={replacemnet} alt='screen'></img>
