@@ -887,8 +887,6 @@ class Game extends Component {
     while (sub2.length < 3) {
       sub2.push(undefined)
     }
-
-    console.log(sub1)
     return (
       <div className="gamediv">
         <div className='totaldiv'>

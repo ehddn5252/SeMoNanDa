@@ -44,6 +44,10 @@ video {
     border-right: 1px solid black;
 }
 
+.micdiv:hover{
+    cursor: pointer;
+  }
+
 .mic{
     width:100%;
     height: 100%;
@@ -57,6 +61,10 @@ video {
     height: 10%;
     background-color: aliceblue;
 }
+
+.cameradiv:hover{
+    cursor: pointer;
+  }
 
 .camera{
     width:100%;
