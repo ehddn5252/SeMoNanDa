@@ -78,7 +78,7 @@ const UserRank = () => {
       <NavBar />
       <Base>
       <div style={{ fontFamily: "JsaHON",borderStyle: "none", width: "80%", margin : "0px 10%", padding : "50px 0px"}}>
-        <HeaderContainer style={{color : "lightgray"}}>
+        <HeaderContainer style={{color : "white"}}>
           <h1>신하 순위</h1>
         </HeaderContainer>
         <br/>

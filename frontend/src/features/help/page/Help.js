@@ -99,8 +99,8 @@ const Button1 = styled.div`
 
   cursor: pointer;
   &:hover {
-    background-color: darkred;
-    color: darkred;
+    background: linear-gradient(90deg, darkred 2%, rgb(0, 0, 0) 550%);
+    color: white;
   }
 
   background: linear-gradient(90deg, rgb(255, 255, 255) 2%, rgb(0, 0, 0) 550%);
@@ -194,7 +194,7 @@ export default function Help() {
           >
             <div
               style={{
-                color: currentSlide === 0 ? "lightgray" : "lightgray",
+                color: currentSlide === 0 ? "white" : "white",
                 fontWeight: currentSlide === 0 ? "" : "",
                 textShadow:
                   currentSlide === 0
@@ -211,7 +211,7 @@ export default function Help() {
             </div>
             <div
               style={{
-                color: currentSlide === 1 ? "lightgray" : "lightgray",
+                color: currentSlide === 1 ? "white" : "white",
                 fontWeight: currentSlide === 1 ? "" : "",
                 textShadow:
                 currentSlide === 1
@@ -228,7 +228,7 @@ export default function Help() {
             </div>
             <div
               style={{
-                color: currentSlide === 2 ? "lightgray" : "lightgray",
+                color: currentSlide === 2 ? "white" : "white",
                 fontWeight: currentSlide === 2 ? "" : "",
                 textShadow:
                 currentSlide === 2

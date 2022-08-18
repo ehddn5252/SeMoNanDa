@@ -10,32 +10,32 @@ const Nav = styled.nav`
   bottom : 7%;
 `;
 const Button = styled.button`
-  border: none;
-  border-radius: 8px;
-  padding: 8px;
-  margin: 0;
+border: none;
+border-radius: 8px;
+padding: 8px;
+margin: 0;
+background: lightgrey;
+color: white;
+font-size: 1rem;
+
+&:hover {
   background: black;
-  color: white;
-  font-size: 1rem;
+  cursor: pointer;
+  transform: translateY(-2px);
+}
 
-  &:hover {
-    background: darkgoldenrod;
-    cursor: pointer;
-    transform: translateY(-2px);
-  }
+&[disabled] {
+  background: lightgrey;
+  cursor: revert;
+  transform: revert;
+}
 
-  &[disabled] {
-    background: grey;
-    cursor: revert;
-    transform: revert;
-  }
-
-  &[aria-current] {
-    background: saddlebrown;
-    font-weight: bold;
-    cursor: revert;
-    transform: revert;
-  }
+&[aria-current] {
+  background: green;
+  font-weight: bold;
+  cursor: revert;
+  transform: revert;
+}
 `;
 
 

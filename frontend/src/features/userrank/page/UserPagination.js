@@ -15,32 +15,32 @@ const Nav = styled.nav`
 `;
 
 const Button = styled.button`
-  border: none;
-  border-radius: 8px;
-  padding: 8px;
-  margin: 0;
+border: none;
+border-radius: 8px;
+padding: 8px;
+margin: 0;
+background: grey;
+color: white;
+font-size: 1rem;
+
+&:hover {
   background: black;
-  color: white;
-  font-size: 1rem;
+  cursor: pointer;
+  transform: translateY(-2px);
+}
 
-  &:hover {
-    background: darkgoldenrod;
-    cursor: pointer;
-    transform: translateY(-2px);
-  }
+&[disabled] {
+  background: grey;
+  cursor: revert;
+  transform: revert;
+}
 
-  &[disabled] {
-    background: grey;
-    cursor: revert;
-    transform: revert;
-  }
-
-  &[aria-current] {
-    background: saddlebrown;
-    font-weight: bold;
-    cursor: revert;
-    transform: revert;
-  }
+&[aria-current] {
+  background: blue;
+  font-weight: bold;
+  cursor: revert;
+  transform: revert;
+}
 `;
 
 

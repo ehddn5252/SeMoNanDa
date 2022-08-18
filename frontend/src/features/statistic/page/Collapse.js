@@ -122,9 +122,9 @@ function Collapse() {
 
         }}
       >
-        <HeaderContainer style={{color : "lightgray"}}>
+        <HeaderContainer style={{color : "white"}}>
           <div>
-            <h1>종합 순위</h1>
+            <h1>주제별 통계</h1>
           </div>
           <div>
             {/* 드롭박스 */}
