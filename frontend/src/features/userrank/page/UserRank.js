@@ -52,6 +52,7 @@ const Base = styled.div`
   background-repeat: no-repeat;
   background-image: url(${scroll_blue});
   background-size: contain;
+  z-index : 0;
   
 `;
 const UserRank = () => {
@@ -77,11 +78,11 @@ const UserRank = () => {
       <NavBar />
       <Base>
       <div style={{ fontFamily: "JsaHON",borderStyle: "none", width: "80%", margin : "0px 10%", padding : "50px 0px"}}>
-        <HeaderContainer style={{color : ""}}>
+        <HeaderContainer style={{color : "lightgray"}}>
           <h1>신하 순위</h1>
         </HeaderContainer>
         <br/>
-        <Table striped  style={{ width: '70%', backgroundImage: `url(${scroll_basic})`, margin: "0 auto" ,fontSize:"1.1rem"}}>
+        <Table striped  style={{ width: '70%', backgroundImage: `url(${Statistics_form_img})`, margin: "0 auto" ,fontSize:"1.1rem"}}>
         <thead style={{fontSize : "1rem"}}>
           <tr>
             <th>순위</th>
@@ -116,6 +117,8 @@ const UserRank = () => {
         ))}
       </Table>
       </div>
+
+      </Base>
       <div>
       <UserPagination 
             total={users.length}
@@ -124,8 +127,6 @@ const UserRank = () => {
             setPage={setPage}
             />
       </div>
-      
-      </Base>
       
     </Container>
   );

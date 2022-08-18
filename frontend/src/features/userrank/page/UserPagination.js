@@ -1,12 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+
 const Nav = styled.nav`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  margin: 16px;
+
+  position : fixed;
+  margin : 0 auto;
+  left : 50%;
+  transform: translate(-50%, 0);
+  bottom : 7%;
 `;
 
 const Button = styled.button`
