@@ -478,7 +478,9 @@ LETSENCRYPT_EMAIL=원하는 이메일 주소
 ### 주제별 통계
 ![KakaoTalk_20220819_110339445](/uploads/7735d44f07533e9cbeffb7168dd61f0a/KakaoTalk_20220819_110339445.png)
 ### 도움말
+![KakaoTalk_20220819_115521761](/uploads/853a845119518986e4a89f2da15c8cd6/KakaoTalk_20220819_115521761.png)
 
+![KakaoTalk_20220819_115507748](/uploads/a7fbbc0162f1387bfeff59f53bfc71cd/KakaoTalk_20220819_115507748.png)
 
 
 
