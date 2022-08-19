@@ -318,6 +318,18 @@ class Game extends Component {
                 window.location.href = 'http://localhost:3000'
               })
 
+              mySession.on('signal:room-boom', () => {
+                if (this.state.isHost === false) {
+                  Swal.fire({
+                    title:'왕이 방을 나갔습니다. 대기방으로 이동합니다.',
+                    confirmButtonText:'확인',
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      window.location.href = 'https://i7e103.p.ssafy.io/custom'
+                    }
+                  })
+                }
+              })
               // --- 4) Connect to the session with a valid user token ---
             
               // 'getToken' method is simulating what your server-side should do.
@@ -651,6 +663,18 @@ class Game extends Component {
       to: [],
       type: 'topic-choice'
     }).then(() => this.setState({topicModalState:false, isKing:true}))
+  }
+  
+  exit() {
+    if (this.state.isHost) {
+      const session = this.state.session
+      session.signal({
+        to: [],
+        type: 'room-boom',
+      }, () => window.location.href = 'https://i7e103.p.ssafy.io/custom')      
+    } else {
+      window.location.href = 'https://i7e103.p.ssafy.io/custom'
+    }
   }
 
   render(){
