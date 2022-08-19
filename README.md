@@ -2,10 +2,9 @@
 
 ![대표이미지](/uploads/42ddec1e61815997776b55aab7ee4356/대표이미지.PNG)
 
-## 링크 : [http://i7e103.p.ssafy.io/](http://i7e103.p.ssafy.io/)
+## 링크 : [세모논다 홈페이지](http://i7e103.p.ssafy.io/)
 
-## 소개 영상 : 차후에 추가할 예정
-
+## 소개 영상 : [소개 영상 링크]()
 </br>
 
 ## 📘 프로젝트 진행 기간
@@ -276,24 +275,178 @@ backend
 | :------: | ---------------- | ----------------------- | ---------------- | ----------------------------- | ------------------------------- | ---------------------------------- |
 | Profile  | ![수정됨_강병수](/uploads/bde4fa6461206cf753719b81733a4fbb/수정됨_강병수.png)       | ![수정됨_권도건](/uploads/09fdbe825d04c4387e17c9b6689ead28/수정됨_권도건.png)             | ![수정됨_정찬우](/uploads/c7510981972a4d4054e743cf32fb1d4f/수정됨_정찬우.png)       |![수정됨_김동우](/uploads/0f0d4a2aa204674c0048df4f4526deef/수정됨_김동우.png)                   | ![수정됨_김유정](/uploads/9574b6ad296e106610c20d6cc7829d01/수정됨_김유정.png)                      | ![수정됨_박찬호](/uploads/c2dd4f83519246e53c553f5d6e7921ab/수정됨_박찬호.png)                  |
 | Position | Frontend & UI/UX | 팀장 & Frontend & UI/UX | Frontend & UI/UX | Backend Develop & CI/CD & UCC | Backend Develop & CI/CD & UI/UX | Backend Develop & CI/CD & openVidu |
-|   Git    | 깃링크           | [doogun](https://github.com/doogun)                  | [jeong-chan](https://github.com/jeong-chan)           | [ehddn5252](https://github.com/ehddn5252)                        | [yujeonge](https://github.com/yujeonge)                          | [taurus429](https://github.com/taurus429)                             |
+|   Git    | [kang-byung-soo](https://github.com/kang-byung-soo)           | [doogun](https://github.com/doogun)                  | [jeong-chan](https://github.com/jeong-chan)           | [ehddn5252](https://github.com/ehddn5252)                        | [yujeonge](https://github.com/yujeonge)                          | [taurus429](https://github.com/taurus429)                             |
 
-## ✔ 프로젝트 산출물
+## ✔ 설계 산출물
 
 ---
 
-- [기능명세서]()
-- [디자인&컨셉기획]()
-- [와이어프레임]()
+- [설계 문서](https://docs.google.com/spreadsheets/d/1Szz6Hn31rGLiAI0DS68rMQKO8MfN0WhXfXgDKB41ufs/edit#gid=0)
+  - 요구사항 정의서
+  ![요구사항](/uploads/9a903ce73bd8d8b3d111a28bf906adae/요구사항.PNG)
+  - IA 구성도
+![IA구성도](/uploads/fc1ce97de742b19ce9d6654483dff4a4/IA구성도.PNG)
+  - API 명세서
+  ![API명세서](/uploads/5dd798ffddf73f0b006fa8d72f53a2b3/API명세서.PNG)
+- [디자인&컨셉기획](https://www.figma.com/file/RXpNubjb9F9pGdmKwbLVOk/%EC%84%B8%EB%AA%A8%EB%85%BC%EB%8B%A4?node-id=0%3A1)
 ![와이어프레임](/uploads/22d8f44404acbeafc8ff5824385d1c4a/와이어프레임.PNG)
-- [컨벤션]()
-- [ERD]()
+- 플로우 차트
+![Untitled__7_](/uploads/d68decf8f1a0821a8ceeaf1a8b3f68d3/Untitled__7_.png)
+- 사이트 맵
+![Untitled__6_](/uploads/6544f16762ee195fe62d4185ff4eb3ec/Untitled__6_.png)
+- ERD
+![20220722_Database_structure](/uploads/d40ae1250a746f67a5892408c7e15f23/20220722_Database_structure.png)
 
 ## ✔ 프로젝트 결과물
+---
+## 포팅메뉴얼
+---
+### AWS EC2 기본 설정
+#### MobaXterm 설치
 
-- [포팅메뉴얼]()
-- [중간발표자료]()
+- 다음 링크에서 MobaXterm Home Edition v22.1 (Portable edition) (2022.07.26 기준) 설치 받기
+
+[MobaXterm free Xserver and tabbed SSH client for Windows](https://mobaxterm.mobatek.net/download-home-edition.html)
+
+#### EC2 접속
+
+1. 우측 상단 Session 클릭
+
+![Untitled](/uploads/1eedf99fdf1bf9a42893566843ae2e58/Untitled.png)
+
+1. SSH 클릭 후 정보 입력
+- 입력 정보
+    
+    Remote host : [i7e103.p.ssafy.io](http://i7e103.p.ssafy.io/)
+    
+    Specify username : ubuntu
+    
+    User Private Key : 다운받은 pem파일
+
+![Untitled__1_](/uploads/816bd6f64bafc065f4cfa8a0378aa3d8/Untitled__1_.png)
+
+
+#### 방화벽 설정
+
+- UFW(Uncomplicated Firewall)사용
+
+```
+# 현재 방화벽 상태 확인 방법 입니다.
+$ sudo ufw status
+```
+![Untitled__2_](/uploads/ab7dd89e2647419916c46114442eac8e/Untitled__2_.png)
+
+```
+# Port 설명입니다.
+22 : cmd로 접속 할 수 있게 해주는 포트
+3306 : MySQL을 사용하기 위한 포트
+
+#서버 배포 후 열어야 할 포트입니다.
+8080 : back
+3000 : front
+
+#Port 여는 방법입니다.
+$ sudo ufw allow 8080
+$ sudo ufw enable
+```
+
+#### DB 설치 (My SQL)
+
+```
+# MySQL을 설치합니다.
+$ sudo apt-get update
+$ sudo apt-get install mysql-server #진행 중에 Y
+
+# 설치 완료 후 접속합니다.
+$ sudo mysql
+```
+--- ### openVidu 배포
+#### Docker 설치
+
+- Docker version 20.10.17 (2022.07.26 기준)
+
+```
+# apt 패키지를 업데이트하고 하위 패키지를 설치합니다.
+$ sudo apt-get update
+$ sudo apt-get install \ ca-certificates \ curl \ gnupg \ lsb-release
+
+# Docker’s official GPG key를 추가합니다.
+$ sudo mkdir -p /etc/apt/keyrings $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+# 레파지토리를 만들어줍니다.
+$ echo \ "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# 도커 엔진을 설치합니다.
+$ sudo apt-get update
+$ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
+
+#### Docker Desktop 이미지 다운로드
+
+- 다음 링크에서 ‘DEB’를 클릭해서 다운로드 받습니다.
+
+[https://docs.docker.com/desktop/install/linux-install/](https://docs.docker.com/desktop/install/linux-install/)
+
+#### **aws EC2 instance 실행 및 보안설정**
+
+다음 포트들을 열어줍니다.
+
+```
+22 TCP
+80 TCP
+443 TCP
+3478 TCP와 UDP
+=======
+3306 MySQL을 위한 포트
+```
+
+![Untitled__3_](/uploads/d5ba25b5fce1ca13d07eb1f1019b9fd7/Untitled__3_.png)
+
+#### **Filezilla로 다운로드 한 Docker 이미지를 업로드**
+
+![Untitled__4_](/uploads/0c7e6ca3fe48c47fe5e0b4cff54f2610/Untitled__4_.png)
+
+#### **터미널로 EC2 접근 & Docker Desktop 설치**
+
+- EC2에 연결 된 터미널에서 해당 코드를 실행합니다.
+
+```
+$ sudo apt-get update
+
+# 해당 이미지가 있는 위치로 이동 한 뒤dock까지만 한 뒤 tab하기
+$ sudo apt-get install ./dock
+```
+
+#### **openvidu 배포**
+
+- 참고 : [https://docs.openvidu.io/en/2.22.0/deployment/ce/on-premises/](https://docs.openvidu.io/en/2.22.0/deployment/ce/on-premises/)
+
+```
+$ sudo su
+$ cd /opt
+$ curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_latest.sh | bash
+$ cd openvidu
+$ nano .env  #해당 명령어를 입력하면 설정파일이 열림
+```
+![Untitled__5_](/uploads/edeea2dfd42ce19f8d7222c992f98e02/Untitled__5_.png)
+
+```
+#수정해야 할 항목입니다.
+
+DOMAIN_OR_PUBLIC_IP=[i7e103.p.ssafy.io](http://i7e103.p.ssafy.io/)  #도메인
+OPENVIDU_SECRET=321fyass               #비밀번호
+CERTIFICATE_TYPE=letsencrypt
+LETSENCRYPT_EMAIL=원하는 이메일 주소
+```
+
+```
+./openvidu start  #실행하기
+```
+## 👔 발표 자료
+---
+- [중간발표자료](https://docs.google.com/presentation/d/12lam9rB1swFsq4DB1aSVrL0iuVCa2Axr/edit#slide=id.p1)
 - [최종발표자료]()
+---
 
 ## 🎵 세모논다 서비스 화면
 
@@ -317,11 +470,13 @@ backend
 ### 공식경연방 생성
 ![이미지_9](/uploads/f130cb9c15d61460fc03bcf248459cce/이미지_9.png)
 ### 공식경연방 목록
+![이미지_2](/uploads/79712d5e56e39757a88f2abf25e1afc4/이미지_2.png)
 ### 공식경연 게임 화면
+![KakaoTalk_20220819_112203643](/uploads/5839c8b4c3497d4a85de04cda1c4b688/KakaoTalk_20220819_112203643.gif)
 ### 신하 순위
 ![이미지_10](/uploads/1e79fced083bee7e5635e843de9f5501/이미지_10.png)
 ### 주제별 통계
-![이미지_11](/uploads/7d1442cf685c22e313caa9b8f975c3f3/이미지_11.png)
+![KakaoTalk_20220819_110339445](/uploads/7735d44f07533e9cbeffb7168dd61f0a/KakaoTalk_20220819_110339445.png)
 ### 도움말
 
 
