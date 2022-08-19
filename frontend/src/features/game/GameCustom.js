@@ -310,14 +310,28 @@ class Game extends Component {
                 })
               })
 
-              mySession.on('signal:winner', (event)=> {
+              mySession.on('signal:teamA-win', () =>{
                 Swal.fire({
-                  title:`승자는 ${event.data}님 입니다.`,
+                  title:'왕이 가. 팀을 선택하였습니다.',
                   confirmButtonText:'확인'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = 'https://i7e103.p.ssafy.io/custom'
+                  }
                 })
-                window.location.href = 'http://localhost:3000'
               })
 
+              mySession.on('signal:teamB-win', () =>{
+                Swal.fire({
+                  title:'왕이 나. 팀을 선택하였습니다.',
+                  confirmButtonText:'확인'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = 'https://i7e103.p.ssafy.io/custom'
+                  }
+                })
+              })
+              
               mySession.on('signal:room-boom', () => {
                 if (this.state.isHost === false) {
                   Swal.fire({
@@ -618,13 +632,24 @@ class Game extends Component {
     })
   }
 
-  gameset() {
-    const mySession = this.state.session
-    mySession.signal({
-      data: 'asdf',
-      to: [],
-      type: 'winner',
-    })
+  choiceTeamA() {
+    if (this.state.isHost) {
+      const session = this.state.session
+      session.signal({
+        to:[],
+        type: 'teamA-win'
+      })
+    }
+  }
+
+  choiceTeamB() {
+    if (this.state.isHost) {
+      const session = this.state.session
+      session.signal({
+        to:[],
+        type: 'teamB-win'
+      })
+    }
   }
 
   timeSet() {
@@ -772,13 +797,13 @@ class Game extends Component {
           <div className="titlediv">
             <div className="title">
               { this.state.servant ==='나'? (
-                <div className='subjectcontent'  onClick={() => this.choiceA()}>
+                <div className='subjectcontent'  onClick={() => this.choiceTeamA()}>
                  <div className="subjectdetailnota">
                    <img className='subjecta' alt='RedSubject' src={blue}/>
                    <p className="subjectRight">{this.state.teamA}</p>
                  </div>
                 </div>
-              ) : <div className='subjectcontent'  onClick={() => this.choiceA()}>
+              ) : <div className='subjectcontent'  onClick={() => this.choiceTeamA()}>
                 <div className="subjectdetaila">
                   <img className='subjecta' alt='RedSubject' src={blue}/>
                   <p className="subjectRight">{this.state.teamA}</p>
@@ -789,13 +814,13 @@ class Game extends Component {
                 <p className="subjectTopic">{this.state.topic}</p>
               </div>
               { this.state.servant ==='가'? (
-                <div className='subjectcontent'  onClick={() => this.choiceB()}>
+                <div className='subjectcontent'  onClick={() => this.choiceTeamB()}>
                  <div className="subjectdetailnotb">
                    <img className='subjecta' alt='RedSubject' src={red}/>
                    <p className="subjectLeft">{this.state.teamB}</p>
                  </div>
                 </div>
-              ) : <div className='subjectcontent'  onClick={() => this.choiceB()}>
+              ) : <div className='subjectcontent'  onClick={() => this.choiceTeamB()}>
                 <div className="subjectdetailb">
                   <img className='subjecta' alt='RedSubject' src={red}/>
                   <p className="subjectLeft">{this.state.teamB}</p>
