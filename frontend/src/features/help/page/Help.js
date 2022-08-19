@@ -87,7 +87,7 @@ const Container1 = styled.div`
   width: 55%;
   margin: 0px 22.3%;
   padding: 80px 0px;
-  height: 100%;
+  height: 95%;
   overflow: hidden; // 선을 넘어간 이미지들은 숨겨줍니다.
   font-family: JsaHON;
   display: block;
@@ -122,7 +122,8 @@ const Button1 = styled.div`
 `;
 const SliderContainer = styled.div`
   margin: 15px auto;
-  
+  height : 90%;
+
   margin-bottom: 2em;
   display: flex; // 이미지들을 가로로 나열합니다.
 `;
@@ -277,7 +278,7 @@ export default function Help() {
 
 
           </SliderContainer>
-          <br/>
+        
           <Center>
             <Button1 onClick={PrevSlide}>이전</Button1>
             <Button1 onClick={NextSlide}>다음</Button1>
