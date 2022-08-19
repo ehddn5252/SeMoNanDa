@@ -890,23 +890,11 @@ class Game extends Component {
     return (
       <div className="gamediv">
         <div className='totaldiv'>
-
-        <div className='cam'>
-          <div className='stream-container'>
-            <UserVideoComponent isKing={this.state.isKing} streamManager={this.state.publisher} king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}></UserVideoComponent>
-          </div>
-          {sub1.map((sub,i) => (
-            <div
-            key = {i}
-            className="stream-container"
-            onClick={() => this.handleMainVideoStream(sub)}>
-              <UserVideoComponent isKing={this.state.isKing} streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
+          <div className='cam'>
+            <div className='stream-container'>
+              <UserVideoComponent isKing={this.state.isKing} streamManager={this.state.publisher} king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}></UserVideoComponent>
             </div>
-          ))}
-        </div>
-
-        <div className='cam'>
-            {sub2.map((sub,i) => (
+            {sub1.map((sub,i) => (
               <div
               key = {i}
               className="stream-container"
@@ -914,7 +902,18 @@ class Game extends Component {
                 <UserVideoComponent isKing={this.state.isKing} streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
               </div>
             ))}
-        </div>
+          </div>
+
+          <div className='cam'>
+              {sub2.map((sub,i) => (
+                <div
+                key = {i}
+                className="stream-container"
+                onClick={() => this.handleMainVideoStream(sub)}>
+                  <UserVideoComponent isKing={this.state.isKing} streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
+                </div>
+              ))}
+          </div>
 
           <div className="titlediv">
             <div className="title">
@@ -950,8 +949,8 @@ class Game extends Component {
               </div>}
             </div>
           </div>
-
         </div>
+        
         <div className="chatdiv"> 
           <div className="infobg">
             <div className="timerDiv">

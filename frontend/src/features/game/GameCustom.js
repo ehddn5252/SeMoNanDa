@@ -21,9 +21,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { connect } from 'react-redux'
+import Swal from 'sweetalert2';
 
-const OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
-const OPENVIDU_SERVER_SECRET = 'MY_SECRET';
+const OPENVIDU_SERVER_URL = 'https://i7e103.p.ssafy.io:8082';
+const OPENVIDU_SERVER_SECRET = 'SMND';
 
 // url parameter 사용을 위한 HOC
 function withRouter(Component) {
@@ -40,6 +41,7 @@ class Game extends Component {
     this.state = {
         mySessionId: 'custom' + this.props.params.id,
         myUserName: undefined,
+        myUserId: undefined,
         session: undefined,
         mainStreamManager: undefined,
         publisher: undefined,
@@ -58,6 +60,7 @@ class Game extends Component {
         teamB: '',
         topicModalState:false,
         teamModalState:false,
+        king:undefined,
     };
 
     this.joinSession = this.joinSession.bind(this);
@@ -91,6 +94,7 @@ class Game extends Component {
       this.setState({
         token,
         myUserName : loginInfo.name,
+        myUserId : loginInfo.id,
       })
 
       // 플레이어 세션 입장
@@ -242,16 +246,35 @@ class Game extends Component {
                   this.setState({
                     readyState : 'start',
                     topicModalState : true,
-                  })
+                    king: this.state.myUserId,
+                  },() => {mySession.signal({
+                    data: this.state.myUserId,
+                    to:[],
+                    type:'host-king'
+                  })})
                 } else {
-                  alert("게임이 시작되었습니다. 왕이 주제를 정할때 까지 기다려주세요.")
+                  Swal.fire({
+                    title:'게임이 시작되었습니다. 왕이 주제를 정할때 까지 기다려주세요.',
+                    confirmButtonText:'확인',
+                  })
                   this.setState({readyState: 'start',});
+                }
+              })
+
+              mySession.on('signal:host-king', (event) => {
+                if ( this.state.isHost === false) {
+                  this.setState({
+                  king: event.data,
+                  })
                 }
               })
 
               mySession.on('signal:topic-choice', (event) =>{
                 const topics = event.data.split('***')
-                alert(`주제가 공개되었습니다.`)
+                Swal.fire({
+                  title:'주제가 공개되었습니다',
+                  confirmButtonText:'확인'
+                })
                 if (this.state.isHost === false) {
                   this.setState({
                     topic: topics[0],
@@ -263,7 +286,10 @@ class Game extends Component {
               })
 
               mySession.on('signal:choice-a', ()=> {
-                alert('왕이 가. 를 선택하였습니다.')
+                Swal.fire({
+                  title:'왕이 가. 를 선택하였습니다.',
+                  confirmButtonText:'확인'
+                })
                 this.setState({
                   isKing: false,
                   servant: undefined,
@@ -271,7 +297,10 @@ class Game extends Component {
               })
 
               mySession.on('signal:choice-b', ()=> {
-                alert('왕이 나. 를 선택하였습니다.')
+                Swal.fire({
+                  title:'왕이 나. 를 선택하였습니다.',
+                  confirmButtonText:'확인'
+                })
                 this.setState({
                   isKing:false,
                   servant: undefined,
@@ -279,7 +308,10 @@ class Game extends Component {
               })
 
               mySession.on('signal:winner', (event)=> {
-                alert(`승자는 ${event.data}님 입니다.`)
+                Swal.fire({
+                  title:`승자는 ${event.data}님 입니다.`,
+                  confirmButtonText:'확인'
+                })
                 window.location.href = 'http://localhost:3000'
               })
 
@@ -526,14 +558,29 @@ class Game extends Component {
     const mySession = this.state.session
 
     if (players < 3 ) {
-      alert('게임에 필요한 인원이 부족합니다.')
-    } else if (players > 7) {
-      alert('인원 수 가 너무 많습니다.')
+      Swal.fire({
+        title:'게임에 필요한 인원이 부족합니다.',
+        icon: 'error',
+        confirmButtonText:'확인',
+      })
+    } else if (players > 6) {
+      Swal.fire({
+        title:'인원수가 너무 많습니다.',
+        icon: 'error',
+        confirmButtonText:'확인',
+      })
     } else {
       if ( this.state.readyPlayer !== players ) {
-        alert('모든 플레이어가 준비되지 않았습니다.')
+        Swal.fire({
+          title:'모든 플레이어가 준비되지 않았습니다.',
+          icon: 'error',
+          confirmButtonText:'확인',
+        })
       } else {
-        alert('게임 시작!!')
+        Swal.fire({
+          title:'게임 시작!!',
+          confirmButtonText:'확인',
+        })
         mySession.signal({
           to: [],
           type: 'game-start'
@@ -605,8 +652,14 @@ class Game extends Component {
 
   render(){
     const messages = this.state.messages;
-    const sub1 = this.state.subscribers.slice(0,3)
-    const sub2 = this.state.subscribers.slice(3,6)
+    const sub1 = this.state.subscribers.slice(0,2)
+    const sub2 = this.state.subscribers.slice(2,5)
+    while (sub1.length < 2) {
+      sub1.push(undefined)
+    }
+    while (sub2.length < 3) {
+      sub2.push(undefined)
+    }
 
     return (
       <div className="gamediv">
@@ -664,65 +717,87 @@ class Game extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-
-        <div className="camdiv">
-          {sub1.map((sub,i) => (
-            <div
-              key={i}
-              className="stream-container"
-              onClick={() => console.log(sub)}
-              >
-              <UserVideoComponent streamManager={ undefined } />
+        <div className='totaldiv'>
+          <div className='cam'>
+            <div className='stream-container'>
+              <UserVideoComponent isKing={this.state.isKing} streamManager={this.state.publisher} king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}></UserVideoComponent>
             </div>
-          ))}
-        </div>
-        <div className="kingdiv">
-          <div className="stream-container">
-            <UserVideoComponent streamManager={this.state.publisher} />
+            {sub1.map((sub,i) => (
+              <div
+              key = {i}
+              className="stream-container"
+              onClick={() => this.handleMainVideoStream(sub)}>
+                <UserVideoComponent isKing={this.state.isKing} streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
+              </div>
+            ))}
           </div>
+          <div className='cam'>
+              {sub2.map((sub,i) => (
+                <div
+                key = {i}
+                className="stream-container"
+                onClick={() => this.handleMainVideoStream(sub)}>
+                  <UserVideoComponent isKing={this.state.isKing} streamManager={ sub } king={ this.state.king } sessionId = {this.state.mySessionId} session = {this.state.session}/>
+                </div>
+              ))}
+          </div>
+
           <div className="titlediv">
             <div className="title">
+              { this.state.servant ==='나'? (
+                <div className='subjectcontent'  onClick={() => this.choiceA()}>
+                 <div className="subjectdetailnota">
+                   <img className='subjecta' alt='RedSubject' src={blue}/>
+                   <p className="subjectRight">{this.state.teamA}</p>
+                 </div>
+                </div>
+              ) : <div className='subjectcontent'  onClick={() => this.choiceA()}>
+                <div className="subjectdetaila">
+                  <img className='subjecta' alt='RedSubject' src={blue}/>
+                  <p className="subjectRight">{this.state.teamA}</p>
+                </div>
+              </div>}
               <div className="titlecontent">
                 <p className="subject">안건</p>
-                <p className="subjectcontent">{this.state.topic}</p>
-                <p className="subjecta">가. {this.state.teamA}</p>
-                <p className="subjectb">나. {this.state.teamB}</p>
+                <p className="subjectTopic">{this.state.topic}</p>
               </div>
-              {this.state.readyState === 'start' ? (
-                this.state.isKing === true? (
-                  <div className='buttondiv'>
-                    <Button className="button" variant="danger" onClick={() => this.choiceA()}>가. </Button>{' '}
-                    <Button className="button" variant="warning" onClick={() => this.choiceB()}>나. </Button>
-                  </div>
-                ) : (this.state.servant === '가' ? 
-                  <div className="servantdiv">
-                    <p>가. 진영</p>
-                  </div>
-                 : (this.state.servant ==='나' ?
-                 <div className="servantdiv">
-                  <p>나. 진영</p>
+              { this.state.servant ==='가'? (
+                <div className='subjectcontent'  onClick={() => this.choiceB()}>
+                 <div className="subjectdetailnotb">
+                   <img className='subjecta' alt='RedSubject' src={red}/>
+                   <p className="subjectLeft">{this.state.teamB}</p>
                  </div>
-                 : null))
-              ): null}
+                </div>
+              ) : <div className='subjectcontent'  onClick={() => this.choiceB()}>
+                <div className="subjectdetailb">
+                  <img className='subjecta' alt='RedSubject' src={red}/>
+                  <p className="subjectLeft">{this.state.teamB}</p>
+                </div>
+              </div>}
             </div>
           </div>
         </div>
-        <div className="camdiv">
-          {sub2.map((sub,i) => (
-            <div
-              key={i}
-              className="stream-container"
-              onClick={() => console.log(sub)}
-              >
-              <UserVideoComponent streamManager={ undefined } />
+
+        <div className="chatdiv"> 
+          <div className="infobg">
+            <div className="timerDiv">
+              <p>남은시간: 99:99</p>
             </div>
-          ))}
-        </div>
-        <div className="chatdiv">
-          <div className="chatbg"> 
-            <div className="chatbox">
+            <div className="infobox">
+              <div className="servantdiv">
+                <div className='coindiv'>
+                <p>금화 갯수 : 99개</p>
+                </div>
+                <div className='countdiv'>
+                <p>왕이 된 횟수 : 99회</p> 
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="chatoutline">
+            <div className="chatbg"> 
               <div className="chatbox__messages" ref="chatoutput">
-                {/* {this.displayElements} */}
                 <Messages messages={messages} />
               </div>
               <div className="chat chatbox__footer">
@@ -733,26 +808,28 @@ class Game extends Component {
                   onChange={this.handleChatMessageChange}
                   onKeyPress={this.sendmessageByEnter}
                   value={this.state.message}
-                />
-                <p
-                  className="chat chatbox__send--footer"
-                  onClick={this.sendmessageByClick}
-                >
-                  보내기
-                </p>
+                  />
+                <button
+                  className="chat_send"
+                  onClick={this.sendmessageByClick}>
+                    입력
+                </button>
               </div>
             </div>
           </div>
+
           <div className="icons">
-            {this.state.isHost === true ? (
-              <img className="ready-icon" alt="start" src={start} onClick={() => this.start()}/>
-            ):(this.state.isReady === false ?
-              <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
-              :<img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)}
-            <img className="icon" alt="invite" src={invite} onClick= {() => this.getPlayer()}/>
-            <img className="icon" alt="exit" src={exit} onClick={() => this.updateHost()}/>
+            {this.state.readyState === 'ready'
+            ? (this.state.isHost
+              ? <img className="ready-icon" alt="start" src={start} onClick={() => this.start()}/>
+              : (this.state.isReady === false
+                ? <img className="ready-icon" alt="ready" src={ready} onClick={() => this.readyClick()}/>
+                : <img className="ready-icon" alt="ready" src={ready_ok} onClick={() => this.readyClick()}/>)
+                )
+            : <img className="ing-icon" alt="ing" src={ing} />}
+            <img className="icon" alt="exit" src={exit} onClick={()=> this.exit()}/>
           </div>
-        </div>
+         </div> 
       </div>
     );
   }
