@@ -2,11 +2,14 @@
 import './Game.css';
 
 // img파일
-import invite from '../../assets/images/invite.png'
 import exit from '../../assets/images/exit.png'
 import ready from '../../assets/images/ready.png'
 import ready_ok from '../../assets/images/ready_ok.png'
 import start from '../../assets/images/start.png'
+import red from '../../assets/images/red_subject.png';
+import blue from '../../assets/images/blue_subject.png';
+import ing from '../../assets/images/game_ing.png'
+
 
 // 컴포넌트
 import UserVideoComponent from './UserVideoComponent'
