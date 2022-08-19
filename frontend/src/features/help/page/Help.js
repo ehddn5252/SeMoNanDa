@@ -11,9 +11,20 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Slide from "./Slide";
 
-import img1 from "../../../assets/images/help_test_img.jpg";
-import img2 from "../../../assets/images/help_test_img.jpg";
-import img3 from "../../../assets/images/help_test_img.jpg";
+import img0 from "../../../assets/images/001.png";
+import img1 from "../../../assets/images/002.png";
+import img2 from "../../../assets/images/003.png";
+import img3 from "../../../assets/images/004.png";
+import img4 from "../../../assets/images/005.png";
+import img5 from "../../../assets/images/006.png";
+import img6 from "../../../assets/images/007.png";
+import img7 from "../../../assets/images/008.png";
+import img8 from "../../../assets/images/009.png";
+import img9 from "../../../assets/images/010.png";
+import img10 from "../../../assets/images/011.png";
+import img11 from "../../../assets/images/012.png";
+import img12 from "../../../assets/images/013.png";
+import img13 from "../../../assets/images/014.png";
 
 //이미지 파일
 import light_base from "../../../assets/images/light_base.png";
@@ -110,7 +121,8 @@ const Button1 = styled.div`
   box-shadow: 12px 12px 24px rgb(175, 175, 235);
 `;
 const SliderContainer = styled.div`
-  margin: 0 auto;
+  margin: 15px auto;
+  
   margin-bottom: 2em;
   display: flex; // 이미지들을 가로로 나열합니다.
 `;
@@ -141,7 +153,7 @@ display: block;
 
 `;
 
-const TOTAL_SLIDES = 2; // 전체 슬라이드 개수 (총3개. 배열로 계산)
+const TOTAL_SLIDES = 13; // 전체 슬라이드 개수 (총3개. 배열로 계산)
 
 export default function Help() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -192,13 +204,14 @@ export default function Help() {
               fontSize: "35px",
             }}
           >
+       
             <div
               style={{
                 color: currentSlide === 0 ? "white" : "white",
                 fontWeight: currentSlide === 0 ? "" : "",
                 textShadow:
                   currentSlide === 0
-                    ? "-2px 0 black, 0 2px black, 2px 0 black, 0 2px black"
+                    ? "-3px 0 black, 0 3px black, 3px 0 black, 0 3px black"
                     : "",
                 // backgroundColor: currentSlide === 0 ? "black" : "white",
                 cursor: "pointer",
@@ -207,24 +220,7 @@ export default function Help() {
                 showBtnSlide(0);
               }}
             >
-              왕의 권한 &nbsp;
-            </div>
-            <div
-              style={{
-                color: currentSlide === 1 ? "white" : "white",
-                fontWeight: currentSlide === 1 ? "" : "",
-                textShadow:
-                currentSlide === 1
-                  ? "-2px 0 black, 0 2px black, 2px 0 black, 0 2px black"
-                  : "",
-                //   backgroundColor: currentSlide === 1 ? "black" : "white",
-                cursor: "pointer",
-              }}
-              onClick={() => {
-                showBtnSlide(1);
-              }}
-            >
-              2번 &nbsp;
+             게임준비 &nbsp;
             </div>
             <div
               style={{
@@ -232,23 +228,54 @@ export default function Help() {
                 fontWeight: currentSlide === 2 ? "" : "",
                 textShadow:
                 currentSlide === 2
-                  ? "-2px 0 black, 0 2px black, 2px 0 black, 0 2px black"
+                ? "-3px 0 black, 0 3px black, 3px 0 black, 0 3px black"
                   : "",
-                //   backgroundColor: currentSlide === 2 ? "black" : "white",
+                //   backgroundColor: currentSlide === 1 ? "black" : "white",
                 cursor: "pointer",
+                
               }}
               onClick={() => {
                 showBtnSlide(2);
               }}
             >
-              3번 &nbsp;
+              게임시작 &nbsp;
+            </div>
+            <div
+              style={{
+                color: currentSlide === 5 ? "white" : "white",
+                fontWeight: currentSlide === 5 ? "" : "",
+                textShadow:
+                currentSlide === 5
+                ? "-3px 0 black, 0 3px black, 3px 0 black, 0 3px black"
+                  : "",
+                //   backgroundColor: currentSlide === 2 ? "black" : "white",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                showBtnSlide(5);
+              }}
+            >
+              게임종류 &nbsp;
             </div>
           </div>
 
           <SliderContainer ref={slideRef}>
+          <Slide img={img0} />
             <Slide img={img1} />
             <Slide img={img2} />
             <Slide img={img3} />
+            <Slide img={img4} />
+            <Slide img={img5} />
+            <Slide img={img6} />
+            <Slide img={img7} />
+            <Slide img={img8} />
+            <Slide img={img9} />
+            <Slide img={img10} />
+            <Slide img={img11} />
+            <Slide img={img12} />
+            <Slide img={img13} />
+
+
           </SliderContainer>
           <br/>
           <Center>
