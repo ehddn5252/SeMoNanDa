@@ -1,10 +1,10 @@
 # 세모논다(semononda)
 
-![대표이미지](/uploads/42ddec1e61815997776b55aab7ee4356/대표이미지.PNG)
+![대표 이미지](https://user-images.githubusercontent.com/51036842/185785917-984e3845-6bf2-45f8-9f52-062678039701.png)
 
 ## 링크 : [세모논다 홈페이지](http://i7e103.p.ssafy.io/)
 
-## 소개 영상 : [소개 영상 링크]()
+## 소개 영상 : [소개 영상 링크](https://www.youtube.com/watch?v=_8NQZkqFbYw)
 </br>
 
 ## 📘 프로젝트 진행 기간
@@ -273,7 +273,7 @@ backend
 
 |   Name   | 강병수           | 권도건                  | 정찬우           | 김동우                        | 김유정                          | 박찬호                             |
 | :------: | ---------------- | ----------------------- | ---------------- | ----------------------------- | ------------------------------- | ---------------------------------- |
-| Profile  | ![수정됨_강병수](/uploads/bde4fa6461206cf753719b81733a4fbb/수정됨_강병수.png)       | ![수정됨_권도건](/uploads/09fdbe825d04c4387e17c9b6689ead28/수정됨_권도건.png)             | ![수정됨_정찬우](/uploads/c7510981972a4d4054e743cf32fb1d4f/수정됨_정찬우.png)       |![수정됨_김동우](/uploads/0f0d4a2aa204674c0048df4f4526deef/수정됨_김동우.png)                   | ![수정됨_김유정](/uploads/9574b6ad296e106610c20d6cc7829d01/수정됨_김유정.png)                      | ![수정됨_박찬호](/uploads/c2dd4f83519246e53c553f5d6e7921ab/수정됨_박찬호.png)                  |
+| Profile  |![강병수](https://user-images.githubusercontent.com/51036842/185785967-f17ba97d-e00e-432b-b9f1-13e0019463e9.png)      | ![권도건](https://user-images.githubusercontent.com/51036842/185786034-e5ca6d5b-5e95-4e8a-99d6-a8ea7d3e7272.png)             | ![정찬우](https://user-images.githubusercontent.com/51036842/185786043-1a104fbe-6e43-422e-a83c-fd85a3a7f554.png)       |![김동우](https://user-images.githubusercontent.com/51036842/185786065-725f2f09-f89a-43cf-a907-98fb1eb80284.png)                   | ![김유정](https://user-images.githubusercontent.com/51036842/185786075-586f3cae-09af-4332-bc42-b168a92ecf27.png)                      | ![박찬호](https://user-images.githubusercontent.com/51036842/185786083-433277e3-8b93-446b-a73a-f26ac7225e60.png)                  |
 | Position | Frontend & UI/UX | 팀장 & Frontend & UI/UX | Frontend & UI/UX | Backend Develop & CI/CD & UCC | Backend Develop & CI/CD & UI/UX | Backend Develop & CI/CD & openVidu |
 |   Git    | [kang-byung-soo](https://github.com/kang-byung-soo)           | [doogun](https://github.com/doogun)                  | [jeong-chan](https://github.com/jeong-chan)           | [ehddn5252](https://github.com/ehddn5252)                        | [yujeonge](https://github.com/yujeonge)                          | [taurus429](https://github.com/taurus429)                             |
 
@@ -283,19 +283,20 @@ backend
 
 - [설계 문서](https://docs.google.com/spreadsheets/d/1Szz6Hn31rGLiAI0DS68rMQKO8MfN0WhXfXgDKB41ufs/edit#gid=0)
   - 요구사항 정의서
-  ![요구사항](/uploads/9a903ce73bd8d8b3d111a28bf906adae/요구사항.PNG)
+  ![요구사항](https://user-images.githubusercontent.com/51036842/185786103-f3ba4c80-61d1-4b5e-bb36-f502dc7223ae.png)
   - IA 구성도
-![IA구성도](/uploads/fc1ce97de742b19ce9d6654483dff4a4/IA구성도.PNG)
+![IA 구성도](https://user-images.githubusercontent.com/51036842/185786114-af434b25-f566-455e-857d-4a56f3d9507f.png)
   - API 명세서
-  ![API명세서](/uploads/5dd798ffddf73f0b006fa8d72f53a2b3/API명세서.PNG)
+  ![API 명세서](https://user-images.githubusercontent.com/51036842/185786125-be16765f-55b1-41c3-8dbc-58cac3a3d7eb.png)
 - [디자인&컨셉기획](https://www.figma.com/file/RXpNubjb9F9pGdmKwbLVOk/%EC%84%B8%EB%AA%A8%EB%85%BC%EB%8B%A4?node-id=0%3A1)
-![와이어프레임](/uploads/22d8f44404acbeafc8ff5824385d1c4a/와이어프레임.PNG)
+![디자인 & 컨셉 기획](https://user-images.githubusercontent.com/51036842/185786150-145c5b5c-ee33-4e64-ac96-2011369ec134.png)
+
 - 플로우 차트
-![Untitled__7_](/uploads/d68decf8f1a0821a8ceeaf1a8b3f68d3/Untitled__7_.png)
+![플로우 차트](https://user-images.githubusercontent.com/51036842/185786163-40e387ec-60a8-470c-8c1c-33a267c1f910.png)
 - 사이트 맵
-![Untitled__6_](/uploads/6544f16762ee195fe62d4185ff4eb3ec/Untitled__6_.png)
+![사이트 맵](https://user-images.githubusercontent.com/51036842/185786199-72c2a7bd-7de5-40ac-aa3f-0da156f10a3f.png)
 - ERD
-![20220722_Database_structure](/uploads/d40ae1250a746f67a5892408c7e15f23/20220722_Database_structure.png)
+![ERD](https://user-images.githubusercontent.com/51036842/185786208-1ab3b38d-af83-46d3-9640-13458160ee5a.png)
 
 ## ✔ 프로젝트 결과물
 ---
@@ -308,12 +309,12 @@ backend
 
 [MobaXterm free Xserver and tabbed SSH client for Windows](https://mobaxterm.mobatek.net/download-home-edition.html)
 
+
 #### EC2 접속
 
 1. 우측 상단 Session 클릭
 
-![Untitled](/uploads/1eedf99fdf1bf9a42893566843ae2e58/Untitled.png)
-
+![image](https://user-images.githubusercontent.com/51036842/185786228-70f9f71d-e8fd-447b-9ff7-392d2cbd78c9.png)
 1. SSH 클릭 후 정보 입력
 - 입력 정보
     
@@ -323,7 +324,7 @@ backend
     
     User Private Key : 다운받은 pem파일
 
-![Untitled__1_](/uploads/816bd6f64bafc065f4cfa8a0378aa3d8/Untitled__1_.png)
+![image](https://user-images.githubusercontent.com/51036842/185786229-ccd09c45-97c8-4f61-897a-86234ed0d2e0.png)
 
 
 #### 방화벽 설정
@@ -334,7 +335,7 @@ backend
 # 현재 방화벽 상태 확인 방법 입니다.
 $ sudo ufw status
 ```
-![Untitled__2_](/uploads/ab7dd89e2647419916c46114442eac8e/Untitled__2_.png)
+![image](https://user-images.githubusercontent.com/51036842/185786238-cbfac83c-1d1b-43c1-ad65-5b70cc37b9da.png)
 
 ```
 # Port 설명입니다.
@@ -400,11 +401,11 @@ $ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plug
 3306 MySQL을 위한 포트
 ```
 
-![Untitled__3_](/uploads/d5ba25b5fce1ca13d07eb1f1019b9fd7/Untitled__3_.png)
+![image](https://user-images.githubusercontent.com/51036842/185786263-c73758c2-ba08-4de5-9f2a-d33266620398.png)
 
 #### **Filezilla로 다운로드 한 Docker 이미지를 업로드**
 
-![Untitled__4_](/uploads/0c7e6ca3fe48c47fe5e0b4cff54f2610/Untitled__4_.png)
+![image](https://user-images.githubusercontent.com/51036842/185786272-0956b229-4f58-4e20-b145-45843a8b3c00.png)
 
 #### **터미널로 EC2 접근 & Docker Desktop 설치**
 
@@ -428,7 +429,7 @@ $ curl https://s3-eu-west-1.amazonaws.com/aws.openvidu.io/install_openvidu_lates
 $ cd openvidu
 $ nano .env  #해당 명령어를 입력하면 설정파일이 열림
 ```
-![Untitled__5_](/uploads/edeea2dfd42ce19f8d7222c992f98e02/Untitled__5_.png)
+![image](https://user-images.githubusercontent.com/51036842/185786283-bd00fbab-3c17-4924-a241-fa577ccd6de2.png)
 
 ```
 #수정해야 할 항목입니다.
@@ -453,41 +454,34 @@ LETSENCRYPT_EMAIL=원하는 이메일 주소
 ---
 
 ### 메인화면
-![이미지_2](/uploads/512fd0f38a750f589f20f252ead9c1bf/이미지_2.png)
+![image](https://user-images.githubusercontent.com/51036842/185786299-cf77069a-adec-4466-b938-df830adccf1c.png)
 ### 회원가입
-![이미지_12](/uploads/507dc6deb0259e788c272f7b7ea0b060/이미지_12.png)
+![image](https://user-images.githubusercontent.com/51036842/185786308-3be2b158-784f-4ae7-8213-973eec77f842.png)
 ### 개인정보창
-![이미지_3](/uploads/a6d72b16f912459e71811537082d73bb/이미지_3.png)
+![image](https://user-images.githubusercontent.com/51036842/185786314-b9fbe39c-697e-40bf-a809-68edede2abf9.png)
 ### 개인정보 수정
-![이미지_4](/uploads/e9f08aa3d1a4492caf680f93bb375675/이미지_4.png)
+![image](https://user-images.githubusercontent.com/51036842/185786322-45d87bd5-6458-43dd-9dff-5e8fcdda7315.png)
 ### 비밀번호 수정
-![이미지_5](/uploads/7c3b62773173eb21792c4513568f22ab/이미지_5.png)
+![image](https://user-images.githubusercontent.com/51036842/185786325-1697978c-742e-4843-b3ae-3aef87b2ae03.png)
 ### 자유경연방 생성
-![이미지_6](/uploads/cf00fae1cd415f7a7f0c7d14746e82bf/이미지_6.png)
-![이미지_7](/uploads/ce249423248443b7bad0fb88cf6bfb22/이미지_7.png)
+![image](https://user-images.githubusercontent.com/51036842/185786329-697635b1-cbec-4c04-b04f-5062980ce8a6.png)
+![image](https://user-images.githubusercontent.com/51036842/185786337-b98830f6-48b5-4051-a3cb-04a971d9e65f.png)
 ### 자유경연방 목록
-![이미지_8](/uploads/3a44befc2b5814d625702ae23b76043a/이미지_8.png)
+![image](https://user-images.githubusercontent.com/51036842/185786342-8459df2c-09ac-4024-8972-e9904d7d1168.png)
 ### 공식경연방 생성
-![이미지_9](/uploads/f130cb9c15d61460fc03bcf248459cce/이미지_9.png)
+![image](https://user-images.githubusercontent.com/51036842/185786353-9d44002f-193b-4ae8-9eec-a6ea2c5c628d.png)
 ### 공식경연방 목록
-![이미지_2](/uploads/79712d5e56e39757a88f2abf25e1afc4/이미지_2.png)
+![image](https://user-images.githubusercontent.com/51036842/185786359-7d0820f8-580a-48fd-8e01-1bee31104031.png)
 ### 공식경연 게임 화면
-![KakaoTalk_20220819_112203643](/uploads/5839c8b4c3497d4a85de04cda1c4b688/KakaoTalk_20220819_112203643.gif)
+![게임 화면](https://user-images.githubusercontent.com/51036842/185786741-d626faa9-f81a-4ce5-ae83-acd2bdf6bc26.gif)
 ### 신하 순위
-![이미지_10](/uploads/1e79fced083bee7e5635e843de9f5501/이미지_10.png)
+![image](https://user-images.githubusercontent.com/51036842/185786464-9e0a444b-3979-4938-a60c-9443f36a34b2.png)
 ### 주제별 통계
-![KakaoTalk_20220819_110339445](/uploads/7735d44f07533e9cbeffb7168dd61f0a/KakaoTalk_20220819_110339445.png)
+![image](https://user-images.githubusercontent.com/51036842/185786478-f354c93a-e5d5-43e1-af4a-ef4630963a0e.png)
 ### 도움말
-![KakaoTalk_20220819_115521761](/uploads/853a845119518986e4a89f2da15c8cd6/KakaoTalk_20220819_115521761.png)
+![image](https://user-images.githubusercontent.com/51036842/185786491-52d9b034-bb55-474c-81d9-96617e5cea65.png)
 
-![KakaoTalk_20220819_115507748](/uploads/a7fbbc0162f1387bfeff59f53bfc71cd/KakaoTalk_20220819_115507748.png)
-
-
-
-
-
-
-
+![image](https://user-images.githubusercontent.com/51036842/185786508-a0b9b669-3677-4874-990b-838fd4e1d0d4.png)
 
 
 
